@@ -1,0 +1,773 @@
+<!doctype html>
+<html lang="en" data-mode="faithful">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Skin Resolute — soft resolve for your skin</title>
+<meta name="description" content="Skin Resolute is a certified aesthetician's studio: the honest, caring big-sister guide to your skin goals. Consistency over miracles, science translated plainly." />
+<!-- No-flash mode restore — must run before paint -->
+<script>(function(){try{var m=localStorage.getItem('sr:mode');if(m==='playful'||m==='faithful'){document.documentElement.setAttribute('data-mode',m);}}catch(e){}})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Mulish:wght@300;400;500;600;700;800&family=Caveat:wght@600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="theme.css" />
+<style>
+  /* ============ INDEX — page-specific only ============ */
+  .hero{
+    padding: 96px 0 120px;
+    background: var(--bg-grad);
+    overflow: hidden;
+  }
+  .hero-grid{ display: grid; grid-template-columns: 1.15fr .85fr; gap: 64px; align-items: center; }
+
+  .hero-kicker{
+    display: inline-flex; align-items: center; gap: 14px;
+    color: var(--accent-2);
+    font-family: var(--font-hand); font-weight: 700; font-size: 30px;
+    transform: rotate(-2deg); transform-origin: left center;
+    margin-bottom: 22px; line-height: 1;
+  }
+  .hero-kicker .leaf{ display: inline-block; width: 22px; height: 22px; color: var(--accent); }
+  .hero h1{
+    font-size: clamp(54px, 7.2vw, 104px);
+    line-height: .98; letter-spacing: -.025em; font-weight: 700;
+  }
+  .hero h1 .soft{ font-style: italic; font-weight: 600; color: var(--accent); }
+  .hero h1 .line{ display: inline-block; position: relative; }
+  .hero h1 .line::after{
+    content:""; position: absolute; left: 0; right: 0; bottom: -.04em;
+    height: .08em; background: var(--accent-3); transform: scaleX(.86); transform-origin: left;
+  }
+  .hero .lede{
+    margin-top: 30px;
+    font-family: var(--font-display); font-style: italic; font-weight: 500;
+    font-size: clamp(20px, 1.7vw, 25px); line-height: 1.4;
+    color: color-mix(in srgb, var(--fg) 80%, var(--accent));
+    max-width: 540px;
+  }
+  .hero-cta-row{ display: flex; gap: 16px; align-items: center; margin-top: 40px; flex-wrap: wrap; }
+  .hero-meta{ margin-top: 56px; display: flex; gap: 36px; align-items: baseline; flex-wrap: wrap; }
+  .hero-meta .m{
+    font-size: 13px; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--muted); font-weight: 600;
+  }
+  .hero-meta .m b{ color: var(--fg); font-weight: 800; }
+
+  /* hero mark — composed typographic device */
+  .hero-mark{
+    position: relative; aspect-ratio: 4/5; border-radius: 8px;
+    background:
+      radial-gradient(120% 80% at 80% 20%, color-mix(in srgb, var(--mint) 30%, transparent), transparent 60%),
+      radial-gradient(120% 90% at 10% 100%, color-mix(in srgb, var(--accent-3) 20%, transparent), transparent 65%),
+      var(--surface);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+    border: 1px solid var(--line);
+  }
+  .hero-mark .grain-layer{
+    position: absolute; inset: 0; opacity: .07; mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='220' height='220' filter='url(%23n)'/></svg>");
+    background-size: 320px 320px;
+  }
+  .hero-mark .corner-tag{
+    position: absolute; top: 22px; left: 24px;
+    font-family: var(--font-body-active); font-weight: 800;
+    font-size: 11px; letter-spacing: .26em; text-transform: uppercase; color: var(--accent-2);
+  }
+  .hero-mark .wordmark{ position: absolute; left: 28px; right: 28px; bottom: 32px; }
+  .hero-mark .wordmark svg{ width: 100%; height: auto; display: block; }
+  .hero-mark .steady{
+    position: absolute; left: 32px; top: 78px; bottom: 168px;
+    width: 2px; background: var(--fg); transform-origin: top center;
+  }
+  .hero-mark .curve{
+    position: absolute; right: -40px; top: 50%;
+    width: 320px; height: 320px; color: var(--accent); opacity: .55;
+  }
+  .hero-mark .curve svg{ width: 100%; height: 100%; display: block; }
+  .hero-mark .pin{
+    position: absolute; top: 78px; left: 60px;
+    font-family: var(--font-hand); font-weight: 700; font-size: 36px;
+    color: var(--accent); transform: rotate(-4deg); line-height: 1.05; max-width: 220px;
+  }
+  .hero-mark .pin small{
+    display: block;
+    font-family: var(--font-body-active); font-weight: 700;
+    font-size: 11px; letter-spacing: .2em; text-transform: uppercase;
+    color: var(--accent-2); transform: rotate(4deg); margin-top: 8px;
+  }
+
+  /* Essence / Soft resolve */
+  .resolve{ background: var(--surface); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .resolve-grid{ display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 56px; }
+  .resolve-card{ padding: 48px 44px 56px; border-radius: 4px; position: relative; overflow: hidden; }
+  .resolve-card.r-steady{ background: var(--dark); color: var(--bg); }
+  .resolve-card.r-soft{ background: var(--bg-grad); color: var(--fg); }
+  .resolve-card .num{
+    font-family: var(--font-display); font-weight: 600; font-style: italic;
+    font-size: 28px; opacity: .85;
+  }
+  .resolve-card.r-steady .num{ color: var(--mint); }
+  .resolve-card.r-soft .num{ color: var(--accent-2); }
+  .resolve-card h3{ margin-top: 14px; font-size: clamp(40px, 4vw, 56px); line-height: 1; letter-spacing: -.02em; }
+  .resolve-card.r-steady h3{ color: var(--bg); }
+  .resolve-card.r-soft h3{ color: var(--fg); }
+  .resolve-card p{ margin-top: 22px; font-size: 16px; line-height: 1.65; max-width: 36ch; }
+  .resolve-card.r-steady p{ color: color-mix(in srgb, var(--bg) 78%, transparent); }
+  .resolve-card.r-soft p{ color: var(--muted); }
+  .resolve-card .glyph{
+    position: absolute; right: 24px; bottom: 18px;
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 220px; line-height: .7; opacity: .12;
+  }
+  .resolve-card.r-steady .glyph{ color: var(--mint); }
+  .resolve-card.r-soft .glyph{ color: var(--accent); }
+
+  /* Voice */
+  .voice{ background: linear-gradient(180deg, var(--bg) 0%, var(--surface-2) 100%); }
+  .voice-head{ display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: end; margin-bottom: 64px; }
+  .voice-head h2{ font-size: clamp(40px, 5.2vw, 72px); line-height: 1.0; letter-spacing: -.02em; }
+  .voice-head .who{ font-size: 17px; line-height: 1.7; color: var(--muted); max-width: 480px; }
+  .voice-head .who b{ color: var(--fg); font-weight: 700; }
+
+  .voice-samples{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .vcard{
+    background: var(--surface); border-radius: var(--radius-l);
+    padding: 38px 34px 32px;
+    box-shadow: var(--shadow-soft);
+    position: relative;
+    display: flex; flex-direction: column; gap: 18px;
+    min-height: 230px;
+  }
+  .vcard .qmark{
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 88px; line-height: .5; height: 40px;
+    color: var(--accent-2); opacity: .55;
+  }
+  .vcard .quote{
+    font-family: var(--font-display); font-style: italic; font-weight: 600;
+    font-size: 23px; line-height: 1.32;
+    color: color-mix(in srgb, var(--fg) 80%, var(--accent));
+  }
+  .vcard .pidgin{ color: var(--accent); font-style: normal; font-weight: 700; }
+  .vcard .who-at{
+    font-family: var(--font-hand); font-weight: 700; font-size: 22px;
+    color: var(--rose); margin-top: auto;
+    transform: rotate(-2deg); transform-origin: left center; display: inline-block;
+  }
+
+  .voice-principles{
+    margin-top: 64px;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+    padding-top: 40px; border-top: 1px solid var(--line-warm);
+  }
+  .vp{ display: flex; gap: 18px; align-items: baseline; }
+  .vp .n{
+    font-family: var(--font-display); font-weight: 700; font-style: italic;
+    font-size: 26px; color: var(--accent); line-height: 1; flex: none;
+  }
+  .vp .t{ font-size: 15px; line-height: 1.5; color: var(--muted); }
+  .vp .t b{ color: var(--fg); font-weight: 700; display: block; margin-bottom: 4px; font-size: 16px; }
+
+  /* Featured series */
+  .series{ background: var(--bg-grad); }
+  .series-head{ display: flex; justify-content: space-between; align-items: end; gap: 32px; margin-bottom: 48px; flex-wrap: wrap; }
+  .series-head .left h2{ font-size: clamp(38px, 4.8vw, 64px); line-height: 1; letter-spacing: -.02em; margin-top: 14px; }
+  .series-head .right{ max-width: 380px; text-align: right; }
+  .series-head .right p{ font-size: 15px; line-height: 1.6; color: var(--muted); }
+  .series-head .right .tag{
+    display: inline-block; margin-top: 14px;
+    font-family: var(--font-body-active); font-weight: 800;
+    font-size: 11px; letter-spacing: .26em; text-transform: uppercase; color: var(--accent-2);
+  }
+  .series-head .right .cta-link{
+    display: inline-flex; align-items: center; gap: 8px;
+    margin-top: 18px;
+    color: var(--accent); font-weight: 700; font-size: 13px;
+    letter-spacing: .14em; text-transform: uppercase;
+  }
+  .series-head .right .cta-link svg{ width: 14px; height: 14px; }
+
+  .series-rail{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
+  .pcard{
+    aspect-ratio: 4/5;
+    border-radius: var(--radius-card); overflow: hidden; position: relative;
+    box-shadow: var(--shadow-card);
+    background: var(--bg-grad);
+    display: flex; flex-direction: column;
+    padding: 28px 24px 24px;
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .pcard:hover{ transform: translateY(-4px); }
+  .pcard .grain-layer{
+    position: absolute; inset: 0; opacity: .06; mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/></filter><rect width='220' height='220' filter='url(%23n)'/></svg>");
+    background-size: 280px 280px; pointer-events: none;
+  }
+  .pcard .p-eyebrow{
+    font-family: var(--font-body-active); font-weight: 800;
+    font-size: 10px; letter-spacing: .26em; text-transform: uppercase; color: var(--accent-2);
+    position: relative;
+  }
+  .pcard .p-title{
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 34px; line-height: 1.0; color: var(--fg);
+    margin-top: 14px; letter-spacing: -.015em; position: relative;
+  }
+  .pcard .p-body{
+    font-family: var(--font-body-active); font-weight: 400;
+    font-size: 13.5px; line-height: 1.5; color: var(--muted);
+    margin-top: 18px; position: relative; flex: 1;
+  }
+  .pcard .p-list{ list-style: none; padding: 0; margin: 16px 0 0; position: relative; }
+  .pcard .p-list li{
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 19px; line-height: 1.4; color: var(--fg);
+    padding: 7px 0; border-bottom: 1px solid var(--line-warm);
+    display: flex; justify-content: space-between; align-items: baseline; gap: 8px;
+  }
+  .pcard .p-list li:last-child{ border-bottom: 0; }
+  .pcard .p-list li small{
+    font-family: var(--font-body-active); font-weight: 700;
+    font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--accent); white-space: nowrap;
+  }
+  .pcard .p-foot{
+    margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--line-warm);
+    display: flex; justify-content: space-between; align-items: center;
+    position: relative; gap: 8px;
+  }
+  .pcard .p-foot .num{
+    font-family: var(--font-display); font-weight: 700; font-style: italic;
+    font-size: 22px; color: var(--accent-3); line-height: 1;
+  }
+  .pcard .p-foot .brand-mini{
+    font-family: var(--font-body-active); font-weight: 800;
+    font-size: 9px; letter-spacing: .22em; text-transform: uppercase;
+    color: var(--fg); opacity: .8;
+  }
+  .pcard.p-stat .p-stat-row{ display: flex; align-items: baseline; gap: 10px; margin-top: 18px; position: relative; }
+  .pcard.p-stat .p-big{
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 72px; line-height: .9; color: var(--accent); letter-spacing: -.03em;
+  }
+  .pcard.p-stat .p-unit{
+    font-family: var(--font-hand); font-weight: 700; font-size: 22px;
+    color: var(--fg); line-height: 1;
+  }
+  .pcard.p-stat .p-quote{
+    margin-top: 18px; background: var(--surface); border-radius: 10px; padding: 14px 16px;
+    font-family: var(--font-display); font-style: italic; font-weight: 600;
+    font-size: 16px; line-height: 1.32;
+    color: color-mix(in srgb, var(--fg) 80%, var(--accent));
+    position: relative;
+  }
+  .pcard.p-close{ background: var(--dark); color: var(--bg); }
+  .pcard.p-close .p-eyebrow{ color: var(--mint); }
+  .pcard.p-close .p-title{ color: var(--bg); }
+  .pcard.p-close .p-body{ color: color-mix(in srgb, var(--bg) 78%, transparent); }
+  .pcard.p-close .p-hand{
+    margin-top: auto; font-family: var(--font-hand); font-weight: 700;
+    font-size: 30px; color: var(--mint);
+    transform: rotate(-2deg); display: inline-block;
+  }
+  .pcard.p-close .p-foot{ border-top-color: color-mix(in srgb, var(--mint) 30%, transparent); }
+  .pcard.p-close .p-foot .brand-mini{ color: var(--bg); opacity: .9; }
+  .pcard.p-close .p-foot .num{ color: var(--mint); }
+
+  .series-cta{
+    margin-top: 48px;
+    display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap;
+  }
+  .series-cta p{
+    font-family: var(--font-display); font-style: italic; font-size: 19px;
+    color: color-mix(in srgb, var(--fg) 80%, var(--accent));
+    max-width: 540px;
+  }
+
+  /* Beliefs */
+  .beliefs{ background: var(--surface); border-top: 1px solid var(--line); }
+  .beliefs-grid{
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+    margin-top: 48px; border-top: 1px solid var(--line-warm);
+  }
+  .belief{ padding: 48px 36px 48px 0; border-bottom: 1px solid var(--line-warm); position: relative; }
+  .belief:not(:last-child){ border-right: 1px solid var(--line-warm); padding-right: 36px; }
+  .belief:not(:first-child){ padding-left: 36px; }
+  .belief .bn{
+    font-family: var(--font-display); font-weight: 600; font-style: italic;
+    font-size: 22px; color: var(--accent-2);
+  }
+  .belief h3{ margin-top: 16px; font-size: 28px; line-height: 1.12; letter-spacing: -.015em; }
+  .belief p{ margin-top: 16px; font-size: 15px; line-height: 1.62; color: var(--muted); }
+
+  /* Series detail links — the multi-page nav CTA at the bottom */
+  .detail-links{
+    background: var(--bg);
+    border-top: 1px solid var(--line);
+    padding: 96px 0;
+  }
+  .detail-links h2{
+    font-size: clamp(36px, 4.4vw, 56px);
+    line-height: 1.04; letter-spacing: -.02em;
+    max-width: 720px;
+  }
+  .detail-grid{
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 24px; margin-top: 56px;
+  }
+  .dlink{
+    display: flex; flex-direction: column;
+    padding: 36px 34px 30px;
+    background: var(--surface);
+    border-radius: var(--radius-l);
+    box-shadow: var(--shadow-soft);
+    position: relative;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .dlink:hover{ transform: translateY(-3px); box-shadow: var(--shadow-card); }
+  .dlink .d-eyebrow{
+    font-family: var(--font-body-active); font-weight: 800;
+    font-size: 11px; letter-spacing: .22em; text-transform: uppercase;
+    color: var(--accent-2);
+  }
+  .dlink h3{
+    margin-top: 14px;
+    font-size: clamp(28px, 2.8vw, 38px);
+    line-height: 1.05; letter-spacing: -.015em;
+  }
+  .dlink p{
+    margin-top: 16px;
+    font-size: 15px; line-height: 1.6;
+    color: var(--muted); max-width: 44ch;
+  }
+  .dlink .arrow{
+    margin-top: auto; padding-top: 24px;
+    display: flex; align-items: center; gap: 10px;
+    color: var(--accent); font-weight: 700;
+    font-size: 12px; letter-spacing: .14em; text-transform: uppercase;
+  }
+  .dlink .arrow svg{ width: 16px; height: 16px; transition: transform .2s; }
+  .dlink:hover .arrow svg{ transform: translateX(4px); }
+
+  @media (max-width: 980px){
+    .hero-grid{ grid-template-columns: 1fr; gap: 48px; }
+    .hero-mark{ max-width: 480px; }
+    .voice-head{ grid-template-columns: 1fr; gap: 28px; }
+    .voice-samples{ grid-template-columns: 1fr; }
+    .voice-principles{ grid-template-columns: 1fr; gap: 18px; }
+    .series-rail{ grid-template-columns: repeat(2, 1fr); }
+    .beliefs-grid{ grid-template-columns: 1fr; }
+    .belief:not(:last-child){ border-right: 0; border-bottom: 1px solid var(--line-warm); padding-right: 0; }
+    .belief:not(:first-child){ padding-left: 0; }
+    .resolve-grid{ grid-template-columns: 1fr; gap: 24px; }
+    .detail-grid{ grid-template-columns: 1fr; }
+  }
+  @media (max-width: 620px){
+    .hero{ padding: 64px 0 80px; }
+    .hero-meta{ gap: 18px; }
+    .series-rail{ grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header class="top" data-od-id="top-bar">
+  <div class="top-row">
+    <a href="index.html" class="brand" id="nav-brand" aria-label="Skin Resolute — home"></a>
+    <nav class="links" aria-label="Primary">
+      <a href="acne-awareness.html">Acne Series</a>
+      <a href="skin-types.html">Skin Types</a>
+      <a href="bare-face-method.html">Bare-Face</a>
+      <a href="study-helper-v2.html">Study Desk</a>
+      <a href="voice.html">Voice</a>
+      <button type="button" class="mode-toggle" data-od-id="mode-toggle" aria-label="Reading in Faithful mode. Tap to switch.">
+        <span class="swatch" aria-hidden="true"></span>
+        <span class="label"></span>
+      </button>
+      <a href="#book" class="nav-cta">Book a visit</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" data-od-id="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <div class="hero-kicker">
+            <span class="leaf" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 19c0-8 6-14 14-14 0 8-6 14-14 14Z"/>
+                <path d="M5 19c4-4 8-7 12-9"/>
+              </svg>
+            </span>
+            skin, meet steady care
+          </div>
+          <h1>
+            <span class="line">Soft</span>
+            <span class="soft">resolve</span><br/>
+            for your skin.
+          </h1>
+          <p class="lede">
+            A certified aesthetician's studio, built on the belief that real skin
+            goals come from consistency, not miracles. Calm, educated, unwavering
+            care, delivered kindly.
+          </p>
+          <div class="hero-cta-row">
+            <a href="#book" class="btn btn-primary" data-od-id="hero-cta-primary">
+              Come see me
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+            </a>
+            <a href="acne-awareness.html" class="btn btn-ghost">Read the June series</a>
+          </div>
+          <div class="hero-meta">
+            <span class="m"><b>Certified</b> aesthetician</span>
+            <span class="m"><b>Nigeria</b> · in-studio &amp; virtual</span>
+            <span class="m"><b>No sponsored</b> product rankings</span>
+          </div>
+        </div>
+
+        <div class="hero-mark" data-od-id="hero-mark">
+          <div class="grain-layer" aria-hidden="true"></div>
+          <span class="corner-tag">The Mark</span>
+          <div class="steady" aria-hidden="true"></div>
+          <div class="curve" aria-hidden="true">
+            <svg viewBox="0 0 320 320" fill="none">
+              <path d="M20 280 C 80 240, 120 160, 180 140 S 280 80, 300 20"
+                    stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+              <circle cx="300" cy="20" r="6" fill="currentColor"/>
+            </svg>
+          </div>
+          <div class="pin">
+            steady line,<br/>soft curve.
+            <small>hold both</small>
+          </div>
+          <div class="wordmark" id="hero-wordmark"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ESSENCE ============ -->
+  <section class="resolve" id="essence" data-od-id="essence">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">The brand essence</span>
+        <h2>Resolute is a steady line.<br/>Skin is a soft curve.</h2>
+        <p class="lede">
+          Hold both. That is the whole idea. Firm, unwavering care for your skin
+          goals, delivered softly, calmly, elegantly. No shame, no fear, no
+          miracles, just consistency your skin can lean on.
+        </p>
+      </div>
+
+      <div class="resolve-grid">
+        <div class="resolve-card r-steady" data-od-id="essence-resolute">
+          <span class="num">01 · Resolute</span>
+          <h3>Steady,<br/>unwavering.</h3>
+          <p>
+            We champion consistency over overnight fixes. Your skin renews on its
+            own schedule, and we walk with it, not against it. Show up small,
+            show up often.
+          </p>
+          <span class="glyph" aria-hidden="true">|</span>
+        </div>
+        <div class="resolve-card r-soft" data-od-id="essence-soft">
+          <span class="num">02 · Skin</span>
+          <h3>Soft,<br/>kindly done.</h3>
+          <p>
+            Gentle ingredients, plain-language science, and a calm hand. We
+            translate the science (barrier, sebum, actives) into care you
+            actually understand and can keep up with.
+          </p>
+          <span class="glyph" aria-hidden="true">)</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ VOICE ============ -->
+  <section class="voice" id="voice" data-od-id="voice">
+    <div class="wrap">
+      <div class="voice-head">
+        <div>
+          <span class="eyebrow">The voice</span>
+          <h2>The caring<br/>big-sister<br/>aesthetician.</h2>
+        </div>
+        <p class="who">
+          Warm Nigerian aesthetician, certified and genuinely obsessed with your
+          glow. <b>Knows the science</b>, never lectures. <b>Translates it</b>,
+          then reassures you. Believes in consistency over miracles, and speaks
+          to <b>you</b>, one person at a time.
+        </p>
+      </div>
+
+      <div class="voice-samples">
+        <article class="vcard" data-od-id="voice-sample-1">
+          <div class="qmark" aria-hidden="true">&ldquo;</div>
+          <p class="quote">
+            My love, your skin is just thirsty. Feed it well and
+            <span class="pidgin">e go bounce back, small small</span>.
+          </p>
+          <span class="who-at">, on dry skin</span>
+        </article>
+
+        <article class="vcard" data-od-id="voice-sample-2">
+          <div class="qmark" aria-hidden="true">&ldquo;</div>
+          <p class="quote">
+            No strip your face dry, <span class="pidgin">abeg</span>. That one na
+            trap. Balance am gently and your glow go steady.
+          </p>
+          <span class="who-at">, on over-cleansing</span>
+        </article>
+
+        <article class="vcard" data-od-id="voice-sample-3">
+          <div class="qmark" aria-hidden="true">&ldquo;</div>
+          <p class="quote">
+            Gentle, gentle is the way, my dear. Less is more, and your
+            <span class="pidgin">barrier go thank you</span>.
+          </p>
+          <span class="who-at">, on actives</span>
+        </article>
+      </div>
+
+      <div class="voice-principles">
+        <div class="vp">
+          <span class="n">i</span>
+          <span class="t"><b>Educated, but plain.</b>One real fact, the why, then translated. No jargon dumps.</span>
+        </div>
+        <div class="vp">
+          <span class="n">ii</span>
+          <span class="t"><b>Light Naija flavour.</b>One Pidgin phrase per piece, never caricature.</span>
+        </div>
+        <div class="vp">
+          <span class="n">iii</span>
+          <span class="t"><b>Never shame, never scare.</b>Protective, encouraging, your skin your pace.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FEATURED SERIES ============ -->
+  <section class="series" id="series" data-od-id="series">
+    <div class="wrap">
+      <div class="series-head">
+        <div class="left">
+          <span class="eyebrow">Featured · June series</span>
+          <h2>Acne Awareness<br/>Month, in plain English.</h2>
+        </div>
+        <div class="right">
+          <p>
+            A four-card Instagram series that walks from <i>what acne is</i> to
+            <i>how we treat it together</i>. Real science, no scare headlines,
+            no miracle promises.
+          </p>
+          <span class="tag">Cover · Types · Causes · Closing</span>
+          <a href="acne-awareness.html" class="cta-link">
+            Open the full series
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="series-rail">
+
+        <article class="pcard" data-od-id="series-card-cover">
+          <div class="grain-layer" aria-hidden="true"></div>
+          <span class="p-eyebrow">01 · Cover</span>
+          <h3 class="p-title">So what<br/>actually causes<br/>acne?</h3>
+          <p class="p-body">
+            The honest answer: there is not just one cause. Last week we covered
+            what acne is and the types it comes in. Now, the real drivers,
+            translated.
+          </p>
+          <div class="p-foot">
+            <span class="num">01</span>
+            <span class="brand-mini">Skin Resolute</span>
+          </div>
+        </article>
+
+        <article class="pcard" data-od-id="series-card-types">
+          <div class="grain-layer" aria-hidden="true"></div>
+          <span class="p-eyebrow">02 · The list</span>
+          <h3 class="p-title">What causes<br/>acne</h3>
+          <ul class="p-list">
+            <li>Hormones <small>The big driver</small></li>
+            <li>Sebum <small>Oil overload</small></li>
+            <li>Clogged pores <small>Trapped dead skin</small></li>
+            <li>Bacteria <small>C. acnes</small></li>
+            <li>Genes <small>Your baseline</small></li>
+          </ul>
+          <div class="p-foot">
+            <span class="num">02</span>
+            <span class="brand-mini">Skin Resolute</span>
+          </div>
+        </article>
+
+        <article class="pcard p-stat" data-od-id="series-card-stat">
+          <div class="grain-layer" aria-hidden="true"></div>
+          <span class="p-eyebrow">03 · The takeaway</span>
+          <h3 class="p-title">It is rarely<br/>just one thing.</h3>
+          <div class="p-stat-row">
+            <span class="p-big">5</span>
+            <span class="p-unit">real drivers</span>
+          </div>
+          <p class="p-quote">
+            Most acne comes from a mix of these, and most of them are not your
+            fault. Knowing your triggers is the first step to calming them.
+          </p>
+          <div class="p-foot">
+            <span class="num">03</span>
+            <span class="brand-mini">Skin Resolute</span>
+          </div>
+        </article>
+
+        <article class="pcard p-close" data-od-id="series-card-close">
+          <div class="grain-layer" aria-hidden="true"></div>
+          <span class="p-eyebrow">04 · The hopeful part</span>
+          <h3 class="p-title">Acne is<br/>treatable.</h3>
+          <p class="p-body">
+            There is no single magic product. But with the right routine, a
+            little patience, and care made for your skin, real change is
+            possible. We do it together, small small.
+          </p>
+          <span class="p-hand">Stay resolute 💚</span>
+          <div class="p-foot">
+            <span class="num">04</span>
+            <span class="brand-mini">Skin Resolute</span>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BELIEFS ============ -->
+  <section class="beliefs" id="beliefs" data-od-id="beliefs">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">What we believe</span>
+        <h2>Three things we won't move on.</h2>
+      </div>
+
+      <div class="beliefs-grid">
+        <article class="belief" data-od-id="belief-consistency">
+          <span class="bn">i</span>
+          <h3>Consistency over miracles.</h3>
+          <p>
+            Your skin renews in cycles, not in days. We build routines you can
+            actually keep, and we keep them with you. That is what
+            <i>resolute</i> means.
+          </p>
+        </article>
+        <article class="belief" data-od-id="belief-science">
+          <span class="bn">ii</span>
+          <h3>Science, translated.</h3>
+          <p>
+            Barrier, sebum, ceramides, actives. We know the biochemistry, and we
+            explain it in plain English with one Pidgin phrase for warmth, never
+            for parody.
+          </p>
+        </article>
+        <article class="belief" data-od-id="belief-pace">
+          <span class="bn">iii</span>
+          <h3>Your skin, your pace.</h3>
+          <p>
+            No shame, no scare tactics, no &ldquo;miracle&rdquo; promises. We
+            protect your confidence first, then build the glow on top of it.
+            Small small.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DETAILS PAGES INDEX ============ -->
+  <section class="detail-links" data-od-id="detail-links">
+    <div class="wrap">
+      <span class="eyebrow">Read further</span>
+      <h2>Four small guides and one study desk, written the way she talks.</h2>
+
+      <div class="detail-grid">
+        <a class="dlink" href="study-helper-v2.html" data-od-id="link-study-helper">
+          <span class="d-eyebrow">Tool · revision desk</span>
+          <h3>Study Helper</h3>
+          <p>Practice skin conditions, client analysis, formulation choices, red flags, and anatomy with textbook answers plus teacher notes.</p>
+          <span class="arrow">Start studying <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <a class="dlink" href="acne-awareness.html" data-od-id="link-acne">
+          <span class="d-eyebrow">Series · 4 cards</span>
+          <h3>Acne Awareness Month</h3>
+          <p>What acne is, the types, the real causes, and the hopeful part: how we treat it together, small small.</p>
+          <span class="arrow">Open the series <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <a class="dlink" href="skin-types.html" data-od-id="link-types">
+          <span class="d-eyebrow">Identifier · 5 types</span>
+          <h3>Identify your skin type</h3>
+          <p>Dry, oily, combination, sensitive, or normal. What each one looks like, what it craves, and the honest test.</p>
+          <span class="arrow">Find your type <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <a class="dlink" href="bare-face-method.html" data-od-id="link-bareface">
+          <span class="d-eyebrow">Method · 4 steps</span>
+          <h3>The Bare-Face Method</h3>
+          <p>The honest 30-minute test that tells you what your skin actually needs. Wash, pat, wait, observe.</p>
+          <span class="arrow">Try the method <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <a class="dlink" href="voice.html" data-od-id="link-voice">
+          <span class="d-eyebrow">About · the founder</span>
+          <h3>Who &ldquo;she&rdquo; is</h3>
+          <p>The certified aesthetician behind the studio, the voice, the six principles, and the lexicon she actually uses.</p>
+          <span class="arrow">Meet the studio <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SIGN-OFF ============ -->
+  <section class="signoff" id="book" data-od-id="signoff">
+    <div class="wrap signoff-inner">
+      <span class="eyebrow">The sign-off</span>
+      <h2>Stay resolute 💚</h2>
+      <p class="lede">
+        Come and see me, and we will look at your skin properly, then build a
+        plan that truly fits you. Your skin go thank you.
+      </p>
+
+      <div class="signoff-cta">
+        <a href="#" class="btn btn-primary" data-od-id="signoff-cta-book">
+          Book a consultation
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+        </a>
+        <a href="#" class="btn btn-ghost">Send me your skin goals</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot" data-od-id="footer">
+  <div class="wrap foot-row">
+    <span class="brand" id="foot-brand" aria-label="Skin Resolute"></span>
+    <span class="copy">© Skin Resolute Studio · Certified aesthetician · Nigeria · Stay resolute 💚</span>
+  </div>
+</footer>
+
+<script src="logo.js"></script>
+<script src="theme.js"></script>
+<script>
+  (function(){
+    if (!window.SkinResoluteLogo) return;
+    var nav  = document.getElementById('nav-brand');
+    var hero = document.getElementById('hero-wordmark');
+    var foot = document.getElementById('foot-brand');
+    if (nav)  nav.innerHTML  = window.SkinResoluteLogo({ variant: 'primary', id: 'lg_nav' });
+    if (hero) hero.innerHTML = window.SkinResoluteLogo({ variant: 'primary', id: 'lg_hero' });
+    if (foot) foot.innerHTML = window.SkinResoluteLogo({ variant: 'cream',   id: 'lg_foot' });
+  })();
+</script>
+
+</body>
+</html>

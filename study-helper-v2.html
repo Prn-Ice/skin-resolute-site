@@ -1,0 +1,1359 @@
+<!doctype html>
+<html lang="en" data-mode="faithful">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Study Desk — Skin Resolute</title>
+<meta name="description" content="Interactive study helper for beauty therapy revision. Visual recognition, client analysis, formulation, safety red flags, and anatomy." />
+<script>(function(){try{var m=localStorage.getItem('sr:mode');if(m==='playful'||m==='faithful'){document.documentElement.setAttribute('data-mode',m);}}catch(e){}})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Mulish:wght@300;400;500;600;700;800&family=Caveat:wght@600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="theme.css" />
+<style>
+  .study-body{
+    min-height: 100vh;
+    background: var(--bg);
+  }
+
+  /* Clinic workstation: rail + case — not a course dashboard */
+  .clinic{
+    display: grid;
+    grid-template-columns: minmax(200px, 240px) minmax(0, 1fr);
+    min-height: calc(100vh - 72px);
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 20px 40px;
+    gap: 0;
+  }
+
+  .rail{
+    padding: 28px 18px 32px 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    position: sticky;
+    top: 0;
+    align-self: start;
+    max-height: 100vh;
+    overflow-y: auto;
+  }
+  .rail-kicker{
+    font-family: var(--font-hand);
+    font-size: 22px;
+    color: var(--accent-2);
+    transform: rotate(-1.5deg);
+    line-height: 1;
+    margin-bottom: 2px;
+  }
+  .rail-title{
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: -.02em;
+    line-height: 1.05;
+    color: var(--fg);
+    margin: 0;
+  }
+  .rail-title em{
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .station-list{
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .station-label{
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--fg) 42%, transparent);
+    margin-bottom: 8px;
+    font-family: var(--font-body-active);
+  }
+  .station{
+    display: block;
+    width: 100%;
+    text-align: left;
+    border: 0;
+    background: transparent;
+    padding: 10px 12px;
+    border-radius: 14px;
+    cursor: pointer;
+    color: color-mix(in srgb, var(--fg) 72%, transparent);
+    font-family: var(--font-body-active);
+    transition: background .12s ease, color .12s ease;
+  }
+  .station:hover{
+    background: color-mix(in srgb, var(--surface) 70%, var(--bg-warm));
+    color: var(--fg);
+  }
+  .station:focus-visible{
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+  .station[aria-selected="true"]{
+    background: color-mix(in srgb, var(--fg) 92%, transparent);
+    color: var(--bg);
+  }
+  .station-name{
+    display: block;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+  }
+  .station-hint{
+    display: block;
+    margin-top: 2px;
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: -.01em;
+    line-height: 1.2;
+    opacity: .85;
+  }
+  .station[aria-selected="true"] .station-hint{ opacity: .72; }
+
+  .topic-block{ margin-top: 4px; }
+  .topic-list{
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+  .topic{
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+    width: 100%;
+    text-align: left;
+    border: 0;
+    background: transparent;
+    padding: 8px 12px;
+    border-radius: 12px;
+    cursor: pointer;
+    color: var(--muted);
+    font-family: var(--font-body-active);
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.3;
+    transition: background .12s ease, color .12s ease;
+  }
+  .topic:hover{ color: var(--fg); background: color-mix(in srgb, var(--surface) 55%, transparent); }
+  .topic:focus-visible{
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+  .topic[aria-current="true"]{
+    color: var(--fg);
+    background: color-mix(in srgb, var(--bg-warm) 55%, var(--surface));
+  }
+  .topic-n{
+    flex-shrink: 0;
+    font-size: 11px;
+    font-weight: 500;
+    opacity: .45;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .rail-foot{
+    margin-top: auto;
+    padding-top: 16px;
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.45;
+  }
+  .rail-foot strong{
+    display: block;
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--fg);
+    letter-spacing: -.015em;
+    margin-bottom: 2px;
+  }
+  #save-status{
+    display: block;
+    margin-top: 6px;
+    font-size: 11px;
+    color: color-mix(in srgb, var(--muted) 80%, transparent);
+    min-height: 1.2em;
+  }
+
+  .stage{
+    padding: 20px 0 32px;
+    min-width: 0;
+  }
+
+  .case{
+    background: var(--surface);
+    border-radius: 28px;
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .case-visual{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 420px;
+    max-height: 65vh;
+    padding: 24px;
+    background:
+      radial-gradient(ellipse 70% 55% at 35% 40%, color-mix(in srgb, var(--accent-2) 18%, transparent), transparent 70%),
+      radial-gradient(ellipse 50% 45% at 70% 65%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 65%),
+      color-mix(in srgb, var(--bg-warm) 70%, var(--surface-2));
+  }
+  .case-visual img{
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 65vh;
+    object-fit: contain;
+    display: block;
+    border-radius: 20px;
+    box-shadow: 0 4px 24px color-mix(in srgb, #000 20%, transparent);
+    opacity: 0;
+    transition: opacity .4s ease;
+  }
+  .case-visual img[src]:not([src=""]){ opacity: 1; }
+  .case-visual img[src=""],
+  .case-visual img:not([src]){
+    opacity: 0;
+  }
+  .case-visual-loading{
+    display: none;
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(90deg, transparent 30%, color-mix(in srgb, var(--bg-warm) 70%, transparent) 50%, transparent 70%);
+    background-size: 200% 100%;
+    animation: shimmer 1.8s ease-in-out infinite;
+    pointer-events: none;
+  }
+  @keyframes shimmer{
+    0%{ background-position: 200% 0; }
+    100%{ background-position: -200% 0; }
+  }
+  .case-visual:has(img[src=""]) .case-visual-loading,
+  .case-visual:has(img:not([src])) .case-visual-loading{
+    display: block;
+  }
+  .case-visual-hint{
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .04em;
+    color: color-mix(in srgb, var(--fg) 35%, transparent);
+    text-align: center;
+  }
+  .case-tag-bar{
+    padding: 10px 24px 4px;
+  }
+
+  .case-tag{
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--fg) 48%, transparent);
+    font-family: var(--font-body-active);
+    margin-bottom: 8px;
+  }
+
+  .case-body{
+    padding: 32px 36px 28px;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+  .case-eyebrow{
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--accent-2);
+    font-family: var(--font-body-active);
+    margin-bottom: 10px;
+  }
+  .case-body h2{
+    font-family: var(--font-display);
+    font-size: clamp(26px, 3vw, 34px);
+    font-weight: 600;
+    letter-spacing: -.025em;
+    line-height: 1.08;
+    margin: 0 0 12px;
+    color: var(--fg);
+  }
+  .case-body .prompt{
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--muted);
+    margin: 0;
+    max-width: 52ch;
+  }
+
+  .diff-label{
+    margin-top: 28px;
+    margin-bottom: 10px;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--fg) 38%, transparent);
+    font-family: var(--font-body-active);
+  }
+  .answer-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .answer-opt{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 16px;
+    border: 0;
+    border-radius: 14px;
+    background: color-mix(in srgb, var(--bg-warm) 45%, var(--surface));
+    color: var(--fg);
+    cursor: pointer;
+    font-family: var(--font-body-active);
+    font-size: 14px;
+    font-weight: 600;
+    text-align: left;
+    transition: background .12s ease, transform .12s ease;
+  }
+  .answer-opt:hover:not(:disabled){
+    background: color-mix(in srgb, var(--bg-warm) 72%, var(--surface));
+    transform: translateY(-1px);
+  }
+  .answer-opt:disabled{ cursor: default; }
+  .answer-opt:focus-visible{
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+  .answer-opt.is-correct{
+    background: color-mix(in srgb, var(--accent) 20%, var(--surface));
+  }
+  .answer-opt.is-wrong{
+    background: color-mix(in srgb, #7e2f24 12%, var(--surface));
+  }
+  .answer-opt .mark{
+    flex-shrink: 0;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    opacity: .35;
+  }
+  .answer-opt.is-correct .mark,
+  .answer-opt.is-wrong .mark{ opacity: .7; }
+
+  .reveal{
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    margin-top: 0;
+    padding-top: 0;
+    background: linear-gradient(180deg, color-mix(in srgb, var(--fg) 6%, transparent), transparent 1px);
+    transition: max-height .35s ease, opacity .25s ease, margin-top .35s ease, padding-top .35s ease;
+  }
+  .reveal.is-open{
+    max-height: 600px;
+    opacity: 1;
+    margin-top: 22px;
+    padding-top: 22px;
+  }
+  .reveal-cols{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .clinical-box, .teacher-box{
+    padding: 18px 20px;
+    border-radius: 18px;
+  }
+  .clinical-box{
+    background: color-mix(in srgb, var(--bg-warm) 28%, var(--surface));
+  }
+  .teacher-box{
+    background:
+      radial-gradient(circle at 92% 0%, color-mix(in srgb, var(--mint) 22%, transparent), transparent 50%),
+      color-mix(in srgb, var(--bg-warm) 55%, var(--surface));
+  }
+  .clinical-box .label, .teacher-box .label{
+    display: block;
+    font-family: var(--font-body-active);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--accent-2);
+    margin-bottom: 8px;
+  }
+  .clinical-box h3{
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -.02em;
+    margin: 0;
+  }
+  .clinical-box p{
+    margin-top: 8px;
+    color: var(--muted);
+    font-size: 13.5px;
+    line-height: 1.55;
+  }
+  .teacher-box p{
+    margin: 0;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 18px;
+    line-height: 1.38;
+    color: var(--fg);
+  }
+
+  .actions{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
+  }
+  .actions button{
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 42px;
+    padding: 9px 18px;
+    border: 0;
+    border-radius: var(--radius-pill);
+    background: var(--fg);
+    color: var(--bg);
+    font-family: var(--font-body-active);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background .12s ease, transform .12s ease;
+  }
+  .actions button:hover{ background: var(--accent); transform: translateY(-1px); }
+  .actions button:focus-visible{
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+  .actions .ghost{
+    background: color-mix(in srgb, var(--bg-warm) 50%, var(--surface));
+    color: var(--fg);
+  }
+  .actions .ghost:hover{ background: color-mix(in srgb, var(--bg-warm) 75%, var(--surface)); }
+  .actions button.is-known{
+    background: color-mix(in srgb, var(--accent) 28%, var(--surface));
+    color: var(--fg);
+  }
+  .actions svg{ width: 14px; height: 14px; }
+
+  .case-nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: auto;
+    padding-top: 20px;
+  }
+  .case-nav-meta{
+    font-size: 12px;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+  .case-nav button{
+    min-height: 40px;
+    padding: 8px 16px;
+    border: 0;
+    border-radius: var(--radius-pill);
+    background: transparent;
+    color: var(--fg);
+    font-family: var(--font-body-active);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .04em;
+    cursor: pointer;
+  }
+  .case-nav button:hover{
+    background: color-mix(in srgb, var(--bg-warm) 55%, transparent);
+  }
+  .case-nav button:focus-visible{
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *, *::before, *::after{ transition-duration: 0.01ms !important; }
+  }
+
+  @media (max-width: 900px){
+    .clinic{
+      grid-template-columns: 1fr;
+      padding: 0 16px 32px;
+    }
+    .rail{
+      position: static;
+      max-height: none;
+      padding: 16px 0 8px;
+      gap: 16px;
+      border-bottom: 0;
+    }
+    .rail-head{ margin-bottom: 4px; }
+    .station-list{
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .station-label{ width: 100%; margin-bottom: 4px; }
+    .station{
+      width: auto;
+      padding: 8px 12px;
+    }
+    .station-hint{ display: none; }
+    .topic-list{
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+    .topic{ width: auto; }
+    .rail-foot{ display: none; }
+    .stage{ padding: 12px 0 24px; }
+    .case{
+      grid-template-columns: 1fr;
+      min-height: 0;
+      border-radius: 22px;
+    }
+    .case-visual{ min-height: 180px; padding: 16px; }
+    .case-tag-bar{ padding: 8px 20px 2px; }
+    .case-body{ padding: 22px 20px 20px; }
+    .answer-grid{ grid-template-columns: 1fr; }
+    .reveal-cols{ grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body class="study-body">
+<a class="skip-link" href="#desk">Skip to clinic desk</a>
+
+<header class="top" data-od-id="top-bar">
+  <div class="top-row">
+    <a href="index.html" class="brand" id="nav-brand" aria-label="Skin Resolute home"></a>
+    <nav class="links" aria-label="Primary">
+      <a href="acne-awareness.html">Acne Series</a>
+      <a href="skin-types.html">Skin Types</a>
+      <a href="bare-face-method.html">Bare-Face</a>
+      <a href="study-helper-v2.html" class="active">Study Desk</a>
+      <a href="voice.html">Voice</a>
+      <button type="button" class="mode-toggle" data-od-id="mode-toggle" aria-label="Reading in Faithful mode. Tap to switch.">
+        <span class="swatch" aria-hidden="true"></span>
+        <span class="label"></span>
+      </button>
+      <a href="index.html#book" class="nav-cta">Book a visit</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <div class="clinic" id="desk" data-od-id="clinic-desk">
+    <aside class="rail" data-od-id="clinic-rail" aria-label="Clinic stations">
+      <div class="rail-head">
+        <div class="rail-kicker">study desk</div>
+        <h1 class="rail-title" data-od-id="study-title">Know the skin.<br /><em>Own the call.</em></h1>
+      </div>
+
+      <div>
+        <div class="station-label">Stations</div>
+        <div class="station-list" role="tablist" aria-label="Clinic stations">
+          <button class="station" role="tab" data-module="identify" aria-selected="true" data-od-id="station-identify">
+            <span class="station-name">Identify</span>
+            <span class="station-hint">Spot the condition</span>
+          </button>
+          <button class="station" role="tab" data-module="analyze" aria-selected="false" data-od-id="station-analyze">
+            <span class="station-name">Analyze</span>
+            <span class="station-hint">Read the client</span>
+          </button>
+          <button class="station" role="tab" data-module="prescribe" aria-selected="false" data-od-id="station-prescribe">
+            <span class="station-name">Prescribe</span>
+            <span class="station-hint">Match the treatment</span>
+          </button>
+          <button class="station" role="tab" data-module="safety" aria-selected="false" data-od-id="station-safety">
+            <span class="station-name">Safety</span>
+            <span class="station-hint">Know when to stop</span>
+          </button>
+          <button class="station" role="tab" data-module="anatomy" aria-selected="false" data-od-id="station-anatomy">
+            <span class="station-name">Anatomy</span>
+            <span class="station-hint">Label the structure</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="topic-block">
+        <div class="station-label">On the tray</div>
+        <div class="topic-list" id="cat-list" data-od-id="topic-list"></div>
+      </div>
+
+      <div class="rail-foot" data-od-id="rail-foot">
+        <strong id="known-count">Nothing pinned yet</strong>
+        <span id="known-blurb">Cases you know stay on this device.</span>
+        <span id="save-status"></span>
+      </div>
+    </aside>
+
+    <section class="stage" data-od-id="case-stage" aria-label="Current case">
+      <article class="case" id="practice-card" data-od-id="practice-card">
+        <div class="case-visual" data-od-id="case-visual">
+          <img id="case-image" src="" alt="" onerror="this.style.display='none';var h=document.querySelector('.case-visual-hint');if(h)h.style.display='block';" />
+          <div class="case-visual-loading" aria-hidden="true"></div>
+          <div class="case-visual-hint">Image slot — add approved clinical photo later</div>
+        </div>
+        <div class="case-tag-bar">
+          <span class="case-tag" id="card-category">Grades of Acne</span>
+        </div>
+        <div class="case-body">
+          <span class="case-eyebrow" id="case-station">Identify</span>
+          <h2 id="card-title">What are you looking at?</h2>
+          <p class="prompt" id="card-prompt"></p>
+
+          <div class="diff-label">Differential</div>
+          <div class="answer-grid" id="answer-grid" data-od-id="answer-grid"></div>
+
+          <div class="reveal" id="reveal-panel" data-od-id="reveal-panel">
+            <div class="reveal-cols">
+              <div class="clinical-box">
+                <span class="label">Textbook</span>
+                <h3 id="clinical-title">—</h3>
+                <p id="clinical-text">Choose a call to open the notes.</p>
+              </div>
+              <div class="teacher-box">
+                <span class="label">Teacher's take</span>
+                <p id="teacher-text">The caring explanation appears here.</p>
+              </div>
+            </div>
+            <div class="actions">
+              <button type="button" id="speak-btn" data-od-id="speak-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5Z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>
+                Read aloud
+              </button>
+              <button class="ghost" type="button" id="master-btn" data-od-id="master-btn">I know this</button>
+            </div>
+          </div>
+
+          <div class="case-nav">
+            <button type="button" id="prev-btn" data-od-id="prev-btn">← Previous</button>
+            <span class="case-nav-meta" id="case-meta">Case 1</span>
+            <button type="button" id="next-btn" data-od-id="next-btn">Next case →</button>
+          </div>
+        </div>
+      </article>
+    </section>
+  </div>
+</main>
+
+<footer class="foot" data-od-id="footer">
+  <div class="wrap foot-row">
+    <span class="brand" id="foot-brand" aria-label="Skin Resolute"></span>
+    <span class="copy">&copy; Skin Resolute Studio &middot; Study Desk &middot; Stay resolute</span>
+  </div>
+</footer>
+
+<script src="logo.js"></script>
+<script src="theme.js"></script>
+<script>
+(function(){
+  if (!window.SkinResoluteLogo) return;
+  var nav = document.getElementById('nav-brand');
+  var foot = document.getElementById('foot-brand');
+  if (nav) nav.innerHTML = window.SkinResoluteLogo({ variant: 'primary', id: 'lg_nav' });
+  if (foot) foot.innerHTML = window.SkinResoluteLogo({ variant: 'cream', id: 'lg_foot' });
+})();
+</script>
+
+<script>
+(function(){
+  var STORE = 'sr:study-v2';
+
+  var IMAGES = {
+    g1:'study-images/g1-comedonal.jpg', g2:'study-images/g2-closed-comedones.jpg',
+    g3:'study-images/g3-papulopustular.jpg', g4:'study-images/g4-nodulocystic.jpg',
+    seb:'study-images/seb-seborrhoea.jpg', mil:'study-images/mil-milia.jpg',
+    acnev:'study-images/acnev-acne-vulgaris.jpg', steatoma:'study-images/steatoma-cyst.jpg',
+    asteatosis:'study-images/ast-xerosis.jpg',
+    hyperh:'study-images/hyperhyperhidrosis.jpg', brom:'study-images/brom-hyperhidrosis.jpg',
+    miliar:'study-images/miliar-miliaria.jpg',
+    acd:'study-images/acd-allergic-contact-dermatitis.jpg', icd:'study-images/icd-irritant-cd.jpg',
+    atopic:'study-images/atopic-atopic-dermatitis.jpg', urt:'study-images/urt-urticaria.jpg',
+    chlo:'study-images/chlo-melasma.jpg', lent:'study-images/lent-lentigo.jpg',
+    vit:'study-images/vit-vitiligo.jpg', ephelides:'study-images/ephelides-freckles.jpg',
+    hyperpig:'study-images/hyperpig-pih.jpg', kel:'study-images/kel-keloid.jpg',
+    dpn:'study-images/dpn-dermatosis-papulosa-nigra.jpg',
+    tel:'study-images/tel-telangiectasia.jpg', spider:'study-images/spider-spider-naevus.jpg',
+    cherry:'study-images/cherry-cherry-angioma.jpg', pws:'study-images/pws-port-wine-stain.jpg',
+    psor:'study-images/psor-psoriasis.jpg', kp:'study-images/kp-keratosis-pilaris.jpg',
+    dandruff:'study-images/dandruff-sebderm-scalp.jpg',
+    bcc:'study-images/bcc-basal-cell.jpg', scc:'study-images/scc-squamous-cell.jpg',
+    melanoma:'study-images/melanoma-malignant.jpg', solar:'study-images/solar-ak.jpg'
+  };
+
+  var DERMNET_LINKS = {
+    g1:'https://dermnetnz.org/topics/comedonal-acne',
+    g2:'https://dermnetnz.org/topics/comedonal-acne',
+    g3:'https://dermnetnz.org/topics/acne-vulgaris',
+    g4:'https://dermnetnz.org/topics/nodulocystic-acne',
+    seb:'https://dermnetnz.org/topics/seborrhoea',
+    mil:'https://dermnetnz.org/topics/milium',
+    acnev:'https://dermnetnz.org/topics/acne-vulgaris',
+    steatoma:'https://dermnetnz.org/topics/steatoma',
+    asteatosis:'https://dermnetnz.org/topics/xerosis',
+    hyperh:'https://dermnetnz.org/topics/hyperhidrosis',
+    brom:'https://dermnetnz.org/topics/bromhidrosis',
+    miliar:'https://dermnetnz.org/topics/miliaria',
+    acd:'https://dermnetnz.org/topics/allergic-contact-dermatitis',
+    icd:'https://dermnetnz.org/topics/irritant-contact-dermatitis',
+    atopic:'https://dermnetnz.org/topics/atopic-dermatitis',
+    urt:'https://dermnetnz.org/topics/urticaria',
+    chlo:'https://dermnetnz.org/topics/melasma',
+    lent:'https://dermnetnz.org/topics/lentigo',
+    vit:'https://dermnetnz.org/topics/vitiligo',
+    ephelides:'https://dermnetnz.org/topics/ephelis',
+    hyperpig:'https://dermnetnz.org/topics/postinflammatory-hyperpigmentation',
+    kel:'https://dermnetnz.org/topics/keloid',
+    dpn:'https://dermnetnz.org/topics/dermatosis-papulosa-nigra',
+    tel:'https://dermnetnz.org/topics/telangiectasia',
+    spider:'https://dermnetnz.org/topics/spider-naevus',
+    cherry:'https://dermnetnz.org/topics/cherry-angioma',
+    pws:'https://dermnetnz.org/topics/port-wine-stain',
+    psor:'https://dermnetnz.org/topics/psoriasis',
+    kp:'https://dermnetnz.org/topics/keratosis-pilaris',
+    dandruff:'https://dermnetnz.org/topics/seborrhoeic-dermatitis',
+    bcc:'https://dermnetnz.org/topics/basal-cell-carcinoma',
+    scc:'https://dermnetnz.org/topics/squamous-cell-carcinoma',
+    melanoma:'https://dermnetnz.org/topics/melanoma',
+    solar:'https://dermnetnz.org/topics/actinic-keratosis'
+  };
+
+  var DATA = {
+    identify: {
+      label: 'Visual Recognition Lab',
+      categories: {
+        'Grades of Acne': [
+          { id:'g1', prompt:'The image shows open and closed comedones with no angry redness, swelling, pustules, or cystic inflammation.',
+            options:['Grade 1 acne','Grade 2 acne','Grade 3 acne','Grade 4 acne'], answer:'Grade 1 acne',
+            clinical:'The mildest grade of acne. It is non-inflamed and consists strictly of open and closed comedones.',
+            teacher:'Think of this as just a few sleepy, clogged pores. There\'s no angry redness or swelling here, my dear — just blackheads and a few bumps.' },
+          { id:'g2', prompt:'The face is studded with closed comedones that do not mature into blackheads.',
+            options:['Grade 1 acne','Grade 2 acne','Grade 3 acne','Grade 4 acne'], answer:'Grade 2 acne',
+            clinical:'Maturation arrest — the face is studded with closed comedones (whiteheads) that do not mature into open comedones.',
+            teacher:'This is stubborn skin. The oil and dead cells are trapped under a layer of skin like tiny white pearls, and they just cannot seem to find their way out.' },
+          { id:'g3', prompt:'Inflamed papules and pustules alongside open and closed comedones.',
+            options:['Grade 1 acne','Grade 2 acne','Grade 3 acne','Grade 4 acne'], answer:'Grade 3 acne',
+            clinical:'The most common type of acne. It consists of inflamed papules and pustules along with milder comedones.',
+            teacher:'This is your classic teenage breakout. You\'ll see red, angry bumps and pustules that need a very gentle, calming touch — no aggressive scrubbing.' },
+          { id:'g4', prompt:'Large papules, pustules, and deep cysts with severe red to purplish inflammation.',
+            options:['Grade 1 acne','Grade 2 acne','Grade 3 acne','Grade 4 acne'], answer:'Grade 4 acne',
+            clinical:'The most severe and potentially scarring type of acne, featuring large papules, pustules, and deep cysts with severe purplish inflammation.',
+            teacher:'This is very painful, deep acne that can leave scars. We must treat this skin like fragile glass and always ask the client to see a dermatologist first.' }
+        ],
+        'Sebaceous Gland Disorders': [
+          { id:'seb', prompt:'The skin is extremely oily and shiny, as if the oil glands are working overtime.',
+            options:['Milia','Seborrhoea','Acne Vulgaris','Steatoma'], answer:'Seborrhoea',
+            clinical:'A condition of extreme oiliness caused by over-activity of the sebaceous gland, making the skin appear oily and shiny.',
+            teacher:'The skin\'s oil factories are working overtime! The face looks shiny very quickly, like a slick mirror.' },
+          { id:'mil', prompt:'Small, round, hard, bright white lesions sit just beneath the surface, often around the delicate eye area.',
+            options:['Seborrhoea','Milia','Acne Vulgaris','Steatoma'], answer:'Milia',
+            clinical:'Small, round, hard, bright white lesions caused by an accumulation of keratin and fatty substances within the sebaceous duct.',
+            teacher:'Like tiny, hard seeds trapped just beneath the surface. You\'ll often see these around the delicate eye area when a client uses creams that are too heavy.' },
+          { id:'acnev', prompt:'A chronic inflammatory condition of the pilo-sebaceous unit with comedones, papules, nodules, and sometimes cysts.',
+            options:['Seborrhoea','Milia','Acne Vulgaris','Steatoma'], answer:'Acne Vulgaris',
+            clinical:'A chronic inflammatory disorder of the pilo-sebaceous unit characterized by comedones, papules, nodules, and sometimes cysts.',
+            teacher:'This is the clinical name for common acne. It is an inflammatory cycle in the pore that needs consistent management, not harsh scrubbing.' },
+          { id:'steatoma', prompt:'A raised, round, moveable lump under the skin with a small central opening. It feels firm and is filled with a cheesy substance.',
+            options:['Milia','Steatoma','Acne Vulgaris','Asteatosis'], answer:'Steatoma',
+            clinical:'A benign sebaceous cyst formed by an accumulation of sebum and keratin in a blocked sebaceous duct. It has a small central punctum.',
+            teacher:'A little capsule of hardened sebum under the skin. It feels like a smooth, firm pea and always has that tiny dark dot on top — the blocked pore opening.' },
+          { id:'asteatosis', prompt:'The skin is dry, rough, and flaky with a thin, cracked appearance. It feels tight and uncomfortable.',
+            options:['Asteatosis','Seborrhoea','Milia','Acne Vulgaris'], answer:'Asteatosis',
+            clinical:'A condition of dry, rough, scaly skin caused by reduced secretion of sebum. The skin appears thin, dry, and may crack.',
+            teacher:'The opposite of seborrhoea — the oil glands are barely producing anything. The skin is thirsty and tight, like a dry riverbed.' }
+        ],
+        'Sudoriferous Gland Disorders': [
+          { id:'hyperh', prompt:'The client experiences excessive sweating caused by heat or general body weakness.',
+            options:['Hyperhidrosis','Bromhidrosis','Anhidrosis','Miliaria Rubra'], answer:'Hyperhidrosis',
+            clinical:'Excessive sweating caused by heat or general body weakness.',
+            teacher:'The sweat glands are in overdrive. It can be embarrassing for the client, but it is manageable with the right approach.' },
+          { id:'brom', prompt:'The client has foul-smelling perspiration, especially noticeable in the armpits or feet.',
+            options:['Hyperhidrosis','Bromhidrosis','Anhidrosis','Miliaria Rubra'], answer:'Bromhidrosis',
+            clinical:'Foul-smelling perspiration, usually noticeable in the armpits or on the feet.',
+            teacher:'This is sweat that has a strong odour because bacteria are breaking it down on the skin surface. Hygiene and antibacterial products help.' },
+          { id:'anhid', prompt:'The client shows a marked deficiency in perspiration, often after fever or skin disease.',
+            options:['Hyperhidrosis','Bromhidrosis','Anhidrosis','Miliaria Rubra'], answer:'Anhidrosis',
+            clinical:'A deficiency in perspiration, often a result of fever or certain skin diseases.',
+            teacher:'The sweat glands are barely working. The skin cannot cool itself properly, so be mindful of overheating during treatments.' },
+          { id:'miliar', prompt:'Small red vesicles erupt on the skin accompanied by burning and itching.',
+            options:['Hyperhidrosis','Bromhidrosis','Anhidrosis','Miliaria Rubra'], answer:'Miliaria Rubra',
+            clinical:'An acute inflammatory disorder characterized by the eruption of small red vesicles accompanied by burning, itching skin.',
+            teacher:'Commonly called prickly heat. The sweat ducts are blocked and sweat is trapped under the skin, causing that prickly, irritated feeling.' }
+        ],
+        'Allergic Skin Conditions': [
+          { id:'acd', prompt:'The skin becomes itchy and irritated after exposure to fragrance, nickel, latex, or another trigger.',
+            options:['Irritant Contact Dermatitis','Allergic Contact Dermatitis','Atopic Dermatitis','Urticaria'], answer:'Allergic Contact Dermatitis',
+            clinical:'An immune reaction triggered after the skin is exposed to a specific foreign substance, releasing inflammatory chemicals that cause itchy, irritated skin.',
+            teacher:'The skin is throwing a fiery little tantrum because it touched something it hates — maybe a harsh fragrance or nickel in jewellery. It\'s itchy and unhappy.' },
+          { id:'icd', prompt:'The skin shows dry, scaly patches with burning or stinging after exposure to harsh soaps or detergents.',
+            options:['Irritant Contact Dermatitis','Allergic Contact Dermatitis','Atopic Dermatitis','Urticaria'], answer:'Irritant Contact Dermatitis',
+            clinical:'Direct injury to the skin caused by harsh, toxic materials like strong soaps or detergents, resulting in dry, scaly patches and burning.',
+            teacher:'This is not an allergy — it is direct damage. The skin barrier is stripped by something harsh, like a strong detergent.' },
+          { id:'atopic', prompt:'The skin is chronically dry, itchy, and inflamed. It appears red on lighter skin and brown or grey on darker skin.',
+            options:['Irritant Contact Dermatitis','Allergic Contact Dermatitis','Atopic Dermatitis','Urticaria'], answer:'Atopic Dermatitis',
+            clinical:'A chronic condition causing dry, itchy, inflamed skin. In lighter skin it appears red; in darker skin it may appear brown, purple, or grey.',
+            teacher:'This skin is chronically thirsty and perfectly miserable. The protective barrier is weak, so moisture escapes and irritants sneak in.' },
+          { id:'urt', prompt:'Raised, itchy welts appear suddenly, possibly triggered by pressure, cold, or heat.',
+            options:['Irritant Contact Dermatitis','Allergic Contact Dermatitis','Atopic Dermatitis','Urticaria'], answer:'Urticaria',
+            clinical:'Raised, itchy welts that appear suddenly, often triggered by pressure, cold, heat, or sun exposure.',
+            teacher:'Commonly called hives. These welts come and go quickly — they are a histamine reaction, not a skin disease.' }
+        ],
+        'Pigmentary Disorders': [
+          { id:'chlo', prompt:'Yellowish to brownish patches appear on the forehead, cheeks, and chin.',
+            options:['Chloasma','Lentigo','Vitiligo','Albinism'], answer:'Chloasma',
+            clinical:'Often called the "Mask of Pregnancy" — yellowish to brownish pigmented areas covering the forehead, cheeks, and chin, aggravated by sun exposure.',
+            teacher:'We often call this the \'pregnancy mask.\' It is like a watercolour painting of brown patches that bloom on the face when hormones and sunshine mix.' },
+          { id:'lent', prompt:'Small yellowish to brownish spots that are more scattered than freckles.',
+            options:['Chloasma','Lentigo','Vitiligo','Albinism'], answer:'Lentigo',
+            clinical:'Small, yellowish to brownish spots that are more scattered than freckles; can undergo malignant changes if they turn blue-grey.',
+            teacher:'These are like permanent freckles that do not fade in winter. The ones that change colour need a doctor\'s check.' },
+          { id:'vit', prompt:'Abrupt, well-defined white patches that appear symmetrically on both sides of the body.',
+            options:['Chloasma','Lentigo','Vitiligo','Albinism'], answer:'Vitiligo',
+            clinical:'An abrupt loss of pigment caused by the destruction of melanocytes, resulting in non-scaly white patches that are often bilateral and symmetrical.',
+            teacher:'The little cells that paint the skin with colour have simply retired in certain spots, leaving behind beautiful, perfectly clear white patches.' },
+          { id:'alb', prompt:'The client has a total absence of pigment in the hair, eyes, and skin since birth.',
+            options:['Chloasma','Lentigo','Vitiligo','Albinism'], answer:'Albinism',
+            clinical:'A genetically predisposed condition where melanocytes are unable to form pigment, resulting in a total absence of pigment in the hair, eyes, and skin.',
+            teacher:'This is a genetic condition, not a disease. The skin has no melanin at all, so sun protection is absolutely critical every single day.' },
+          { id:'ephelides', prompt:'Small, flat, brownish spots that appear on sun-exposed areas like the nose and cheeks. They darken in summer and fade in winter.',
+            options:['Chloasma','Lentigo','Ephelides','Vitiligo'], answer:'Ephelides',
+            clinical:'Small, flat, brownish spots caused by increased melanin production in response to UV exposure. They darken in sunlight and fade in winter.',
+            teacher:'Common freckles — the skin\'s kiss from the sun. Unlike lentigo, these fade when the sun goes away. They are completely harmless.' }
+        ],
+        'Ethnic Skin Conditions': [
+          { id:'hyperpig', prompt:'Darkened areas develop easily on this client\'s skin after any injury, burn, cut, or inflammation.',
+            options:['Dermatosis Papulosa Nigra','Hyperpigmentation','Keloids','Lentigo'], answer:'Hyperpigmentation',
+            clinical:'Darkened areas that develop easily after any injury, burn, cut, or inflammation in ethnic skin.',
+            teacher:'Darker skin remembers every injury. Any inflammation can leave a dark mark that takes months to fade, so treat gently.' },
+          { id:'kel', prompt:'Raised, smooth, elongated growths at the site of a healed scar.',
+            options:['Dermatosis Papulosa Nigra','Hyperpigmentation','Keloids','Lentigo'], answer:'Keloids',
+            clinical:'Overgrowth of connective tissue at the site of a scar, appearing as elongated growths. Secondary keloids are common after injury in dark skin.',
+            teacher:'When darker skin tries to heal a cut or acne, sometimes it is an overachiever. It builds up too much healing tissue, creating a raised, smooth bump.' },
+          { id:'dpn', prompt:'Small, firm, smooth hyper-pigmented papules appear mainly on the face.',
+            options:['Dermatosis Papulosa Nigra','Hyperpigmentation','Keloids','Lentigo'], answer:'Dermatosis Papulosa Nigra',
+            clinical:'Small, firm, smooth hyper-pigmented papules found mainly in ethnic skins.',
+            teacher:'Think of these as tiny, harmless skin tags that are common in darker skin tones. They are not dangerous, but clients may want them removed for cosmetic reasons.' }
+        ],
+        'Vascular Disorders': [
+          { id:'tel', prompt:'Permanently dilated capillaries appear web-like on the face, especially the cheeks and nose.',
+            options:['Telangiectasia','Spider Naevus','Cherry Angioma','Port Wine Stain'], answer:'Telangiectasia',
+            clinical:'A group of permanently dilated superficial capillaries that appear web-like, common on the face, upper cheeks, nose, and legs.',
+            teacher:'These are broken capillaries that have stretched open and cannot close back up. They are often caused by genetics, sun damage, or harsh scrubbing.' },
+          { id:'spider', prompt:'A central bright red spot with radiating smaller capillaries resembling spider legs.',
+            options:['Telangiectasia','Spider Naevus','Cherry Angioma','Port Wine Stain'], answer:'Spider Naevus',
+            clinical:'A central bright red spot or vessel surrounded by radiating smaller capillaries resembling the legs of a spider.',
+            teacher:'This is a small cluster of blood vessels that looks like a tiny red spider. It is harmless but can be treated with IPL or laser.' },
+          { id:'cherry', prompt:'Small, round, red-to-purple domes on the skin that may bleed if injured.',
+            options:['Telangiectasia','Spider Naevus','Cherry Angioma','Port Wine Stain'], answer:'Cherry Angioma',
+            clinical:'Small, round, red-to-purple domes of capillaries that are harmless but may bleed if injured.',
+            teacher:'These little red bumps are basically a cluster of capillaries. They are completely harmless and very common after age 30.' },
+          { id:'pws', prompt:'A permanent scarlet or dark red stain present on the skin since birth.',
+            options:['Telangiectasia','Spider Naevus','Cherry Angioma','Port Wine Stain'], answer:'Port Wine Stain',
+            clinical:'A permanent scarlet or dark red stain present at birth.',
+            teacher:'This is a birthmark caused by dilated capillaries. It does not fade and can be treated with laser if the client chooses.' }
+        ],
+        'Keratinization Disorders': [
+          { id:'psor', prompt:'Rough, red, slightly raised patches covered with silvery scales.',
+            options:['Psoriasis','Keratosis Pilaris','Pityriasis Capitis','Eczema'], answer:'Psoriasis',
+            clinical:'A chronic, non-infectious disease characterized by rough, red, slightly raised patches covered with silvery scales, caused by increased turnover of epidermal cells.',
+            teacher:'The skin cells are multiplying too fast, building up into silvery, flaky patches. It is not contagious, but it needs gentle care and medical management.' },
+          { id:'kp', prompt:'Clogged follicles where the hair follicle is plugged with keratin, common on the upper arms.',
+            options:['Psoriasis','Keratosis Pilaris','Pityriasis Capitis','Eczema'], answer:'Keratosis Pilaris',
+            clinical:'Clogged follicles where the hair follicle is plugged with keratin, common on the posterior aspect of the upper arm.',
+            teacher:'Often called chicken skin. It is just dead skin cells plugging the hair follicles — harmless and very common.' },
+          { id:'dandruff', prompt:'Fine, greasy scales on the scalp.',
+            options:['Psoriasis','Keratosis Pilaris','Pityriasis Capitis','Eczema'], answer:'Pityriasis Capitis',
+            clinical:'Fine, greasy scales on the scalp — commonly known as dandruff.',
+            teacher:'Dandruff is simply the scalp shedding dead skin cells faster than normal. A good scalp care routine usually keeps it under control.' }
+        ],
+        'Skin Cancer': [
+          { id:'bcc', prompt:'A slow-growing, pearly-edged bump that rarely spreads but can be destructive if left untreated.',
+            options:['Basal Cell Carcinoma','Squamous Cell Carcinoma','Malignant Melanoma','Solar Keratosis'], answer:'Basal Cell Carcinoma',
+            clinical:'The most common skin cancer. It is slow-growing, pearly-edged, and rarely metastasizes, but can be destructive if left untreated.',
+            teacher:'A little pearly bump or a tiny sore that just refuses to heal. It is the least aggressive cancer, but it still needs a doctor\'s immediate attention.' },
+          { id:'scc', prompt:'A scaly, wart-like growth with ulceration that has a tendency to spread to lymph glands.',
+            options:['Basal Cell Carcinoma','Squamous Cell Carcinoma','Malignant Melanoma','Solar Keratosis'], answer:'Squamous Cell Carcinoma',
+            clinical:'A true invasive tumour that often appears scaly with wart-like ulceration; it tends to metastasize to lymph glands.',
+            teacher:'This one is more serious than BCC. It grows faster and can spread, so any suspicious scaly growth needs a doctor immediately.' },
+          { id:'melanoma', prompt:'A dark, irregular, changing mole that can spread throughout the body.',
+            options:['Basal Cell Carcinoma','Squamous Cell Carcinoma','Malignant Melanoma','Solar Keratosis'], answer:'Malignant Melanoma',
+            clinical:'A life-threatening cancer arising in any pigment-containing tissue. It can metastasize throughout the body.',
+            teacher:'The most dangerous shape-shifter. If a mole is as dark as ink, has jagged edges, or is growing quickly, stop the facial and send them straight to a doctor.' },
+          { id:'solar', prompt:'A rough, scaly, reddish patch on sun-exposed skin that does not heal. It feels like sandpaper.',
+            options:['Basal Cell Carcinoma','Solar Keratosis','Squamous Cell Carcinoma','Malignant Melanoma'], answer:'Solar Keratosis',
+            clinical:'A pre-cancerous lesion caused by chronic sun damage. It appears as a rough, scaly patch that can develop into SCC if untreated.',
+            teacher:'Think of this as the skin\'s warning sign that too much sun has caught up. It is not cancer yet, but it can become SCC, so a doctor must see it.' }
+        ]
+      }
+    },
+    analyze: {
+      label: 'Analysis Engine',
+      categories: {
+        'Skin Type Identification': [
+          { id:'alip', prompt:'The client has fine pores, no apparent oil, a thin appearance, and a matt condition prone to wrinkles.',
+            options:['Alipidic dry skin','Oily skin','Combination skin','Sensitive skin'], answer:'Alipidic dry skin',
+            clinical:'Fine pores, no apparent oil, thin appearance, matt condition, prone to wrinkles.',
+            teacher:'Think of this skin like dry, delicate parchment paper. It does not make enough of its own natural lotion, so it desperately needs us to hydrate it.' },
+          { id:'oily', prompt:'The client has enlarged pores all over, a shiny thick appearance, and is prone to comedones.',
+            options:['Alipidic dry skin','Oily skin','Combination skin','Sensitive skin'], answer:'Oily skin',
+            clinical:'Enlarged pores all over, shiny and thick appearance, prone to comedones and other lesions.',
+            teacher:'This skin is like a sturdy, shiny leather. It ages wonderfully because of all that natural oil, but it needs deep cleaning to keep those large pores from getting plugged.' },
+          { id:'combo', prompt:'The client has an oily T-zone with normal to dry cheeks.',
+            options:['Alipidic dry skin','Oily skin','Combination skin','Sensitive skin'], answer:'Combination skin',
+            clinical:'Classic T-Zone with oily forehead, nose, and chin and normal or dry cheeks.',
+            teacher:'The best of both worlds, or the trickiest. The centre needs balancing while the cheeks need hydrating — two routines in one.' },
+          { id:'sens', prompt:'The client has translucent skin with a thin epidermis and a pinkish colour that reacts easily.',
+            options:['Alipidic dry skin','Oily skin','Combination skin','Sensitive skin'], answer:'Sensitive skin',
+            clinical:'Translucent appearance with thin epidermis and pinkish/reddish colour, easily stimulated with possible dilated capillaries.',
+            teacher:'This skin is very delicate and reactive. Everything you use must be gentle, or it will let you know it is unhappy.' },
+          { id:'mature', prompt:'The client shows loss of muscle tone with visible jowls, thinner skin, and wrinkles.',
+            options:['Alipidic dry skin','Oily skin','Combination skin','Sensitive skin','Mature skin'], answer:'Mature skin',
+            clinical:'Loss of muscle tone with jowls evident, thinner skin, and visible wrinkles.',
+            teacher:'This skin has lived a full life and needs extra support. Firming, hydrating, and protecting are the priorities.' }
+        ],
+        'Fitzpatrick Scale': [
+          { id:'fp1', prompt:'The client has red hair, blue eyes, very fair skin that burns easily and never tans.',
+            options:['Type 1','Type 2','Type 3','Type 6'], answer:'Type 1',
+            clinical:'Type 1: Red or blonde hair, blue/green eyes, very fair skin. Burns easily and never tans.',
+            teacher:'Porcelain skin that turns red if it merely looks at the sun. They have zero natural defence against UV rays.' },
+          { id:'fp3', prompt:'The client has brown hair with fair or sandy skin that burns easily but tans with difficulty.',
+            options:['Type 1','Type 2','Type 3','Type 6'], answer:'Type 3',
+            clinical:'Type 3: Brown hair and fair/sandy skin. Burns easily but tans with difficulty.',
+            teacher:'Your classic sun-sensitive skin. A bit more pigment than Type 1, but still needs serious SPF discipline.' },
+          { id:'fp6', prompt:'The client has black hair, dark brown eyes, never burns, and the skin darkens on UV exposure.',
+            options:['Type 1','Type 2','Type 3','Type 6'], answer:'Type 6',
+            clinical:'Type 6: Black hair and dark brown eyes. Never burns and skin darkens significantly on UV exposure.',
+            teacher:'Richly pigmented skin with beautiful, built-in sun defence. They rarely burn, but they are very prone to dark spots if we are too harsh with our treatments.' }
+        ]
+      }
+    },
+    prescribe: {
+      label: 'Formulation Lab',
+      categories: {
+        'Exfoliants for Blemish Skin': [
+          { id:'ahas', prompt:'The case involves ageing, photo-damaged, or non-inflamed acne that needs exfoliation.',
+            options:['Alpha hydroxy acid','Beta hydroxy acid','Enzyme peel','Ozone steam'], answer:'Alpha hydroxy acid',
+            clinical:'Dissolves protein links between cells. Best for ageing, photo-damaged, and non-inflamed acne.',
+            teacher:'These are the ungluing acids. They gently melt the glue holding dead cells to the surface, revealing fresh, glowing skin underneath. Great for sun damage.' },
+          { id:'bhas', prompt:'The case is oily, congested, and needs an exfoliant that penetrates deep into the pore.',
+            options:['Alpha hydroxy acid','Beta hydroxy acid','Enzyme peel','Ozone steam'], answer:'Beta hydroxy acid',
+            clinical:'Oil-soluble acids suited for oily, congested skin.',
+            teacher:'Unlike AHAs, BHAs are the deep-sea divers of skincare. They can swim right down into the oily pore to clean out the gunk. Salicylic acid is your best friend for acne.' },
+          { id:'enzyme', prompt:'The goal is to soften comedones and prepare the skin for extraction using gentle enzymatic action.',
+            options:['Alpha hydroxy acid','Beta hydroxy acid','Enzyme peel','Ozone steam'], answer:'Enzyme peel',
+            clinical:'Derived from papain or bromelain; dissolves keratinized cells via heat and moisture. Best for softening comedones.',
+            teacher:'Think of enzymes like tiny Pac-Men made from papaya and pineapple. They only eat the dead skin cells, leaving the healthy living skin completely alone. So gentle and lovely.' },
+          { id:'ozone', prompt:'The case is seborrhoeic, blemished skin that needs drying, healing, and anti-bacterial effects.',
+            options:['Alpha hydroxy acid','Beta hydroxy acid','Enzyme peel','Ozone steam'], answer:'Ozone steam',
+            clinical:'Indicated for seborrhoeic, blemished skin. It has a drying, healing, and anti-bacterial effect.',
+            teacher:'Ozone steam is wonderful for oily, blemished skin because it kills bacteria while drying up excess oil — a gentle way to deep clean without harsh chemicals.' }
+        ],
+        'Ethnic Skin Care': [
+          { id:'pig_tx', prompt:'A client with ethnic skin has developed darkened areas after every minor injury or breakout. Which treatment approach is safest?',
+            options:['Aggressive peels and lasers','Fading agents with gentle exfoliation','Steroid injections','Cryotherapy'], answer:'Fading agents with gentle exfoliation',
+            clinical:'Hyperpigmentation in ethnic skin is treated with fading, lightening agents and gentle exfoliation. Harsh treatments worsen pigmentation.',
+            teacher:'Darker skin remembers every little injury. Fading agents and gentle exfoliation help the skin gradually return to its natural colour without causing more dark spots.' },
+          { id:'kel_tx', prompt:'A client healed from a facial injury but the scar tissue has grown into a raised, smooth bump. What is the primary treatment concern?',
+            options:['Exfoliate aggressively','Silicone therapy and steroid injections','Extract the bump','Apply bleach cream'], answer:'Silicone therapy and steroid injections',
+            clinical:'Keloids require silicone therapy, steroid injections, and no aggressive treatment of any kind on the site.',
+            teacher:'Do not touch a keloid with anything aggressive. Silicone sheets and medical steroid treatments are the proper path. Our job is to be gentle and refer.' },
+          { id:'dpn_tx', prompt:'A client has dozens of small raised dark bumps on their face. They would like them removed. What is the correct approach?',
+            options:['Laser treatment from a dermatologist','Extract them yourself','Scrub with acids','Cover with concealer'], answer:'Laser treatment from a dermatologist',
+            clinical:'Dermatosis Papulosa Nigra requires referral to a dermatologist. Do not extract or treat in a salon setting.',
+            teacher:'These tiny dark bumps are harmless but stubborn. Do not try to remove them — only a dermatologist should treat DPN.' }
+        ]
+      }
+    },
+    safety: {
+      label: 'Red Flag System',
+      categories: {
+        'Doctor Referral': [
+          { id:'suspicious', prompt:'A pigmented growth is changing size, has irregular edges, and has started bleeding.',
+            options:['Massage around it','Refer to doctor immediately','Cover it with product','Continue as normal'], answer:'Refer to doctor immediately',
+            clinical:'A growth that is bleeding, getting larger, has irregular edges, or has changed in colour or size must be referred to a doctor immediately.',
+            teacher:'When a mole behaves like a shape-shifter, stop the treatment. Your best care is a fast referral.' },
+          { id:'melalert', prompt:'A mole has become as dark as ink with jagged, uneven borders and is growing quickly.',
+            options:['Massage around it','Refer to doctor immediately','Cover it with foundation','Spot treat with acids'], answer:'Refer to doctor immediately',
+            clinical:'Any suspicious mole that has changed in colour, size, or shape must be referred to a doctor immediately for assessment.',
+            teacher:'This is not a time to prove skill. If a mole looks dangerous, stop everything and send them to a dermatologist.' }
+        ],
+        'Treatment Restrictions': [
+          { id:'g34restrict', prompt:'The client presents with deep cysts, large inflamed lesions, and severe purplish inflammation.',
+            options:['Continue with exfoliation','Extract every lesion','Medical permission required','Use ozone steam only'], answer:'Medical permission required',
+            clinical:'Grades 3 and 4 acne should not be treated without medical permission. Severe cystic inflammation can scar.',
+            teacher:'This is not a place to prove skill. Pause, protect the client, and refer before you treat.' },
+          { id:'impetigo', prompt:'The client has honey-coloured crusted lesions that appear to be spreading.',
+            options:['Cleanse gently','Refer to doctor immediately','Apply soothing mask','Extract the crusts'], answer:'Refer to doctor immediately',
+            clinical:'Impetigo is a highly contagious bacterial infection with honey-coloured crusts. No salon treatment should be given.',
+            teacher:'Honey-coloured crusts are a red flag for impetigo. This is highly contagious — no facial, no products, just a referral to the doctor.' },
+          { id:'tinea', prompt:'The client has round, ringed lesions on the skin.',
+            options:['Treat with anti-inflammatory products','Refer to doctor immediately','Exfoliate the area','Apply moisturiser'], answer:'Refer to doctor immediately',
+            clinical:'Tinea (ringworm) is a contagious fungal infection presenting as round ringed lesions. No salon treatment should be given.',
+            teacher:'Ring-shaped lesions are ringworm until proven otherwise. This is fungal and very contagious — refer out immediately.' },
+          { id:'herpes', prompt:'The client has a cluster of small, painful blisters around the mouth.',
+            options:['Massage the area','Refer to doctor immediately','Apply soothing mask','Pierce and clean'], answer:'Refer to doctor immediately',
+            clinical:'Herpes Simplex (cold sores) is highly contagious. No salon treatment should be performed on or near the affected area.',
+            teacher:'Cold sores are contagious and can spread. Do not work near them and do not touch — send them to their doctor.' },
+          { id:'erythema', prompt:'Dark purple erythema appears on ethnic skin during treatment, indicating deep inflammation.',
+            options:['Continue with gentle pressure','Apply cooling gel','Halt treatment and refer to doctor','Switch to stronger product'], answer:'Halt treatment and refer to doctor',
+            clinical:'Dark purple erythema on ethnic skin indicates deep inflammation. Salon treatment should be stopped and the client referred to a doctor.',
+            teacher:'Purple discolouration on dark skin is a sign of deeper inflammation than redness would be on lighter skin. Stop and refer.' },
+          { id:'fever_drugs', prompt:'The client has a fever and is currently taking strong medication. What should you do?',
+            options:['Proceed with gentle treatment','Reschedule the appointment','Only work on the body','Use extra products'], answer:'Reschedule the appointment',
+            clinical:'Treatment is restricted if the client has a fever, a contagious disease, or is under the influence of drugs or alcohol.',
+            teacher:'A hot face does not need a facial. Fever means the body is fighting something. And drugs or alcohol change how the skin reacts — always reschedule.' }
+        ]
+      }
+    },
+    anatomy: {
+      label: 'Foundational Anatomy',
+      categories: {
+        'Cranial Nerves': [
+          { id:'cn1', prompt:'Cranial nerve I is responsible for the sense of smell.',
+            options:['Optic','Olfactory','Oculomotor','Trigeminal'], answer:'Olfactory',
+            clinical:'The olfactory nerve is cranial nerve I, responsible for the sense of smell.',
+            teacher:'Olfactory = smell. This tiny nerve sits right above the nose and gives us the ability to scent a rose or a client\'s perfume.' },
+          { id:'cn2', prompt:'Cranial nerve II is responsible for vision.',
+            options:['Olfactory','Optic','Oculomotor','Facial'], answer:'Optic',
+            clinical:'The optic nerve is cranial nerve II, responsible for vision.',
+            teacher:'Optic = eye. It carries visual signals from the retina to the brain. Think of it as the wire connecting the camera to the screen.' },
+          { id:'cn3', prompt:'Cranial nerve III controls most of the eye\'s movement and pupil constriction.',
+            options:['Optic','Trochlear','Oculomotor','Abducens'], answer:'Oculomotor',
+            clinical:'The oculomotor nerve is cranial nerve III, controlling eye movement and pupil constriction.',
+            teacher:'Oculomotor = eye mover. It controls the muscles that roll the eyes up, down, and around.' },
+          { id:'cn5', prompt:'You are naming cranial nerve five. Olfactory is 1, Optic is 2, Oculomotor is 3, Trochlear is 4 — what is 5?',
+            options:['Facial','Trigeminal','Vagus','Abducens'], answer:'Trigeminal',
+            clinical:'The trigeminal nerve is cranial nerve V, providing sensation to the face and motor functions for chewing.',
+            teacher:'Number five is trigeminal. Keep the count steady from Olfactory (1) through to Hypoglossal (12).' },
+          { id:'cn7', prompt:'This nerve controls facial expression. It is the seventh cranial nerve.',
+            options:['Trigeminal','Facial','Vagus','Glossopharyngeal'], answer:'Facial',
+            clinical:'The facial nerve is cranial nerve VII, controlling muscles of facial expression.',
+            teacher:'The facial nerve is seven. When a client smiles and the expression is symmetrical, that is the facial nerve at work.' },
+          { id:'cn10', prompt:'Cranial nerve X has the widest distribution in the body, affecting the heart, lungs, and digestive tract.',
+            options:['Accessory','Vagus','Facial','Glossopharyngeal'], answer:'Vagus',
+            clinical:'The vagus nerve is cranial nerve X. It is the longest cranial nerve and the most widely distributed.',
+            teacher:'Vagus = wanderer. It travels all the way from the brainstem down to the belly. It is the body\'s calming nerve.' },
+          { id:'cn4', prompt:'Cranial nerve IV controls the superior oblique muscle of the eye, enabling downward and inward rotation.',
+            options:['Trochlear','Abducens','Oculomotor','Trigeminal'], answer:'Trochlear',
+            clinical:'The trochlear nerve is cranial nerve IV, controlling the superior oblique muscle of the eye.',
+            teacher:'Trochlear means pulley. It loops through a little pulley in the eye socket to help you look down at your book.' },
+          { id:'cn6', prompt:'Cranial nerve VI controls the lateral rectus muscle, allowing the eye to look outward.',
+            options:['Trochlear','Accessory','Abducens','Facial'], answer:'Abducens',
+            clinical:'The abducens nerve is cranial nerve VI, controlling the lateral rectus muscle for outward eye movement.',
+            teacher:'Abducens = to abduct. It pulls the eye outward, away from the nose. Think of it as the sideways-glance nerve.' },
+          { id:'cn8', prompt:'Cranial nerve VIII is responsible for hearing and balance.',
+            options:['Facial','Vestibulocochlear','Glossopharyngeal','Vagus'], answer:'Vestibulocochlear',
+            clinical:'The vestibulocochlear nerve is cranial nerve VIII, responsible for hearing and balance.',
+            teacher:'This nerve has two jobs: hearing (cochlear) and balance (vestibular). When a client gets dizzy, this is the nerve at play.' },
+          { id:'cn9', prompt:'Cranial nerve IX controls taste on the back third of the tongue and assists with swallowing.',
+            options:['Vagus','Facial','Glossopharyngeal','Accessory'], answer:'Glossopharyngeal',
+            clinical:'The glossopharyngeal nerve is cranial nerve IX, controlling taste on the posterior tongue and assisting swallowing.',
+            teacher:'Glossopharyngeal = tongue and throat. It helps you taste and swallow. A nerve with two very practical jobs.' },
+          { id:'cn11', prompt:'Cranial nerve XI controls the sternocleidomastoid and trapezius muscles of the neck and shoulders.',
+            options:['Hypoglossal','Accessory','Vagus','Glossopharyngeal'], answer:'Accessory',
+            clinical:'The accessory nerve is cranial nerve XI, controlling the sternocleidomastoid and trapezius muscles.',
+            teacher:'The accessory nerve helps you shrug your shoulders and turn your head. Essential for massage therapists to know.' },
+          { id:'cn12', prompt:'Cranial nerve XII controls the muscles of the tongue.',
+            options:['Vagus','Accessory','Hypoglossal','Facial'], answer:'Hypoglossal',
+            clinical:'The hypoglossal nerve is cranial nerve XII, controlling the muscles of the tongue.',
+            teacher:'Hypoglossal = under the tongue. Stick out your tongue — that is CN12 at work.' }
+        ],
+        'Epidermal Layers': [
+          { id:'corneum', prompt:'Label the epidermal layers from outermost inward. Which is the tough, protective top layer?',
+            options:['Stratum Germinativum','Stratum Granulosum','Stratum Corneum','Stratum Lucidum'], answer:'Stratum Corneum',
+            clinical:'The stratum corneum is the outermost layer of the epidermis, composed of dead, flattened cells.',
+            teacher:'Think of it as the skin\'s shield. It is the tough, protective top layer that keeps the good stuff in and the bad stuff out.' },
+          { id:'lucidum', prompt:'This thin, clear layer of the epidermis is only found on the palms of the hands and soles of the feet.',
+            options:['Stratum Germinativum','Stratum Granulosum','Stratum Lucidum','Stratum Spinosum'], answer:'Stratum Lucidum',
+            clinical:'The stratum lucidum is a thin, clear layer found only on the palms and soles, providing extra protection.',
+            teacher:'This is the see-through safety layer. It only exists where the body needs extra padding — the hands and feet.' },
+          { id:'granulosum', prompt:'In this epidermal layer, cells begin to flatten and fill with keratin granules.',
+            options:['Stratum Germinativum','Stratum Granulosum','Stratum Lucidum','Stratum Spinosum'], answer:'Stratum Granulosum',
+            clinical:'The stratum granulosum is where cells start to flatten and accumulate keratin granules as they move upward.',
+            teacher:'Think of this as the transformation zone. Cells are packing their bags with keratin before heading to the surface.' },
+          { id:'spinosum', prompt:'This epidermal layer is also called the prickle cell layer because of its spiny appearance.',
+            options:['Stratum Germinativum','Stratum Granulosum','Stratum Spinosum','Stratum Disjunctivum'], answer:'Stratum Spinosum',
+            clinical:'The stratum spinosum, or prickle cell layer, sits above the germinativum and provides strength to the epidermis.',
+            teacher:'Called the prickle layer because under a microscope the cells look like they have tiny spikes hugging each other.' },
+          { id:'disjunctivum', prompt:'Describe the very outermost layer of the epidermis where cells are loose and shedding.',
+            options:['Stratum Corneum','Stratum Disjunctivum','Stratum Lucidum','Stratum Granulosum'], answer:'Stratum Disjunctivum',
+            clinical:'The stratum disjunctivum is the loosest, outermost part of the stratum corneum where cells are shed.',
+            teacher:'This is the flaky, shedding part of the surface. Cells are saying goodbye and floating away as we move through the day.' },
+          { id:'germ', prompt:'This is the deepest layer of the epidermis where cell division occurs.',
+            options:['Stratum Germinativum','Stratum Granulosum','Stratum Corneum','Stratum Spinosum'], answer:'Stratum Germinativum',
+            clinical:'The stratum germinativum is the deepest epidermal layer where new skin cells are produced.',
+            teacher:'This is the basement level where brand new skin cells are born. They will slowly travel up to the surface over several weeks.' }
+        ],
+        'Dermal Layers': [
+          { id:'dermal', prompt:'The dermis has two layers. Which one is superficial and which is deep?',
+            options:['Reticular superficial, Papillary deep','Papillary superficial, Reticular deep','Both are the same','Epidermis has two layers'], answer:'Papillary superficial, Reticular deep',
+            clinical:'The papillary layer is the superficial layer of the dermis; the reticular layer is the deeper layer.',
+            teacher:'Papillary is the top, light touch layer of the dermis. Reticular is the deep, tough layer that gives the skin its strength.' }
+        ],
+        'Lymph Nodes': [
+          { id:'submand', prompt:'Which lymph node is located under the jaw?',
+            options:['Parotid','Submandibular','Occipital','Cervical'], answer:'Submandibular',
+            clinical:'The submandibular lymph nodes sit under the mandible and drain the chin, lower lip, and cheeks.',
+            teacher:'Submandibular means under the mandible. They drain the chin, lower lip, and cheeks.' },
+          { id:'parotid', prompt:'Which lymph node sits in front of the ear?',
+            options:['Submandibular','Occipital','Parotid','Cervical'], answer:'Parotid',
+            clinical:'The parotid lymph nodes are located in front of the ear, near the parotid gland.',
+            teacher:'Parotid = near the ear. They drain the scalp, face, and ear area.' },
+          { id:'submental', prompt:'Which lymph node is located directly under the chin at the midline?',
+            options:['Parotid','Submandibular','Submental','Cervical'], answer:'Submental',
+            clinical:'The submental lymph nodes sit under the chin in the midline and drain the central lower lip and tip of the tongue.',
+            teacher:'Submental = under the chin. They are the very tip of the body\'s drainage system for the lower face.' },
+          { id:'occipital', prompt:'Which lymph node is located at the back of the head?',
+            options:['Parotid','Occipital','Submandibular','Cervical'], answer:'Occipital',
+            clinical:'The occipital lymph nodes are located at the back of the head, near the occipital bone.',
+            teacher:'Occipital = back of the head. They drain the posterior scalp and neck.' },
+          { id:'cervical', prompt:'Which lymph nodes run along the side of the neck?',
+            options:['Parotid','Submandibular','Occipital','Cervical'], answer:'Cervical',
+            clinical:'The cervical lymph nodes run along the sternocleidomastoid muscle on each side of the neck.',
+            teacher:'Cervical = neck. These are the big drainage channels that all the other facial nodes feed into.' }
+        ]
+      }
+    }
+  };
+
+  var STATION_META = {
+    identify:  { name: 'Identify',  ask: 'What are you looking at?' },
+    analyze:   { name: 'Analyze',   ask: 'What is this client telling you?' },
+    prescribe: { name: 'Prescribe', ask: 'What belongs on the tray?' },
+    safety:    { name: 'Safety',    ask: 'Do you treat — or stop?' },
+    anatomy:   { name: 'Anatomy',   ask: 'What structure is this?' }
+  };
+
+  var state = loadState();
+  var activeModule = 'identify';
+  var activeCat = null;
+  var activeIndex = 0;
+  var answered = false;
+  var currentCard = null;
+
+  var stations = Array.prototype.slice.call(document.querySelectorAll('.station'));
+  var catList = document.getElementById('cat-list');
+  var answerGrid = document.getElementById('answer-grid');
+  var revealPanel = document.getElementById('reveal-panel');
+  var clinicalTitle = document.getElementById('clinical-title');
+  var clinicalText = document.getElementById('clinical-text');
+  var teacherText = document.getElementById('teacher-text');
+  var cardCategory = document.getElementById('card-category');
+  var cardTitle = document.getElementById('card-title');
+  var cardPrompt = document.getElementById('card-prompt');
+  var caseStation = document.getElementById('case-station');
+  var visualTitle = document.getElementById('visual-title');
+  var caseMeta = document.getElementById('case-meta');
+  var knownCount = document.getElementById('known-count');
+  var knownBlurb = document.getElementById('known-blurb');
+  var saveStatus = document.getElementById('save-status');
+  var masterBtn = document.getElementById('master-btn');
+  var caseImage = document.getElementById('case-image');
+  var caseVisual = document.querySelector('.case-visual');
+  var caseVisualHint = document.querySelector('.case-visual-hint');
+
+  function loadState(){
+    try {
+      var p = JSON.parse(localStorage.getItem(STORE) || '{}');
+      return { mastered: Array.isArray(p.mastered) ? p.mastered : [], rounds: Number(p.rounds||0) };
+    } catch(_) { return { mastered: [], rounds: 0 }; }
+  }
+  function saveState(quiet){
+    try {
+      localStorage.setItem(STORE, JSON.stringify(state));
+      if (!quiet) saveStatus.textContent = 'Pinned on this device.';
+    } catch(_) { saveStatus.textContent = 'Could not save on this device.'; }
+  }
+  function getCats(module){
+    return Object.keys(DATA[module].categories);
+  }
+  function getCards(module, cat){
+    return DATA[module].categories[cat];
+  }
+  function isKnown(id){
+    return state.mastered.indexOf(id) !== -1;
+  }
+
+  function renderCats(){
+    catList.innerHTML = '';
+    var cats = getCats(activeModule);
+    cats.forEach(function(cat){
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'topic';
+      var cards = getCards(activeModule, cat);
+      b.setAttribute('aria-current', cat === activeCat ? 'true' : 'false');
+      b.innerHTML = '<span>' + cat + '</span><span class="topic-n">' + cards.length + '</span>';
+      b.addEventListener('click', function(){ activeCat = cat; activeIndex = 0; renderCard(); });
+      catList.appendChild(b);
+    });
+  }
+
+  function renderKnown(){
+    var n = state.mastered.length;
+    if (!n) {
+      knownCount.textContent = 'Nothing pinned yet';
+      knownBlurb.textContent = 'Cases you know stay on this device.';
+    } else {
+      knownCount.textContent = n === 1 ? '1 case pinned' : n + ' cases pinned';
+      knownBlurb.textContent = 'Quiet notes — not a scoreboard.';
+    }
+  }
+
+  function syncMasterBtn(){
+    if (!currentCard) return;
+    var known = isKnown(currentCard.id);
+    masterBtn.textContent = known ? 'Pinned' : 'I know this';
+    masterBtn.classList.toggle('is-known', known);
+    masterBtn.disabled = known;
+  }
+
+  function renderCard(){
+    var cats = getCats(activeModule);
+    activeCat = activeCat || cats[0];
+    var cards = getCards(activeModule, activeCat);
+    if (activeIndex >= cards.length) activeIndex = 0;
+    if (activeIndex < 0) activeIndex = cards.length - 1;
+    currentCard = cards[activeIndex];
+    answered = false;
+
+    var meta = STATION_META[activeModule] || STATION_META.identify;
+    caseStation.textContent = meta.name;
+    cardCategory.textContent = activeCat;
+    cardTitle.textContent = meta.ask;
+    cardPrompt.textContent = currentCard.prompt;
+    var imgSrc = IMAGES[currentCard.id] || '';
+    var dermLink = DERMNET_LINKS[currentCard.id] || '';
+    caseImage.src = imgSrc;
+    caseImage.style.display = imgSrc ? 'block' : 'none';
+    caseImage.style.cursor = dermLink ? 'pointer' : 'default';
+    caseImage.title = dermLink ? 'Tap to verify on DermNet' : '';
+    caseVisualHint.style.display = imgSrc ? 'none' : 'block';
+    caseVisual.onclick = dermLink ? function(){ window.open(dermLink, '_blank'); } : null;
+    caseVisual.style.cursor = dermLink ? 'pointer' : 'default';
+    caseMeta.textContent = 'Case ' + (activeIndex + 1) + ' of ' + cards.length;
+
+    answerGrid.innerHTML = '';
+    currentCard.options.forEach(function(opt){
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'answer-opt';
+      b.innerHTML = '<span>' + opt + '</span><span class="mark"></span>';
+      b.addEventListener('click', function(){ chooseAnswer(opt); });
+      answerGrid.appendChild(b);
+    });
+
+    revealPanel.classList.remove('is-open');
+    clinicalTitle.textContent = '—';
+    clinicalText.textContent = 'Make your call to open the notes.';
+    teacherText.textContent = 'The caring explanation appears here.';
+    saveStatus.textContent = '';
+
+    renderCats();
+    renderKnown();
+    syncMasterBtn();
+  }
+
+  function chooseAnswer(selected){
+    if (answered) return;
+    answered = true;
+    var buttons = Array.prototype.slice.call(answerGrid.querySelectorAll('.answer-opt'));
+    buttons.forEach(function(b){
+      var txt = b.querySelector('span').textContent;
+      var mark = b.querySelector('.mark');
+      b.disabled = true;
+      if (txt === currentCard.answer) { b.classList.add('is-correct'); mark.textContent = 'Yes'; }
+      else if (txt === selected) { b.classList.add('is-wrong'); mark.textContent = 'No'; }
+      else { mark.textContent = ''; }
+    });
+    clinicalTitle.textContent = currentCard.answer;
+    clinicalText.textContent = currentCard.clinical;
+    teacherText.textContent = currentCard.teacher || 'No teacher\'s take available for this condition.';
+    revealPanel.classList.add('is-open');
+    if (selected === currentCard.answer) state.rounds += 1;
+    saveState(true);
+  }
+
+  function markMastered(){
+    if (!currentCard || isKnown(currentCard.id)) return;
+    state.mastered.push(currentCard.id);
+    saveState();
+    renderKnown();
+    syncMasterBtn();
+  }
+
+  function nextCard(){
+    var cards = getCards(activeModule, activeCat);
+    activeIndex = (activeIndex + 1) % cards.length;
+    renderCard();
+  }
+  function prevCard(){
+    var cards = getCards(activeModule, activeCat);
+    activeIndex = (activeIndex - 1 + cards.length) % cards.length;
+    renderCard();
+  }
+
+  function speakAnswer(){
+    if (!currentCard || !('speechSynthesis' in window)) { saveStatus.textContent = 'Speech not available.'; return; }
+    window.speechSynthesis.cancel();
+    var txt = currentCard.answer + '. Textbook. ' + currentCard.clinical + '. Teacher. ' + (currentCard.teacher || '');
+    var u = new SpeechSynthesisUtterance(txt);
+    u.rate = .9; u.pitch = 1;
+    window.speechSynthesis.speak(u);
+  }
+
+  stations.forEach(function(tab){
+    tab.addEventListener('click', function(){
+      activeModule = tab.getAttribute('data-module');
+      activeCat = getCats(activeModule)[0];
+      activeIndex = 0;
+      stations.forEach(function(t){
+        t.setAttribute('aria-selected', t.getAttribute('data-module') === activeModule ? 'true' : 'false');
+      });
+      renderCard();
+    });
+  });
+
+  masterBtn.addEventListener('click', markMastered);
+  document.getElementById('next-btn').addEventListener('click', nextCard);
+  document.getElementById('prev-btn').addEventListener('click', prevCard);
+  document.getElementById('speak-btn').addEventListener('click', speakAnswer);
+
+  activeCat = getCats(activeModule)[0];
+  renderCard();
+})();
+</script>
+</body>
+</html>

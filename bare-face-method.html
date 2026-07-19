@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="en" data-mode="faithful">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The Bare-Face Method — Skin Resolute</title>
+<meta name="description" content="The honest 30-minute test that tells you what your skin actually needs. Wash, pat dry, wait, observe." />
+<script>(function(){try{var m=localStorage.getItem('sr:mode');if(m==='playful'||m==='faithful'){document.documentElement.setAttribute('data-mode',m);}}catch(e){}})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Mulish:wght@300;400;500;600;700;800&family=Caveat:wght@600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="theme.css" />
+<style>
+  /* ============ BARE-FACE METHOD — page-specific ============ */
+  .bf-hero{
+    background: var(--bg-grad);
+    padding: 80px 0 88px;
+    overflow: hidden;
+  }
+  .bf-hero-grid{ display: grid; grid-template-columns: 1.2fr 1fr; gap: 56px; align-items: end; }
+  .bf-hero .eyebrow{ display: inline-block; margin-bottom: 18px; }
+  .bf-hero h1{
+    font-size: clamp(52px, 6.5vw, 104px); line-height: .96;
+    letter-spacing: -.025em; font-weight: 700;
+  }
+  .bf-hero h1 .em{ font-style: italic; color: var(--accent); font-weight: 600; }
+  .bf-hero .lede{
+    margin-top: 28px;
+    font-family: var(--font-display); font-style: italic; font-weight: 500;
+    font-size: clamp(19px, 1.6vw, 24px); line-height: 1.42;
+    color: color-mix(in srgb, var(--fg) 80%, var(--accent));
+    max-width: 520px;
+  }
+  .bf-hero .timer-card{
+    background: var(--surface);
+    border-radius: var(--radius-l);
+    padding: 32px 32px 28px;
+    box-shadow: var(--shadow-card);
+    position: relative; overflow: hidden;
+  }
+  .bf-hero .timer-card .label{
+    font-family: var(--font-body-active); font-weight: 800;
+    font-size: 11px; letter-spacing: .22em; text-transform: uppercase;
+    color: var(--accent-2);
+  }
+  .bf-hero .timer-card .big{
+    font-family: var(--font-display); font-weight: 700;
+    font-size: clamp(72px, 8vw, 120px);
+    line-height: .9; letter-spacing: -.04em;
+    color: var(--fg); margin-top: 8px;
+  }
+  .bf-hero .timer-card .big small{
+    font-family: var(--font-hand); font-weight: 700;
+    font-size: .35em; color: var(--accent);
+    margin-left: 6px;
+  }
+  .bf-hero .timer-card .items{
+    margin-top: 18px;
+    list-style: none; padding: 0;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px;
+  }
+  .bf-hero .timer-card .items li{
+    font-family: var(--font-body-active); font-weight: 600;
+    font-size: 13px; line-height: 1.4; color: var(--muted);
+    padding-left: 22px; position: relative;
+  }
+  .bf-hero .timer-card .items li::before{
+    content: ""; position: absolute; left: 0; top: 6px;
+    width: 12px; height: 12px; border-radius: 50%;
+    background: var(--accent); opacity: .55;
+  }
+
+  /* Steps — 4 large numbered sections */
+  .steps{ padding-top: 0; }
+  .step{
+    display: grid;
+    grid-template-columns: 120px 1fr 320px;
+    gap: 48px;
+    align-items: start;
+    padding: 64px 0;
+    border-top: 1px solid var(--line-warm);
+  }
+  .step:last-child{ border-bottom: 1px solid var(--line-warm); }
+  .step .n{
+    font-family: var(--font-display); font-weight: 700; font-style: italic;
+    font-size: 88px; line-height: .85;
+    color: var(--accent-3); letter-spacing: -.03em;
+  }
+  .step .body .pill{
+    display: inline-flex; align-items: center;
+    background: var(--accent); color: var(--on-accent);
+    font-family: var(--font-body-active); font-weight: 800;
+    font-size: 11px; letter-spacing: .2em; text-transform: uppercase;
+    padding: 7px 16px; border-radius: var(--radius-pill);
+    margin-bottom: 18px;
+  }
+  .step .body h2{
+    font-size: clamp(36px, 4.2vw, 56px);
+    line-height: 1.0; letter-spacing: -.02em; font-weight: 700;
+  }
+  .step .body .detail{
+    margin-top: 24px;
+    font-size: 17px; line-height: 1.65; color: var(--muted);
+    max-width: 56ch;
+  }
+  .step .body .detail b{ color: var(--fg); font-weight: 700; }
+  .step .voice{
+    background: var(--surface-2);
+    border-radius: var(--radius-l);
+    padding: 32px 30px;
+    position: relative;
+  }
+  .step .voice .vh{
+    color: var(--accent-2); font-size: 36px; line-height: 1;
+    margin-bottom: 14px; display: block;
+    font-family: var(--font-hand); font-weight: 700;
+  }
+  .step .voice .vt{
+    font-family: var(--font-display); font-style: italic; font-weight: 600;
+    font-size: 22px; line-height: 1.32;
+    color: color-mix(in srgb, var(--fg) 80%, var(--accent));
+  }
+  .step .voice .who{
+    margin-top: 18px;
+    font-family: var(--font-hand); font-weight: 700;
+    font-size: 18px; color: var(--rose);
+    transform: rotate(-2deg); display: inline-block;
+  }
+
+  /* Step 4 — observation legend */
+  .legend{
+    margin-top: 28px;
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 12px 24px;
+    padding: 24px;
+    background: var(--surface);
+    border-radius: var(--radius-l);
+  }
+  .legend .row{
+    display: flex; align-items: baseline; gap: 10px;
+    border-bottom: 1px dashed var(--line-warm);
+    padding: 8px 0;
+  }
+  .legend .row:last-child{ border-bottom: 0; }
+  .legend .row .swatch{
+    width: 14px; height: 14px; border-radius: 50%;
+    flex: none; background: var(--swatch-color, var(--accent));
+  }
+  .legend .row .name{
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 17px; color: var(--fg); flex: none;
+  }
+  .legend .row .says{
+    font-size: 14px; line-height: 1.4; color: var(--muted);
+    font-family: var(--font-body-active);
+  }
+
+  /* Closing — the result of the test */
+  .closing-note{
+    margin-top: 80px;
+    background: var(--dark);
+    color: var(--bg);
+    border-radius: var(--radius-xl);
+    padding: 64px 56px;
+    position: relative;
+    overflow: hidden;
+  }
+  .closing-note::before{
+    content: ""; position: absolute; inset: 0;
+    opacity: .25; filter: blur(60px);
+    background: radial-gradient(circle at 80% 20%, var(--accent), transparent 60%);
+    pointer-events: none;
+  }
+  .closing-note .inner{ position: relative; }
+  .closing-note .eyebrow{ color: var(--mint); }
+  .closing-note h2{
+    color: var(--bg);
+    font-size: clamp(40px, 4.6vw, 64px);
+    line-height: 1.0; letter-spacing: -.02em;
+    margin-top: 14px; font-weight: 700;
+  }
+  .closing-note p{
+    margin-top: 22px; max-width: 60ch;
+    font-family: var(--font-display); font-style: italic;
+    font-size: 19px; line-height: 1.5;
+    color: color-mix(in srgb, var(--bg) 84%, transparent);
+  }
+  .closing-note .hand-sign{
+    margin-top: 32px;
+    font-family: var(--font-hand); font-weight: 700;
+    font-size: clamp(36px, 3.6vw, 56px);
+    color: var(--mint); transform: rotate(-2deg); display: inline-block;
+  }
+  .closing-note .next{
+    margin-top: 24px;
+    font-family: var(--font-body-active); font-weight: 600;
+    font-size: 13px; letter-spacing: .12em; text-transform: uppercase;
+    color: color-mix(in srgb, var(--bg) 60%, transparent);
+  }
+  .closing-note .next a{
+    color: var(--mint);
+    border-bottom: 1px solid color-mix(in srgb, var(--mint) 50%, transparent);
+    padding-bottom: 2px;
+    margin-left: 8px;
+  }
+
+  @media (max-width: 960px){
+    .bf-hero-grid{ grid-template-columns: 1fr; gap: 36px; }
+    .step{ grid-template-columns: 72px 1fr; gap: 28px; padding: 48px 0; }
+    .step .n{ font-size: 64px; }
+    .step .voice{ grid-column: 1 / -1; }
+    .legend{ grid-template-columns: 1fr; }
+    .closing-note{ padding: 40px 32px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-row">
+    <a href="index.html" class="brand" id="nav-brand" aria-label="Skin Resolute — home"></a>
+    <nav class="links" aria-label="Primary">
+      <a href="acne-awareness.html">Acne Series</a>
+      <a href="skin-types.html">Skin Types</a>
+      <a href="bare-face-method.html" class="active">Bare-Face</a>
+      <a href="study-helper-v2.html">Study Desk</a>
+      <a href="voice.html">Voice</a>
+      <button type="button" class="mode-toggle" aria-label="Reading in Faithful mode. Tap to switch.">
+        <span class="swatch" aria-hidden="true"></span>
+        <span class="label"></span>
+      </button>
+      <a href="index.html#book" class="nav-cta">Book a visit</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="bf-hero" data-od-id="bf-hero">
+    <div class="wrap bf-hero-grid">
+      <div>
+        <span class="eyebrow">Method · 4 steps · 30 minutes</span>
+        <h1>The <span class="em">Bare-Face</span><br/>Method.</h1>
+        <p class="lede">
+          The honest 30-minute test that tells you what your skin actually
+          needs. No products, no filters, no guessing. Just you, a clean face,
+          and natural light.
+        </p>
+      </div>
+      <aside class="timer-card" data-od-id="bf-timer">
+        <span class="label">What you need</span>
+        <div class="big">30<small>min</small></div>
+        <ul class="items">
+          <li>A gentle, sulphate-free cleanser</li>
+          <li>A clean, soft towel</li>
+          <li>No products for 30 min</li>
+          <li>Natural daylight</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <section class="steps" data-od-id="bf-steps" style="background: var(--bg);">
+    <div class="wrap">
+
+      <article class="step" data-od-id="bf-step-1">
+        <div class="n">01</div>
+        <div class="body">
+          <span class="pill">Cleanse</span>
+          <h2>Wash your face.</h2>
+          <p class="detail">
+            Start with a clean face. Use a gentle, sulphate-free cleanser to
+            lift off makeup, oil and the day's dirt, so your skin is fresh and
+            neutral. <b>Nothing harsh.</b>
+          </p>
+        </div>
+        <div class="voice">
+          <span class="vh">♡</span>
+          <p class="vt">Gentle, my love. Harsh soap go strip your skin and spoil the test.</p>
+          <span class="who">, the rule</span>
+        </div>
+      </article>
+
+      <article class="step" data-od-id="bf-step-2">
+        <div class="n">02</div>
+        <div class="body">
+          <span class="pill">Pat Dry</span>
+          <h2>Pat dry, don't rub.</h2>
+          <p class="detail">
+            Press your skin softly with a clean, soft towel. <b>Rubbing tugs at
+            the barrier</b> and can wake up redness, so be tender with it.
+          </p>
+        </div>
+        <div class="voice">
+          <span class="vh">♡</span>
+          <p class="vt">Pat am soft small, like you dey handle silk.</p>
+          <span class="who">, the touch</span>
+        </div>
+      </article>
+
+      <article class="step" data-od-id="bf-step-3">
+        <div class="n">03</div>
+        <div class="body">
+          <span class="pill">Wait 30 min</span>
+          <h2>Wait thirty minutes.</h2>
+          <p class="detail">
+            No products, no touching. Give your skin half an hour to settle back
+            to its natural state, so what you see next is the <b>real, honest
+            result</b>, not what the cleanser left behind.
+          </p>
+        </div>
+        <div class="voice">
+          <span class="vh">♡</span>
+          <p class="vt">Hands off, abeg! Let your skin breathe and show you the truth.</p>
+          <span class="who">, the patience</span>
+        </div>
+      </article>
+
+      <article class="step" data-od-id="bf-step-4">
+        <div class="n">04</div>
+        <div class="body">
+          <span class="pill">Observe</span>
+          <h2>Observe in good light.</h2>
+          <p class="detail">
+            Look in natural light. Read your face honestly, then read it kindly:
+          </p>
+
+          <div class="legend">
+            <div class="row" style="--swatch-color: #C2A368;">
+              <span class="swatch" aria-hidden="true"></span>
+              <span class="name">Tight / flaky</span>
+              <span class="says">means dry</span>
+            </div>
+            <div class="row" style="--swatch-color: #33907D;">
+              <span class="swatch" aria-hidden="true"></span>
+              <span class="name">Shiny all over</span>
+              <span class="says">means oily</span>
+            </div>
+            <div class="row" style="--swatch-color: #B07D4F;">
+              <span class="swatch" aria-hidden="true"></span>
+              <span class="name">T-zone shine only</span>
+              <span class="says">means combination</span>
+            </div>
+            <div class="row" style="--swatch-color: #5FA98F;">
+              <span class="swatch" aria-hidden="true"></span>
+              <span class="name">Comfortable / even</span>
+              <span class="says">means normal</span>
+            </div>
+            <div class="row" style="--swatch-color: #EE9FB0; grid-column: 1 / -1;">
+              <span class="swatch" aria-hidden="true"></span>
+              <span class="name">Red / itchy</span>
+              <span class="says">means sensitive, patch-test everything next</span>
+            </div>
+          </div>
+        </div>
+        <div class="voice">
+          <span class="vh">♡</span>
+          <p class="vt">Now look well, sis. Your skin just told you exactly what it needs.</p>
+          <span class="who">, the read</span>
+        </div>
+      </article>
+
+      <div class="closing-note" data-od-id="bf-closing">
+        <div class="inner">
+          <span class="eyebrow">After the test</span>
+          <h2>Bring the result<br/>to the studio.</h2>
+          <p>
+            Now you know what your skin is actually asking for. The next step is
+            a routine built around that truth, one you can keep up with. We will
+            look at it together, kindly, and build a plan that fits your life.
+          </p>
+          <div class="hand-sign">Stay resolute 💚</div>
+          <p class="next">
+            Continue:<a href="skin-types.html">Read your skin type</a> · <a href="acne-awareness.html">The acne series</a> · <a href="index.html#book">Book a consultation</a>
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="signoff" data-od-id="signoff">
+    <div class="wrap signoff-inner">
+      <span class="eyebrow">The sign-off</span>
+      <h2>Stay resolute 💚</h2>
+      <p class="lede">
+        Come and see me, and we will look at your skin properly, then build a
+        plan that truly fits you. Your skin go thank you.
+      </p>
+      <div class="signoff-cta">
+        <a href="#" class="btn btn-primary">Book a consultation
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+        </a>
+        <a href="skin-types.html" class="btn btn-ghost">Find your skin type</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-row">
+    <span class="brand" id="foot-brand"></span>
+    <span class="copy">© Skin Resolute Studio · Certified aesthetician · Nigeria · Stay resolute 💚</span>
+  </div>
+</footer>
+
+<script src="logo.js"></script>
+<script src="theme.js"></script>
+<script>
+  (function(){
+    if (!window.SkinResoluteLogo) return;
+    document.getElementById('nav-brand').innerHTML = window.SkinResoluteLogo({ variant: 'primary', id: 'lg_nav' });
+    document.getElementById('foot-brand').innerHTML = window.SkinResoluteLogo({ variant: 'cream',   id: 'lg_foot' });
+  })();
+</script>
+
+</body>
+</html>

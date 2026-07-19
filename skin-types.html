@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en" data-mode="faithful">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Identify Your Skin Type — Skin Resolute</title>
+<meta name="description" content="Dry, oily, combination, sensitive, or normal. The honest test, the signs, and what each skin type actually craves." />
+<script>(function(){try{var m=localStorage.getItem('sr:mode');if(m==='playful'||m==='faithful'){document.documentElement.setAttribute('data-mode',m);}}catch(e){}})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Mulish:wght@300;400;500;600;700;800&family=Caveat:wght@600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="theme.css" />
+<style>
+  /* ============ SKIN TYPES — page-specific ============ */
+  .types-hero{
+    background: var(--bg-grad);
+    padding: 80px 0 88px;
+    overflow: hidden;
+  }
+  .types-hero .eyebrow{
+    display: inline-block; margin-bottom: 18px;
+  }
+  .types-hero h1{
+    font-size: clamp(48px, 6vw, 92px); line-height: .98;
+    letter-spacing: -.025em; font-weight: 700;
+    max-width: 880px;
+  }
+  .types-hero h1 .em{ font-style: italic; color: var(--accent); font-weight: 600; }
+  .types-hero .lede{
+    margin-top: 28px;
+    font-family: var(--font-display); font-style: italic; font-weight: 500;
+    font-size: clamp(19px, 1.6vw, 24px); line-height: 1.42;
+    color: color-mix(in srgb, var(--fg) 80%, var(--accent));
+    max-width: 620px;
+  }
+  .types-hero .take-test{
+    margin-top: 36px; display: inline-flex; align-items: center; gap: 10px;
+    color: var(--accent); font-weight: 700; font-size: 13px;
+    letter-spacing: .14em; text-transform: uppercase;
+  }
+  .types-hero .take-test svg{ width: 16px; height: 16px; }
+
+  /* Type cards — 5 in a stack */
+  .types-stack{ display: flex; flex-direction: column; gap: 24px; }
+  .type-card{
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 40px;
+    align-items: start;
+    background: var(--surface);
+    border-radius: var(--radius-l);
+    padding: 44px 44px 40px;
+    box-shadow: var(--shadow-soft);
+    position: relative;
+    overflow: hidden;
+  }
+  .type-card::before{
+    content: ""; position: absolute; inset: 0;
+    opacity: .05; mix-blend-mode: multiply; pointer-events: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/></filter><rect width='220' height='220' filter='url(%23n)'/></svg>");
+    background-size: 280px 280px;
+  }
+  .type-card .swatch{
+    width: 100%; aspect-ratio: 1;
+    border-radius: 50%;
+    background: var(--type-color, var(--accent));
+    box-shadow: inset 0 -20px 40px rgba(0,0,0,.12), 0 24px 40px -20px var(--type-color, var(--accent));
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(255,255,255,.85);
+    font-family: var(--font-display); font-weight: 700; font-style: italic;
+    font-size: 88px; line-height: 1;
+    letter-spacing: -.03em;
+  }
+  .type-card .label-pill{
+    display: inline-flex; align-items: center;
+    margin-bottom: 14px;
+    background: var(--type-color, var(--accent));
+    color: var(--on-accent);
+    font-family: var(--font-body-active); font-weight: 800;
+    font-size: 11px; letter-spacing: .2em; text-transform: uppercase;
+    padding: 7px 16px; border-radius: var(--radius-pill);
+  }
+  .type-card h2{
+    font-size: clamp(38px, 4.4vw, 56px);
+    line-height: 1.0; letter-spacing: -.02em; font-weight: 700;
+  }
+  .type-card .desc{
+    margin-top: 22px;
+    font-size: 17px; line-height: 1.6; color: var(--muted);
+    max-width: 56ch;
+  }
+  .type-card .meta-row{
+    margin-top: 32px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+    padding-top: 24px; border-top: 1px solid var(--line-warm);
+  }
+  .type-card .meta-row .block .mh{
+    display: block;
+    font-family: var(--font-body-active); font-weight: 800;
+    font-size: 11px; letter-spacing: .22em; text-transform: uppercase;
+    color: var(--accent-2); margin-bottom: 10px;
+  }
+  .type-card .meta-row .signs{
+    list-style: none; padding: 0; margin: 0;
+  }
+  .type-card .meta-row .signs li{
+    font-family: var(--font-body-active); font-weight: 600;
+    font-size: 14px; line-height: 1.5; color: var(--fg);
+    padding: 5px 0 5px 20px; position: relative;
+  }
+  .type-card .meta-row .signs li::before{
+    content: ""; position: absolute; left: 0; top: 12px;
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--type-color, var(--accent));
+  }
+  .type-card .meta-row .craves{
+    font-size: 14px; line-height: 1.55; color: var(--muted);
+    font-family: var(--font-body-active);
+  }
+  .type-card .voice-tag{
+    margin-top: 28px;
+    font-family: var(--font-hand); font-weight: 700;
+    font-size: 26px; color: var(--accent);
+    transform: rotate(-2deg); display: inline-block;
+    line-height: 1.2;
+  }
+
+  /* per-type color accents */
+  .tc-dry         { --type-color: #C2A368; } /* gold sand */
+  .tc-oily        { --type-color: #33907D; } /* teal */
+  .tc-combination { --type-color: #B07D4F; } /* camel */
+  .tc-sensitive   { --type-color: #EE9FB0; } /* rose */
+  .tc-normal      { --type-color: #5FA98F; } /* soft green */
+
+  /* Note block — honest disclaimer */
+  .note{
+    margin-top: 64px;
+    background: var(--surface-2);
+    border-radius: var(--radius-l);
+    padding: 36px 40px;
+    display: flex; gap: 20px; align-items: flex-start;
+  }
+  .note .nh{
+    color: var(--accent-2); font-size: 32px; line-height: 1;
+    flex: none; font-family: var(--font-hand); font-weight: 700;
+  }
+  .note .nt{
+    font-family: var(--font-display); font-style: italic; font-weight: 600;
+    font-size: 19px; line-height: 1.4;
+    color: color-mix(in srgb, var(--fg) 80%, var(--accent));
+  }
+
+  @media (max-width: 860px){
+    .type-card{ grid-template-columns: 1fr; gap: 28px; padding: 36px 28px 32px; }
+    .type-card .swatch{ max-width: 160px; }
+    .type-card .meta-row{ grid-template-columns: 1fr; }
+    .note{ padding: 28px 28px; flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-row">
+    <a href="index.html" class="brand" id="nav-brand" aria-label="Skin Resolute — home"></a>
+    <nav class="links" aria-label="Primary">
+      <a href="acne-awareness.html">Acne Series</a>
+      <a href="skin-types.html" class="active">Skin Types</a>
+      <a href="bare-face-method.html">Bare-Face</a>
+      <a href="study-helper-v2.html">Study Desk</a>
+      <a href="voice.html">Voice</a>
+      <button type="button" class="mode-toggle" aria-label="Reading in Faithful mode. Tap to switch.">
+        <span class="swatch" aria-hidden="true"></span>
+        <span class="label"></span>
+      </button>
+      <a href="index.html#book" class="nav-cta">Book a visit</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="types-hero" data-od-id="types-hero">
+    <div class="wrap">
+      <span class="eyebrow">Identifier · 5 skin types</span>
+      <h1>Identify <span class="em">your</span> skin type.</h1>
+      <p class="lede">
+        Five honest profiles, written the way she talks. Dry, oily, combination,
+        sensitive, or normal. Read the one that sounds like your face, then meet
+        it where it actually is.
+      </p>
+      <a href="bare-face-method.html" class="take-test">
+        Not sure? Try the 30-minute Bare-Face test
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <section data-od-id="types-list" style="background: var(--bg); padding-top: 96px;">
+    <div class="wrap">
+      <div class="types-stack">
+
+        <article class="type-card tc-dry" data-od-id="type-dry">
+          <div class="swatch" aria-hidden="true">D</div>
+          <div>
+            <span class="label-pill">Hydration</span>
+            <h2>Dry</h2>
+            <p class="desc">
+              Tight after cleansing, flaky patches and a dull, tired look. Your
+              skin isn't making enough natural oil, so it loses water fast and
+              the barrier stays thirsty.
+            </p>
+            <div class="meta-row">
+              <div class="block">
+                <span class="mh">Signs</span>
+                <ul class="signs">
+                  <li>Tightness after washing</li>
+                  <li>Flaky, rough patches</li>
+                  <li>Dullness &amp; visible fine lines</li>
+                </ul>
+              </div>
+              <div class="block">
+                <span class="mh">It craves</span>
+                <p class="craves">
+                  A rich moisturiser, humectants like glycerin &amp; hyaluronic
+                  acid, a nourishing oil, and softer, lukewarm water.
+                </p>
+              </div>
+            </div>
+            <span class="voice-tag">Feed it well, my love. It just thirsty.</span>
+          </div>
+        </article>
+
+        <article class="type-card tc-oily" data-od-id="type-oily">
+          <div class="swatch" aria-hidden="true">O</div>
+          <div>
+            <span class="label-pill">Sebum Control</span>
+            <h2>Oily</h2>
+            <p class="desc">
+              Shiny all over, especially the T-zone, with bigger pores and
+              surprise breakouts. Your glands simply make extra sebum (your
+              natural oil), and if you strip it too hard it fights back with
+              even more.
+            </p>
+            <div class="meta-row">
+              <div class="block">
+                <span class="mh">Signs</span>
+                <ul class="signs">
+                  <li>Midday shine all over</li>
+                  <li>Enlarged, visible pores</li>
+                  <li>Frequent breakouts</li>
+                </ul>
+              </div>
+              <div class="block">
+                <span class="mh">It craves</span>
+                <p class="craves">
+                  A gentle gel cleanser, niacinamide, a light non-comedogenic
+                  moisturiser (yes, still moisturise!) and daily SPF.
+                </p>
+              </div>
+            </div>
+            <span class="voice-tag">No strip am dry, abeg. That one na trap.</span>
+          </div>
+        </article>
+
+        <article class="type-card tc-combination" data-od-id="type-combination">
+          <div class="swatch" aria-hidden="true">C</div>
+          <div>
+            <span class="label-pill">Dual Action</span>
+            <h2>Combination</h2>
+            <p class="desc">
+              An oily T-zone living next to normal-or-dry cheeks. It is basically
+              two skin types on one face: the middle has more oil glands, so it
+              shines while the sides stay drier.
+            </p>
+            <div class="meta-row">
+              <div class="block">
+                <span class="mh">Signs</span>
+                <ul class="signs">
+                  <li>Shiny forehead, nose &amp; chin</li>
+                  <li>Normal-to-dry cheeks</li>
+                  <li>Bigger pores in the centre</li>
+                </ul>
+              </div>
+              <div class="block">
+                <span class="mh">It craves</span>
+                <p class="craves">
+                  Hydrate the dry cheeks well, and keep the oily T-zone light and
+                  balanced. Two zones, two habits.
+                </p>
+              </div>
+            </div>
+            <span class="voice-tag">Balance am gently and your glow go steady.</span>
+          </div>
+        </article>
+
+        <article class="type-card tc-sensitive" data-od-id="type-sensitive">
+          <div class="swatch" aria-hidden="true">S</div>
+          <div>
+            <span class="label-pill">Calming Care</span>
+            <h2>Sensitive</h2>
+            <p class="desc">
+              Redness, itching or stinging that flares the moment the weather
+              turns or a new product says hello. Your barrier, the skin's
+              protective wall, is delicate and reacts before it adjusts.
+            </p>
+            <div class="meta-row">
+              <div class="block">
+                <span class="mh">Signs</span>
+                <ul class="signs">
+                  <li>Redness &amp; warmth</li>
+                  <li>Stings with new products</li>
+                  <li>Reacts to weather &amp; fragrance</li>
+                </ul>
+              </div>
+              <div class="block">
+                <span class="mh">It craves</span>
+                <p class="craves">
+                  Minimal, fragrance-free formulas, calming ceramides and oat or
+                  centella, and patch-test everything first.
+                </p>
+              </div>
+            </div>
+            <span class="voice-tag">Gentle, gentle, my dear. Less is more.</span>
+          </div>
+        </article>
+
+        <article class="type-card tc-normal" data-od-id="type-normal">
+          <div class="swatch" aria-hidden="true">N</div>
+          <div>
+            <span class="label-pill">Daily Glow</span>
+            <h2>Normal</h2>
+            <p class="desc">
+              Balanced and comfortable, with small pores, rare breakouts and an
+              even glow. Your oil and water sit in happy balance, so the job is
+              simply to protect what you already have.
+            </p>
+            <div class="meta-row">
+              <div class="block">
+                <span class="mh">Signs</span>
+                <ul class="signs">
+                  <li>Comfortable, never tight</li>
+                  <li>Small, even pores</li>
+                  <li>Breakouts are rare</li>
+                </ul>
+              </div>
+              <div class="block">
+                <span class="mh">It craves</span>
+                <p class="craves">
+                  Consistent gentle care, antioxidants and daily SPF to protect
+                  that lovely balance.
+                </p>
+              </div>
+            </div>
+            <span class="voice-tag">Hold am steady. Consistency over miracles.</span>
+          </div>
+        </article>
+
+      </div>
+
+      <div class="note" data-od-id="types-note">
+        <span class="nh">♡</span>
+        <p class="nt">
+          Skin changes with seasons, stress, hormones and age. The type you read
+          here today may not be the type you wear next year. Read it as a
+          starting point, not a verdict, and bring your questions to the studio.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="signoff" data-od-id="signoff">
+    <div class="wrap signoff-inner">
+      <span class="eyebrow">The sign-off</span>
+      <h2>Stay resolute 💚</h2>
+      <p class="lede">
+        Come and see me, and we will look at your skin properly, then build a
+        plan that truly fits you. Your skin go thank you.
+      </p>
+      <div class="signoff-cta">
+        <a href="#" class="btn btn-primary">Book a consultation
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+        </a>
+        <a href="bare-face-method.html" class="btn btn-ghost">Try the Bare-Face test</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-row">
+    <span class="brand" id="foot-brand"></span>
+    <span class="copy">© Skin Resolute Studio · Certified aesthetician · Nigeria · Stay resolute 💚</span>
+  </div>
+</footer>
+
+<script src="logo.js"></script>
+<script src="theme.js"></script>
+<script>
+  (function(){
+    if (!window.SkinResoluteLogo) return;
+    document.getElementById('nav-brand').innerHTML = window.SkinResoluteLogo({ variant: 'primary', id: 'lg_nav' });
+    document.getElementById('foot-brand').innerHTML = window.SkinResoluteLogo({ variant: 'cream',   id: 'lg_foot' });
+  })();
+</script>
+
+</body>
+</html>

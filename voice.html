@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="en" data-mode="faithful">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Voice &amp; Founder — Skin Resolute</title>
+<meta name="description" content="The certified aesthetician behind Skin Resolute, the caring-big-sister voice, the six principles, and the lexicon she actually uses." />
+<script>(function(){try{var m=localStorage.getItem('sr:mode');if(m==='playful'||m==='faithful'){document.documentElement.setAttribute('data-mode',m);}}catch(e){}})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Mulish:wght@300;400;500;600;700;800&family=Caveat:wght@600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="theme.css" />
+<style>
+  /* ============ VOICE / FOUNDER — page-specific ============ */
+  .v-hero{
+    background: var(--bg-grad);
+    padding: 80px 0 88px;
+    overflow: hidden;
+  }
+  .v-hero-grid{ display: grid; grid-template-columns: 1.05fr 1fr; gap: 56px; align-items: center; }
+
+  .v-hero .eyebrow{ display: inline-block; margin-bottom: 18px; }
+  .v-hero h1{
+    font-size: clamp(48px, 6vw, 92px);
+    line-height: .98; letter-spacing: -.025em; font-weight: 700;
+  }
+  .v-hero h1 .em{ font-style: italic; color: var(--accent); font-weight: 600; }
+  .v-hero .lede{
+    margin-top: 28px;
+    font-family: var(--font-display); font-style: italic; font-weight: 500;
+    font-size: clamp(20px, 1.7vw, 25px); line-height: 1.4;
+    color: color-mix(in srgb, var(--fg) 80%, var(--accent));
+    max-width: 520px;
+  }
+  .v-hero .who-tags{
+    margin-top: 36px; display: flex; gap: 12px; flex-wrap: wrap;
+  }
+  .v-hero .who-tags .tag{
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--surface);
+    border-radius: var(--radius-pill);
+    padding: 10px 18px;
+    font-family: var(--font-body-active); font-weight: 700;
+    font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--accent-2);
+    box-shadow: var(--shadow-soft);
+  }
+  .v-hero .who-tags .tag .dot{
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--accent);
+  }
+
+  /* Founder photo slot — pending real photo.
+     A typographic placeholder that reads as intentional, not missing.
+     When the user drops a real image at assets/founder.jpg, the <img>
+     will paint over the placeholder automatically. */
+  .founder-frame{
+    position: relative;
+    aspect-ratio: 4/5;
+    border-radius: var(--radius-xl);
+    background:
+      radial-gradient(120% 80% at 80% 20%, color-mix(in srgb, var(--mint) 30%, transparent), transparent 60%),
+      radial-gradient(120% 90% at 10% 100%, color-mix(in srgb, var(--accent-3) 20%, transparent), transparent 65%),
+      var(--surface);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+    border: 1px solid var(--line);
+  }
+  .founder-frame .grain-layer{
+    position: absolute; inset: 0; opacity: .07; mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='220' height='220' filter='url(%23n)'/></svg>");
+    background-size: 320px 320px;
+  }
+  /* The monogram slot, shown when there is no real photo yet */
+  .founder-frame .mono{
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-weight: 700;
+    font-size: clamp(160px, 22vw, 280px);
+    line-height: .8; letter-spacing: -.04em;
+    color: var(--fg); opacity: .85;
+  }
+  .founder-frame .mono .leaf-tail{
+    color: var(--accent); font-style: italic;
+    display: inline-block; transform: translateY(.05em);
+  }
+  .founder-frame .corner-tag{
+    position: absolute; top: 24px; left: 28px;
+    font-family: var(--font-body-active); font-weight: 800;
+    font-size: 11px; letter-spacing: .26em; text-transform: uppercase;
+    color: var(--accent-2);
+  }
+  .founder-frame .pending{
+    position: absolute; bottom: 24px; left: 28px; right: 28px;
+    font-family: var(--font-hand); font-weight: 700;
+    font-size: 24px; color: var(--accent);
+    transform: rotate(-2deg);
+    line-height: 1.2;
+  }
+  .founder-frame .pending small{
+    display: block;
+    font-family: var(--font-body-active); font-weight: 700;
+    font-size: 10px; letter-spacing: .2em; text-transform: uppercase;
+    color: var(--accent-2); transform: rotate(2deg); margin-top: 6px;
+  }
+  /* When a real image is dropped at assets/founder.jpg, it paints over the mono */
+  .founder-frame img{
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: 50% 40%;
+    display: none;
+  }
+  .founder-frame.has-photo img{ display: block; }
+  .founder-frame.has-photo .mono,
+  .founder-frame.has-photo .pending{ display: none; }
+
+  /* Persona quote — big pull */
+  .persona{
+    background: var(--surface);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .persona .quote{
+    font-family: var(--font-display); font-style: italic; font-weight: 500;
+    font-size: clamp(28px, 3.4vw, 44px);
+    line-height: 1.25; letter-spacing: -.01em;
+    color: var(--fg); max-width: 880px;
+  }
+  .persona .quote .hl{
+    background: linear-gradient(transparent 62%, color-mix(in srgb, var(--accent-3) 60%, transparent) 62% 92%, transparent 92%);
+    padding: 0 .08em;
+  }
+  .persona .attribution{
+    margin-top: 28px;
+    font-family: var(--font-hand); font-weight: 700;
+    font-size: 28px; color: var(--accent);
+    transform: rotate(-2deg); display: inline-block;
+  }
+
+  /* Principles — 6 in a 3-col grid */
+  .principles{ background: var(--bg); }
+  .principles-grid{
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    margin-top: 48px;
+    border-top: 1px solid var(--line-warm);
+    border-left: 1px solid var(--line-warm);
+  }
+  .principle{
+    padding: 36px 32px 32px;
+    border-right: 1px solid var(--line-warm);
+    border-bottom: 1px solid var(--line-warm);
+    background: var(--surface);
+    transition: background .15s;
+  }
+  .principle:hover{ background: var(--surface-2); }
+  .principle .pn{
+    font-family: var(--font-display); font-weight: 700; font-style: italic;
+    font-size: 26px; color: var(--accent); line-height: 1;
+  }
+  .principle h3{
+    margin-top: 14px;
+    font-size: 24px; line-height: 1.12;
+    letter-spacing: -.015em; font-weight: 700;
+  }
+  .principle p{
+    margin-top: 14px; font-size: 14px; line-height: 1.55; color: var(--muted);
+  }
+
+  /* Lexicon */
+  .lexicon{ background: var(--surface-2); }
+  .lex-grid{
+    margin-top: 40px;
+    display: flex; flex-wrap: wrap; gap: 10px;
+  }
+  .lex-grid .chip{
+    display: inline-flex; align-items: center;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    padding: 11px 20px; border-radius: var(--radius-pill);
+    font-family: var(--font-body-active); font-weight: 700;
+    font-size: 14px; color: var(--fg);
+  }
+  .lex-grid .chip.tan{
+    background: var(--bg-warm);
+    border-color: transparent;
+    /* Use --fg for text so the contrast clears 4.5:1 in both modes.
+       The warm background still distinguishes Pidgin from skin-word chips. */
+    color: var(--fg);
+  }
+  .lex-grid .chip.tan::before{
+    content: "";
+    display: inline-block;
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    margin-right: 10px;
+    vertical-align: middle;
+    transform: translateY(-1px);
+  }
+  .lexicon .signoffs{
+    margin-top: 48px;
+    padding-top: 36px;
+    border-top: 1px solid var(--line-warm);
+    display: flex; gap: 32px; flex-wrap: wrap;
+  }
+  .lexicon .signoffs .so{
+    font-family: var(--font-hand); font-weight: 700;
+    font-size: clamp(28px, 2.8vw, 40px);
+    color: var(--accent);
+    transform: rotate(-2deg);
+    line-height: 1.1;
+  }
+  .lexicon .signoffs .so:nth-child(2){ transform: rotate(1deg); color: var(--accent-2); }
+  .lexicon .signoffs .so:nth-child(3){ transform: rotate(-1deg); color: var(--accent-3); }
+
+  @media (max-width: 960px){
+    .v-hero-grid{ grid-template-columns: 1fr; gap: 40px; }
+    .principles-grid{ grid-template-columns: 1fr; border-left: 0; }
+    .principle{ border-right: 0; }
+  }
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip-link">Skip to main content</a>
+
+<header class="top">
+  <div class="top-row">
+    <a href="index.html" class="brand" id="nav-brand" aria-label="Skin Resolute — home"></a>
+    <nav class="links" aria-label="Primary">
+      <a href="acne-awareness.html">Acne Series</a>
+      <a href="skin-types.html">Skin Types</a>
+      <a href="bare-face-method.html">Bare-Face</a>
+      <a href="study-helper-v2.html">Study Desk</a>
+      <a href="voice.html" class="active">Voice</a>
+      <button type="button" class="mode-toggle" aria-pressed="false" aria-label="Reading in Faithful mode. Tap to switch.">
+        <span class="swatch" aria-hidden="true"></span>
+        <span class="label"></span>
+      </button>
+      <a href="index.html#book" class="nav-cta">Book a visit</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- HERO -->
+  <section class="v-hero" data-od-id="voice-hero">
+    <div class="wrap v-hero-grid">
+      <div>
+        <span class="eyebrow">About · the founder</span>
+        <h1>The caring<br/><span class="em">big-sister</span><br/>aesthetician.</h1>
+        <p class="lede">
+          Warm Nigerian aesthetician, certified and genuinely obsessed with your
+          glow. Knows the science, never lectures. Translates it, then reassures
+          you. Speaks to <i>you</i>, one person at a time.
+        </p>
+        <div class="who-tags">
+          <span class="tag"><span class="dot"></span>Certified aesthetician</span>
+          <span class="tag"><span class="dot"></span>Nigeria</span>
+          <span class="tag"><span class="dot"></span>In-studio &amp; virtual</span>
+        </div>
+      </div>
+
+      <div class="founder-frame" data-od-id="founder-photo" id="founder-frame">
+        <div class="grain-layer" aria-hidden="true"></div>
+        <span class="corner-tag">The founder</span>
+        <!-- Typographic monogram, shown until a real photo is dropped in -->
+        <div class="mono" aria-hidden="true">SR<span class="leaf-tail">.</span></div>
+        <!-- Real photo slot — when assets/founder.jpg is added, the page
+             owner adds class="has-photo" to #founder-frame and the image
+             paints over the monogram. -->
+        <img src="assets/founder.jpg" alt="Portrait of the founder of Skin Resolute" loading="lazy" onerror="this.style.display='none'" />
+        <div class="pending" aria-hidden="true">
+          photo pending
+          <small>drop one in, abeg</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PERSONA PULL QUOTE -->
+  <section class="persona" data-od-id="voice-persona" aria-labelledby="persona-h2">
+    <div class="wrap">
+      <h2 id="persona-h2" class="sr-only">The persona, in one breath</h2>
+      <p class="quote">
+        She knows the science, the <span class="hl">barrier, the sebum, the
+        ceramides, the actives</span>, but she never lectures. She translates it,
+        then walks with you, kindly, until your glow catches up with your
+        patience.
+      </p>
+      <span class="attribution">, the persona in one breath</span>
+    </div>
+  </section>
+
+  <!-- SIX PRINCIPLES -->
+  <section class="principles" data-od-id="voice-principles">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Six principles</span>
+        <h2>How she talks, and why.</h2>
+      </div>
+
+      <div class="principles-grid">
+        <article class="principle" data-od-id="p-warm">
+          <span class="pn">01</span>
+          <h3>Warm &amp; personal.</h3>
+          <p>Speak to one person. &ldquo;Your skin,&rdquo; &ldquo;you.&rdquo; Endearments like &ldquo;my love&rdquo; are seasoning, not staple, and skip on clinical topics.</p>
+        </article>
+        <article class="principle" data-od-id="p-reassure">
+          <span class="pn">02</span>
+          <h3>Big-sister reassurance.</h3>
+          <p>Protective and encouraging. Hype them up: &ldquo;I gats you,&rdquo; &ldquo;we dey do am together.&rdquo; Never shame.</p>
+        </article>
+        <article class="principle" data-od-id="p-plain">
+          <span class="pn">03</span>
+          <h3>Educated, but plain.</h3>
+          <p>Drop one real fact, the <i>why</i>, then translate it. No jargon dumps, ever.</p>
+        </article>
+        <article class="principle" data-od-id="p-naija">
+          <span class="pn">04</span>
+          <h3>Light Naija flavour.</h3>
+          <p>One Pidgin phrase per piece, never caricature. &ldquo;No wahala,&rdquo; &ldquo;small small,&rdquo; &ldquo;abeg.&rdquo;</p>
+        </article>
+        <article class="principle" data-od-id="p-steady">
+          <span class="pn">05</span>
+          <h3>Gentle &amp; unwavering.</h3>
+          <p>Calm confidence. Champion consistency over miracles. That is what <i>resolute</i> means.</p>
+        </article>
+        <article class="principle" data-od-id="p-goal">
+          <span class="pn">06</span>
+          <h3>Goal-focused.</h3>
+          <p>Frame everything toward the glow, the skin goals, the transformation. Always forward.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEXICON -->
+  <section class="lexicon" data-od-id="voice-lexicon">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">The lexicon</span>
+        <h2>The words she actually uses.</h2>
+        <p class="lede">
+          Skin words on the left, Pidgin warmth on the right. Notice the balance:
+          one or two of each per piece, never a flood.
+        </p>
+      </div>
+
+      <div class="lex-grid">
+        <span class="chip">glow</span>
+        <span class="chip">barrier</span>
+        <span class="chip">sebum</span>
+        <span class="chip">nourish</span>
+        <span class="chip">soothe</span>
+        <span class="chip">balance</span>
+        <span class="chip">thirsty</span>
+        <span class="chip">feed</span>
+        <span class="chip">gentle</span>
+        <span class="chip">consistency</span>
+        <span class="chip">resolute</span>
+        <span class="chip tan">no wahala</span>
+        <span class="chip tan">small small</span>
+        <span class="chip tan">abeg</span>
+        <span class="chip tan">e go better</span>
+        <span class="chip tan">your skin go thank you</span>
+      </div>
+
+      <div class="signoffs" aria-labelledby="signoffs-h2">
+        <h2 id="signoffs-h2" class="sr-only">Sign-offs</h2>
+        <span class="so">Stay resolute 💚</span>
+        <span class="so">Let's glow</span>
+        <span class="so">Your skin go thank you</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SIGN-OFF -->
+  <section class="signoff" id="book" data-od-id="signoff">
+    <div class="wrap signoff-inner">
+      <span class="eyebrow">The sign-off</span>
+      <h2>Stay resolute 💚</h2>
+      <p class="lede">
+        Come and see me, and we will look at your skin properly, then build a
+        plan that truly fits you. Your skin go thank you.
+      </p>
+      <div class="signoff-cta">
+        <a href="#" class="btn btn-primary">Book a consultation
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+        </a>
+        <a href="acne-awareness.html" class="btn btn-ghost">Read the June series</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-row">
+    <span class="brand" id="foot-brand"></span>
+    <span class="copy">© Skin Resolute Studio · Certified aesthetician · Nigeria · Stay resolute 💚</span>
+  </div>
+</footer>
+
+<script src="logo.js"></script>
+<script src="theme.js"></script>
+<script>
+  (function(){
+    if (!window.SkinResoluteLogo) return;
+    document.getElementById('nav-brand').innerHTML = window.SkinResoluteLogo({ variant: 'primary', id: 'lg_nav' });
+    document.getElementById('foot-brand').innerHTML = window.SkinResoluteLogo({ variant: 'cream',   id: 'lg_foot' });
+
+    // If a real founder photo loads successfully, swap to has-photo mode
+    // so the image paints over the typographic monogram placeholder.
+    var frame = document.getElementById('founder-frame');
+    var img = frame && frame.querySelector('img');
+    if (img) {
+      img.addEventListener('load',  function(){ if (img.naturalWidth > 1) frame.classList.add('has-photo'); });
+      img.addEventListener('error', function(){ frame.classList.remove('has-photo'); });
+      if (img.complete && img.naturalWidth > 1) frame.classList.add('has-photo');
+    }
+  })();
+</script>
+
+</body>
+</html>
