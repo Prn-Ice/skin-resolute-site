@@ -75,6 +75,17 @@
     }
   });
 
+  // Mobile nav toggle — event delegation so it works even if buttons
+  // are added later / across pages.
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('.nav-toggle');
+    if (!btn) return;
+    var nav = btn.closest('.links');
+    if (!nav) return;
+    var open = nav.classList.toggle('nav-open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+
   // Expose for debugging.
   window.__srTheme = { flip: flip, apply: apply, current: currentMode };
 })();

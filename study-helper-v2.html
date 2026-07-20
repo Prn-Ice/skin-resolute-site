@@ -502,6 +502,31 @@
     outline-offset: 2px;
   }
 
+  /* Mobile dropdowns — hidden on desktop */
+  .mobile-select{
+    display: none;
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--surface);
+    color: var(--fg);
+    font-family: var(--font-body-active);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23888' d='M6 9.5 1.5 4.5h9Z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 12px;
+  }
+  .mobile-select:focus-visible{
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
   @media (prefers-reduced-motion: reduce){
     *, *::before, *::after{ transition-duration: 0.01ms !important; }
   }
@@ -514,28 +539,24 @@
     .rail{
       position: static;
       max-height: none;
-      padding: 16px 0 8px;
-      gap: 16px;
-      border-bottom: 0;
+      padding: 14px 0 6px;
+      gap: 8px;
     }
-    .rail-head{ margin-bottom: 4px; }
-    .station-list{
-      flex-direction: row;
-      flex-wrap: wrap;
-      gap: 6px;
+    .rail-head{ margin-bottom: 0; }
+    .rail-kicker{ font-size: 16px; }
+    .rail-title{ font-size: 20px; }
+    .rail-title br{ display: none; }
+    .mobile-select{ display: block; }
+    .station-list{ display: none; }
+    .topic-list{ display: none; }
+    .rail-head + div .station-label{ display: none; }
+    .station-label{ margin-bottom: 6px; font-size: 10px; }
+    .topic-block{
+      margin-top: 4px;
+      padding-top: 0;
+      border-top: 0;
     }
-    .station-label{ width: 100%; margin-bottom: 4px; }
-    .station{
-      width: auto;
-      padding: 8px 12px;
-    }
-    .station-hint{ display: none; }
-    .topic-list{
-      flex-direction: row;
-      flex-wrap: wrap;
-      gap: 4px;
-    }
-    .topic{ width: auto; }
+    #topic-select{ margin-top: 4px; }
     .rail-foot{ display: none; }
     .stage{ padding: 12px 0 24px; }
     .case{
@@ -548,6 +569,22 @@
     .case-body{ padding: 22px 20px 20px; }
     .answer-grid{ grid-template-columns: 1fr; }
     .reveal-cols{ grid-template-columns: 1fr; }
+  }
+  @media (max-width: 620px){
+    .clinic{ padding: 0 12px 24px; }
+    .rail{ padding: 10px 0 4px; gap: 6px; }
+    .mobile-select{ padding: 8px 12px; font-size: 13px; }
+    .station{ padding: 6px 10px; font-size: 11px; }
+    .station-label{ font-size: 9px; }
+    .topic{ padding: 8px 10px; font-size: 12px; }
+    .topic-n{ font-size: 10px; }
+    .case{ border-radius: 18px; }
+    .case-visual{ min-height: 140px; padding: 12px; }
+    .case-body{ padding: 16px 14px 14px; }
+    .case-body h2{ font-size: 24px; }
+    .answer-opt{ padding: 12px 14px; font-size: 13px; }
+    .reveal-cols{ gap: 8px; }
+    .clinical-box, .teacher-box{ padding: 14px 16px; }
   }
 </style>
 </head>
@@ -563,11 +600,14 @@
       <a href="bare-face-method.html">Bare-Face</a>
       <a href="study-helper-v2.html" class="active">Study Desk</a>
       <a href="voice.html">Voice</a>
+      <a href="uv-index.html">UV Index</a>
       <button type="button" class="mode-toggle" data-od-id="mode-toggle" aria-label="Reading in Faithful mode. Tap to switch.">
         <span class="swatch" aria-hidden="true"></span>
         <span class="label"></span>
       </button>
-      <a href="index.html#book" class="nav-cta">Book a visit</a>
+      <button type="button" class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span class="bar" aria-hidden="true"></span>
+      </button>
     </nav>
   </div>
 </header>
@@ -604,10 +644,18 @@
             <span class="station-hint">Label the structure</span>
           </button>
         </div>
+        <select id="station-select" class="mobile-select" aria-label="Select station">
+          <option value="identify">Identify</option>
+          <option value="analyze">Analyze</option>
+          <option value="prescribe">Prescribe</option>
+          <option value="safety">Safety</option>
+          <option value="anatomy">Anatomy</option>
+        </select>
       </div>
 
       <div class="topic-block">
         <div class="station-label">On the tray</div>
+        <select id="topic-select" class="mobile-select" aria-label="Select category"></select>
         <div class="topic-list" id="cat-list" data-od-id="topic-list"></div>
       </div>
 
@@ -1209,6 +1257,8 @@
   function renderCats(){
     catList.innerHTML = '';
     var cats = getCats(activeModule);
+    var topicSel = document.getElementById('topic-select');
+    if (topicSel) topicSel.innerHTML = '';
     cats.forEach(function(cat){
       var b = document.createElement('button');
       b.type = 'button';
@@ -1218,6 +1268,13 @@
       b.innerHTML = '<span>' + cat + '</span><span class="topic-n">' + cards.length + '</span>';
       b.addEventListener('click', function(){ activeCat = cat; activeIndex = 0; renderCard(); });
       catList.appendChild(b);
+      if (topicSel) {
+        var opt = document.createElement('option');
+        opt.value = cat;
+        opt.textContent = cat + ' (' + cards.length + ')';
+        if (cat === activeCat) opt.selected = true;
+        topicSel.appendChild(opt);
+      }
     });
   }
 
@@ -1342,8 +1399,26 @@
       stations.forEach(function(t){
         t.setAttribute('aria-selected', t.getAttribute('data-module') === activeModule ? 'true' : 'false');
       });
+      document.getElementById('station-select').value = activeModule;
       renderCard();
     });
+  });
+
+  /* Sync mobile station dropdown → station buttons */
+  document.getElementById('station-select').addEventListener('change', function(){
+    var btn = document.querySelector('.station[data-module="' + this.value + '"]');
+    if (btn) btn.click();
+  });
+  /* Sync mobile topic dropdown → topic buttons */
+  document.getElementById('topic-select').addEventListener('change', function(){
+    var topicList = document.getElementById('cat-list');
+    var buttons = topicList.querySelectorAll('.topic');
+    for (var i = 0; i < buttons.length; i++){
+      if (buttons[i].querySelector('span').textContent === this.value){
+        buttons[i].click();
+        break;
+      }
+    }
   });
 
   masterBtn.addEventListener('click', markMastered);
@@ -1353,6 +1428,7 @@
 
   activeCat = getCats(activeModule)[0];
   renderCard();
+  document.getElementById('station-select').value = activeModule;
 })();
 </script>
 </body>

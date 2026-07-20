@@ -483,16 +483,68 @@ footer.foot{
 /* ============================================================
    Responsive
    ============================================================ */
+/* ============================================================
+   Mobile nav toggle — hamburger (hidden on desktop)
+   ============================================================ */
+.nav-toggle{
+  display: none;
+  width: 38px; height: 38px;
+  padding: 8px;
+  background: transparent;
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+  flex: none;
+  transition: background .15s;
+}
+.nav-toggle:hover{ background: color-mix(in srgb, var(--fg) 8%, transparent); }
+.nav-toggle .bar{
+  display: block;
+  width: 22px; height: 2px;
+  background: var(--fg);
+  border-radius: 1px;
+  position: relative;
+  transition: background .15s;
+}
+.nav-toggle .bar::before,
+.nav-toggle .bar::after{
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 100%; height: 2px;
+  background: var(--fg);
+  border-radius: 1px;
+  transition: transform .2s, top .2s;
+}
+.nav-toggle .bar::before{ top: -7px; }
+.nav-toggle .bar::after{ top: 7px; }
+/* Open state — hamburger → X */
+nav.links.nav-open .nav-toggle .bar{ background: transparent; }
+nav.links.nav-open .nav-toggle .bar::before{ transform: rotate(45deg); top: 0; }
+nav.links.nav-open .nav-toggle .bar::after{ transform: rotate(-45deg); top: 0; }
+
 @media (max-width: 980px){
   section{ padding: 88px 0; }
-  nav.links{ gap: 18px; }
-  nav.links a:not(.nav-cta):not(.mode-toggle){ display: none; }
+  nav.links{ gap: 14px; }
+  .nav-toggle{ display: inline-flex; align-items: center; justify-content: center; }
+  nav.links a{ display: none; }
+  nav.links.nav-open{ flex-wrap: wrap; }
+  nav.links.nav-open a{
+    display: block;
+    width: 100%;
+    padding: 14px 0;
+    border-top: 1px solid var(--line);
+    text-align: center;
+    font-size: 13px;
+  }
+  nav.links.nav-open a:last-of-type{ border-bottom: 1px solid var(--line); }
+  nav.links.nav-open a.active::before{ display: none; }
 }
 @media (max-width: 620px){
   .wrap, .wrap-narrow{ padding: 0 22px; }
   .top-row{ padding: 14px 22px; gap: 12px; }
   .brand{ width: 150px; }
-  nav.links{ gap: 10px; }
+  nav.links{ gap: 8px; }
   .mode-toggle{ padding: 6px 10px 6px 8px; font-size: 10px; }
   .mode-toggle .swatch{ width: 14px; height: 14px; }
   section{ padding: 72px 0; }

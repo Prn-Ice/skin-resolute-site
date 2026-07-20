@@ -157,6 +157,10 @@
     .type-card .meta-row{ grid-template-columns: 1fr; }
     .note{ padding: 28px 28px; flex-direction: column; }
   }
+  @media (max-width: 620px){
+    .type-card{ padding: 28px 22px 24px; }
+    .note{ padding: 24px 22px; }
+  }
 </style>
 </head>
 <body>
@@ -168,13 +172,16 @@
       <a href="acne-awareness.html">Acne Series</a>
       <a href="skin-types.html" class="active">Skin Types</a>
       <a href="bare-face-method.html">Bare-Face</a>
-      <a href="study-helper-v2.html">Study Desk</a>
+      <a href="study-helper.html">Study Desk</a>
       <a href="voice.html">Voice</a>
+      <a href="uv-index.html">UV Index</a>
       <button type="button" class="mode-toggle" aria-label="Reading in Faithful mode. Tap to switch.">
         <span class="swatch" aria-hidden="true"></span>
         <span class="label"></span>
       </button>
-      <a href="index.html#book" class="nav-cta">Book a visit</a>
+      <button type="button" class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span class="bar" aria-hidden="true"></span>
+      </button>
     </nav>
   </div>
 </header>
