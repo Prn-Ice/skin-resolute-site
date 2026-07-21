@@ -1,0 +1,1274 @@
+<!doctype html>
+<html lang="en" data-mode="faithful">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Clinical Reference — Skin Resolute</title>
+<meta name="description" content="Verbose, textbook-aligned clinical reference for beauty therapy. Skin disorders, anatomy, analysis, acne, exfoliation, and contraindications at a glance." />
+<script>(function(){try{var m=localStorage.getItem('sr:mode');if(m==='playful'||m==='faithful'){document.documentElement.setAttribute('data-mode',m);}}catch(e){}})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Mulish:wght@300;400;500;600;700;800&family=Caveat:wght@600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="theme.css" />
+<style>
+  :root{
+    --danger-bg: #fdecec;
+    --danger-fg: #8a1c1c;
+    --danger-stripe: #c62828;
+  }
+  [data-mode="playful"]{
+    --danger-bg: #fde8e8;
+    --danger-fg: #b23a48;
+    --danger-stripe: #d7263d;
+  }
+
+  .ref-body{
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--fg);
+  }
+
+  .ref-main{
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  .ref-hero{
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+  }
+  .ref-kicker{
+    font-family: var(--font-body-active);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--accent-2);
+    margin-bottom: 10px;
+  }
+  .ref-title{
+    font-family: var(--font-display);
+    font-size: clamp(34px, 5vw, 52px);
+    font-weight: 600;
+    letter-spacing: -.02em;
+    line-height: 1.08;
+    margin: 0 0 12px;
+    color: var(--fg);
+  }
+  .ref-lede{
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(17px, 2vw, 21px);
+    line-height: 1.45;
+    color: color-mix(in srgb, var(--fg) 78%, transparent);
+    max-width: 60ch;
+    margin: 0;
+  }
+
+  /* Two-column layout */
+  .manual-layout{
+    display: grid;
+    grid-template-columns: minmax(220px, 260px) minmax(0, 1fr);
+    gap: 48px;
+    align-items: start;
+  }
+
+  /* Sticky Table of Contents */
+  .toc-rail{
+    position: sticky;
+    top: 100px;
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+    padding-right: 12px;
+  }
+  .toc-header{
+    font-family: var(--font-body-active);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--fg) 50%, transparent);
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+  }
+  .toc-list{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .toc-chapter{
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--fg);
+    line-height: 1.25;
+    margin-bottom: 8px;
+  }
+  .toc-chapter .ch-num{
+    display: block;
+    font-family: var(--font-body-active);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--fg) 45%, transparent);
+    margin-bottom: 3px;
+  }
+  .toc-links{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .toc-links a{
+    display: block;
+    text-decoration: none;
+    font-family: var(--font-body-active);
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.35;
+    padding: 4px 0;
+    transition: color .15s ease;
+  }
+  .toc-links a:hover,
+  .toc-links a.active{
+    color: var(--accent);
+  }
+  .toc-links a:focus-visible{
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Main Content Feed */
+  .content-feed{ padding-top: 0; }
+  .chapter-section{
+    margin-bottom: 72px;
+    scroll-margin-top: 100px;
+  }
+  .chapter-section:last-child{ margin-bottom: 0; }
+  .chapter-title{
+    font-family: var(--font-display);
+    font-size: clamp(28px, 3.5vw, 38px);
+    font-weight: 600;
+    letter-spacing: -.015em;
+    line-height: 1.1;
+    margin: 0 0 8px;
+    color: var(--fg);
+  }
+  .chapter-eyebrow{
+    font-family: var(--font-body-active);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--accent-2);
+    margin-bottom: 6px;
+  }
+  .chapter-rule{
+    height: 1px;
+    background: color-mix(in srgb, var(--fg) 14%, transparent);
+    margin: 22px 0 36px;
+  }
+  .topic-heading{
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 22px;
+    font-weight: 500;
+    color: color-mix(in srgb, var(--fg) 70%, transparent);
+    margin: 44px 0 22px;
+    scroll-margin-top: 100px;
+  }
+  .topic-heading:first-of-type{ margin-top: 0; }
+
+  /* Encyclopedia Entry — image on top, content stacked below */
+  .entry{
+    background: var(--surface);
+    border-radius: 22px;
+    box-shadow: var(--shadow-card, 0 2px 18px color-mix(in srgb, var(--fg) 8%, transparent));
+    overflow: hidden;
+    margin-bottom: 28px;
+    display: flex;
+    flex-direction: column;
+  }
+  .entry-visual{
+    background: color-mix(in srgb, var(--bg-warm) 70%, var(--surface));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 28px;
+    min-height: 280px;
+  }
+  .entry-visual img{
+    max-width: 100%;
+    max-height: 380px;
+    width: auto;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 6px 22px color-mix(in srgb, var(--fg) 20%, transparent);
+    object-fit: contain;
+  }
+  /* Side-by-side multi-image layout */
+  .entry-visual.multi-img{
+    min-height: 320px;
+  }
+  .entry-visual.multi-img a,
+  .entry-visual.multi-img{
+    flex-direction: row;
+    gap: 16px;
+  }
+  .entry-visual.multi-img img{
+    max-width: 48%;
+    max-height: 340px;
+  }
+  @media (max-width: 620px){
+    .entry-visual.multi-img a,
+    .entry-visual.multi-img{
+      flex-direction: column;
+      gap: 12px;
+    }
+    .entry-visual.multi-img img{
+      max-width: 100%;
+      max-height: 280px;
+    }
+  }
+  /* Click-through state: image wraps in an anchor */
+  .entry-visual.has-source{
+    position: relative;
+  }
+  .entry-visual.has-source a{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: inherit;
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+  .entry-visual.has-source a:focus-visible{
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+    border-radius: 8px;
+  }
+  .entry-visual.has-source a:hover img{
+    box-shadow: 0 10px 30px color-mix(in srgb, var(--fg) 28%, transparent);
+  }
+  .source-badge{
+    position: absolute;
+    bottom: 14px;
+    right: 14px;
+    background: color-mix(in srgb, var(--fg) 88%, transparent);
+    color: var(--bg);
+    font-family: var(--font-body-active);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    border-radius: 999px;
+    pointer-events: none;
+  }
+  /* Empty state with source link — render a tappable tile instead of a slim strip */
+  .entry-visual.empty.has-source{
+    min-height: 200px;
+    padding: 24px;
+  }
+  .entry-visual.empty.has-source::after{
+    content: none;
+  }
+  .entry-visual.empty.has-source a{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 22px 28px;
+    border-radius: 14px;
+    background: color-mix(in srgb, var(--surface) 80%, transparent);
+    color: color-mix(in srgb, var(--fg) 65%, transparent);
+    font-family: var(--font-body-active);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-decoration: none;
+    text-align: center;
+    transition: background .15s ease, color .15s ease;
+  }
+  .entry-visual.empty.has-source a:hover{
+    background: var(--surface);
+    color: var(--accent);
+  }
+  .entry-visual.empty.has-source a:focus-visible{
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+  .entry-visual.empty.has-source svg{
+    color: color-mix(in srgb, var(--fg) 42%, transparent);
+  }
+  .entry-visual.empty{
+    background: color-mix(in srgb, var(--bg-warm) 40%, var(--surface));
+    min-height: 0;
+    padding: 10px 18px;
+  }
+  .entry-visual.empty::after{
+    content: "No reference image";
+    font-family: var(--font-body-active);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--fg) 38%, transparent);
+  }
+  .entry-body{
+    padding: 28px 32px;
+    min-width: 0;
+  }
+  .entry-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+  }
+  .entry-title{
+    font-family: var(--font-display);
+    font-size: clamp(22px, 2.4vw, 28px);
+    font-weight: 600;
+    letter-spacing: -.01em;
+    line-height: 1.18;
+    margin: 0;
+    color: var(--fg);
+  }
+  .entry-category{
+    font-family: var(--font-body-active);
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .14em;
+    color: var(--accent-2);
+    background: color-mix(in srgb, var(--accent-2) 12%, transparent);
+    padding: 5px 10px;
+    border-radius: 999px;
+    white-space: nowrap;
+    align-self: center;
+  }
+
+  /* Red Flag Banner — solid red, no left-border-accent pattern */
+  .red-flag{
+    background: var(--danger-bg);
+    color: var(--danger-fg);
+    padding: 12px 18px;
+    border-radius: 10px;
+    margin-bottom: 22px;
+    font-family: var(--font-body-active);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .red-flag svg{
+    flex-shrink: 0;
+    color: var(--danger-stripe);
+  }
+
+  /* Clinical Data Block */
+  .clinical-data{ margin-bottom: 22px; }
+  .data-row{ margin-bottom: 16px; }
+  .data-row:last-child{ margin-bottom: 0; }
+  .data-label{
+    font-family: var(--font-body-active);
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .14em;
+    color: color-mix(in srgb, var(--fg) 50%, transparent);
+    margin-bottom: 6px;
+    display: block;
+  }
+  .data-text{
+    font-family: var(--font-body-active);
+    font-size: 15px;
+    line-height: 1.62;
+    margin: 0;
+    color: var(--fg);
+  }
+  .data-text b{ font-weight: 700; }
+
+  /* Teacher Note */
+  .teacher-note{
+    background:
+      radial-gradient(circle at 92% 0%, color-mix(in srgb, var(--mint) 22%, transparent), transparent 55%),
+      color-mix(in srgb, var(--bg-warm) 55%, var(--surface));
+    padding: 22px 26px;
+    border-radius: 14px;
+    margin-top: 4px;
+  }
+  .teacher-note .data-label{ color: var(--accent-2); }
+  .teacher-note p{
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 18px;
+    line-height: 1.5;
+    margin: 0;
+    color: var(--fg);
+  }
+
+  /* Empty state */
+  .chapter-empty{
+    padding: 32px 28px;
+    background: color-mix(in srgb, var(--bg-warm) 35%, var(--surface));
+    border-radius: 16px;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 17px;
+    color: var(--muted);
+  }
+
+  /* Responsive */
+  @media (max-width: 900px){
+    .manual-layout{
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+    .toc-rail{
+      position: static;
+      max-height: none;
+      padding-right: 0;
+      padding-bottom: 18px;
+    }
+    .toc-list{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+    }
+    .entry-visual{ min-height: 220px; }
+    .entry-visual img{ max-height: 300px; }
+    .entry-body{ padding: 22px 22px 26px; }
+  }
+  @media (max-width: 620px){
+    .ref-main{ padding: 22px 14px 60px; }
+    .entry-body{ padding: 18px 16px 22px; }
+    .entry-header{ flex-direction: column; align-items: flex-start; gap: 6px; }
+    .entry-category{ align-self: flex-start; }
+    .toc-list{ grid-template-columns: 1fr; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *, *::before, *::after{
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+    }
+  }
+</style>
+</head>
+<body class="ref-body">
+<a class="skip-link" href="#content-container">Skip to reference content</a>
+
+<header class="top" data-od-id="top-bar">
+  <div class="top-row">
+    <a href="index.html" class="brand" id="nav-brand" aria-label="Skin Resolute home"></a>
+    <nav class="links" aria-label="Primary">
+      <a href="acne-awareness.html">Acne Series</a>
+      <a href="skin-types.html">Skin Types</a>
+      <a href="bare-face-method.html">Bare-Face</a>
+      <a href="study-helper-v2.html">Study Desk</a>
+      <a href="reference.html" class="active">Reference</a>
+      <a href="voice.html">Voice</a>
+      <a href="uv-index.html">UV Index</a>
+      <button type="button" class="mode-toggle" data-od-id="mode-toggle" aria-label="Reading in Faithful mode. Tap to switch.">
+        <span class="swatch" aria-hidden="true"></span>
+        <span class="label"></span>
+      </button>
+      <button type="button" class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span class="bar" aria-hidden="true"></span>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<main class="ref-main" id="main">
+  <div class="ref-hero">
+    <div class="ref-kicker">Textbook Manual</div>
+    <h1 class="ref-title" data-od-id="ref-title">Clinical Reference</h1>
+    <p class="ref-lede">Every condition, anatomy landmark, and protocol from the curriculum, expanded into full clinical context. Slow read, deep recall.</p>
+  </div>
+
+  <div class="manual-layout">
+    <aside class="toc-rail" data-od-id="toc-rail" aria-label="Contents">
+      <div class="toc-header">Contents</div>
+      <ul class="toc-list" id="toc-container"></ul>
+    </aside>
+
+    <section class="content-feed" id="content-container" data-od-id="content-feed"></section>
+  </div>
+</main>
+
+<footer class="foot" data-od-id="footer">
+  <div class="wrap foot-row">
+    <span class="brand" id="foot-brand" aria-label="Skin Resolute"></span>
+    <span class="copy">&copy; Skin Resolute Studio &middot; Clinical Reference &middot; Stay resolute</span>
+  </div>
+</footer>
+
+<script src="logo.js"></script>
+<script src="theme.js"></script>
+<script>
+(function(){
+  if (!window.SkinResoluteLogo) return;
+  var nav = document.getElementById('nav-brand');
+  var foot = document.getElementById('foot-brand');
+  if (nav) nav.innerHTML = window.SkinResoluteLogo({ variant: 'primary', id: 'lg_nav' });
+  if (foot) foot.innerHTML = window.SkinResoluteLogo({ variant: 'cream', id: 'lg_foot' });
+})();
+</script>
+
+<script>
+var IMAGES = {
+  g1:'study-images/g1-comedonal.jpg', g2:'study-images/g2-closed-comedones.jpg',
+  g3:'study-images/g3-papulopustular.jpg', g4:'study-images/g4-nodulocystic.jpg',
+  seb:'study-images/seb-seborrhoea.jpg', mil:'study-images/mil-milia.jpg',
+  acnev:'study-images/acnev-acne-vulgaris.jpg', steatoma:'study-images/steatoma-cyst.jpg',
+  asteatosis:'study-images/ast-xerosis.jpg',
+  hyperh:'study-images/hyperhyperhidrosis.jpg', brom:'study-images/brom-hyperhidrosis.jpg',
+  miliar:'study-images/miliar-miliaria.jpg',
+  acd:'study-images/acd-allergic-contact-dermatitis.jpg', icd:'study-images/icd-irritant-cd.jpg',
+  atopic:'study-images/atopic-atopic-dermatitis.jpg', urt:'study-images/urt-urticaria.jpg',
+  chlo:'study-images/chlo-melasma.jpg', lent:'study-images/lent-lentigo.jpg',
+  vit:'study-images/vit-vitiligo.jpg', ephelides:'study-images/ephelides-freckles.jpg',
+  hyperpig:'study-images/hyperpig-pih.jpg', kel:'study-images/kel-keloid.jpg',
+  dpn:'study-images/dpn-dermatosis-papulosa-nigra.jpg',
+  tel:'study-images/tel-telangiectasia.jpg', spider:'study-images/spider-spider-naevus.jpg',
+  cherry:'study-images/cherry-cherry-angioma.jpg', pws:'study-images/pws-port-wine-stain.jpg',
+  psor:'study-images/psor-psoriasis.jpg', kp:'study-images/kp-keratosis-pilaris.jpg',
+  dandruff:'study-images/dandruff-sebderm-scalp.jpg',
+  bcc:'study-images/bcc-basal-cell.jpg', scc:'study-images/scc-squamous-cell.jpg',
+  melanoma:'study-images/melanoma-malignant.jpg', solar:'study-images/solar-ak.jpg',
+
+  // Anatomy diagrams (Wikimedia Commons, public domain / CC-BY-SA)
+  cn1:['study-images/anat-cranial-nerves.svg','study-images/anat-cranial-nerves-2.png'],
+  cn2:['study-images/anat-cranial-nerves.svg','study-images/anat-cranial-nerves-2.png'],
+  cn3:['study-images/anat-cranial-nerves.svg','study-images/anat-cranial-nerves-2.png'],
+  cn4:['study-images/anat-cranial-nerves.svg','study-images/anat-cranial-nerves-2.png'],
+  cn5:['study-images/anat-cranial-nerves.svg','study-images/anat-cranial-nerves-2.png'],
+  cn6:['study-images/anat-cranial-nerves.svg','study-images/anat-cranial-nerves-2.png'],
+  cn7:['study-images/anat-cranial-nerves.svg','study-images/anat-cranial-nerves-2.png'],
+  cn8:['study-images/anat-cranial-nerves.svg','study-images/anat-cranial-nerves-2.png'],
+  cn9:['study-images/anat-cranial-nerves.svg','study-images/anat-cranial-nerves-2.png'],
+  cn10:['study-images/anat-cranial-nerves.svg','study-images/anat-cranial-nerves-2.png'],
+  cn11:['study-images/anat-cranial-nerves.svg','study-images/anat-cranial-nerves-2.png'],
+  cn12:['study-images/anat-cranial-nerves.svg','study-images/anat-cranial-nerves-2.png'],
+  corneum:['study-images/anat-epidermal-layers.png','study-images/anat-epidermal-layers-2.jpg'],
+  lucidum:['study-images/anat-epidermal-layers.png','study-images/anat-epidermal-layers-2.jpg'],
+  granulosum:['study-images/anat-epidermal-layers.png','study-images/anat-epidermal-layers-2.jpg'],
+  spinosum:['study-images/anat-epidermal-layers.png','study-images/anat-epidermal-layers-2.jpg'],
+  germ:['study-images/anat-epidermal-layers.png','study-images/anat-epidermal-layers-2.jpg'],
+  disjunctivum:['study-images/anat-epidermal-layers.png','study-images/anat-epidermal-layers-2.jpg'],
+  dermal:'study-images/anat-dermal-layers.png',
+  submand:['study-images/anat-lymph-nodes.png','study-images/anat-lymph-nodes-2.png'],
+  parotid:['study-images/anat-lymph-nodes.png','study-images/anat-lymph-nodes-2.png'],
+  submental:['study-images/anat-lymph-nodes.png','study-images/anat-lymph-nodes-2.png'],
+  occipital:['study-images/anat-lymph-nodes.png','study-images/anat-lymph-nodes-2.png'],
+  cervical:['study-images/anat-lymph-nodes.png','study-images/anat-lymph-nodes-2.png'],
+
+  // Skin Type identification (AI-generated educational)
+  alip:['study-images/type-dry-1.jpg','study-images/type-dry-2.jpg'],
+  oily:'study-images/seb-seborrhoea.jpg',
+  combo:['study-images/seb-seborrhoea.jpg','study-images/ast-xerosis.jpg'],
+  sens:['study-images/tel-telangiectasia.jpg','study-images/atopic-atopic-dermatitis.jpg'],
+  mature:['study-images/lent-lentigo.jpg','study-images/solar-ak.jpg'],
+
+  // Fitzpatrick scale (DermNet NZ)
+  fp1:['study-images/fitz-type1.jpg','study-images/fitz-type1-b.jpg'],
+  fp2:['study-images/fitz-type2.jpg','study-images/fitz-type2-b.jpg'],
+  fp3:['study-images/fitz-type3.jpg','study-images/fitz-type3-b.jpg'],
+  fp4:['study-images/fitz-type4.jpg','study-images/fitz-type4-b.jpg'],
+  fp5:['study-images/fitz-type5.jpg','study-images/fitz-type5-b.jpg'],
+  fp6:['study-images/fitz-type6.jpg','study-images/fitz-type6-b.jpg']
+};
+
+// External reference links — clicking an entry image or "View reference" tile opens these.
+var SOURCE_LINKS = {
+  // Pathology (DermNet NZ)
+  g1:'https://dermnetnz.org/topics/comedonal-acne',
+  g2:'https://dermnetnz.org/topics/comedonal-acne',
+  g3:'https://dermnetnz.org/topics/acne-vulgaris',
+  g4:'https://dermnetnz.org/topics/nodulocystic-acne',
+  seb:'https://dermnetnz.org/topics/seborrhoea',
+  mil:'https://dermnetnz.org/topics/milium',
+  acnev:'https://dermnetnz.org/topics/acne-vulgaris',
+  steatoma:'https://dermnetnz.org/topics/epidermoid-cyst',
+  asteatosis:'https://dermnetnz.org/topics/dry-skin',
+  hyperh:'https://dermnetnz.org/topics/hyperhidrosis',
+  brom:'https://dermnetnz.org/topics/bromhidrosis',
+  anhid:'https://dermnetnz.org/topics/anhidrosis',
+  miliar:'https://dermnetnz.org/topics/miliaria',
+  acd:'https://dermnetnz.org/topics/allergic-contact-dermatitis',
+  icd:'https://dermnetnz.org/topics/irritant-contact-dermatitis',
+  atopic:'https://dermnetnz.org/topics/atopic-dermatitis',
+  urt:'https://dermnetnz.org/topics/urticaria',
+  chlo:'https://dermnetnz.org/topics/melasma',
+  lent:'https://dermnetnz.org/topics/solar-lentigo',
+  vit:'https://dermnetnz.org/topics/vitiligo',
+  alb:'https://dermnetnz.org/topics/albinism',
+  ephelides:'https://dermnetnz.org/topics/ephelis',
+  hyperpig:'https://dermnetnz.org/topics/postinflammatory-hyperpigmentation',
+  kel:'https://dermnetnz.org/topics/keloid-and-hypertrophic-scar',
+  dpn:'https://dermnetnz.org/topics/dermatosis-papulosa-nigra',
+  tel:'https://dermnetnz.org/topics/telangiectasia',
+  spider:'https://dermnetnz.org/topics/spider-telangiectasis',
+  cherry:'https://dermnetnz.org/topics/cherry-angioma',
+  pws:'https://dermnetnz.org/topics/port-wine-stain',
+  psor:'https://dermnetnz.org/topics/psoriasis',
+  kp:'https://dermnetnz.org/topics/keratosis-pilaris',
+  dandruff:'https://dermnetnz.org/topics/seborrhoeic-dermatitis',
+  bcc:'https://dermnetnz.org/topics/basal-cell-carcinoma',
+  scc:'https://dermnetnz.org/topics/squamous-cell-carcinoma-of-the-skin',
+  melanoma:'https://dermnetnz.org/topics/melanoma',
+  solar:'https://dermnetnz.org/topics/actinic-keratosis',
+
+  // Cranial Nerves I–XII — shared diagram (Wikimedia Commons)
+  cn1:'https://commons.wikimedia.org/wiki/File:Brain_human_normal_inferior_view_with_labels_en.svg',
+  cn2:'https://commons.wikimedia.org/wiki/File:Brain_human_normal_inferior_view_with_labels_en.svg',
+  cn3:'https://commons.wikimedia.org/wiki/File:Brain_human_normal_inferior_view_with_labels_en.svg',
+  cn4:'https://commons.wikimedia.org/wiki/File:Brain_human_normal_inferior_view_with_labels_en.svg',
+  cn5:'https://commons.wikimedia.org/wiki/File:Brain_human_normal_inferior_view_with_labels_en.svg',
+  cn6:'https://commons.wikimedia.org/wiki/File:Brain_human_normal_inferior_view_with_labels_en.svg',
+  cn7:'https://commons.wikimedia.org/wiki/File:Brain_human_normal_inferior_view_with_labels_en.svg',
+  cn8:'https://commons.wikimedia.org/wiki/File:Brain_human_normal_inferior_view_with_labels_en.svg',
+  cn9:'https://commons.wikimedia.org/wiki/File:Brain_human_normal_inferior_view_with_labels_en.svg',
+  cn10:'https://commons.wikimedia.org/wiki/File:Brain_human_normal_inferior_view_with_labels_en.svg',
+  cn11:'https://commons.wikimedia.org/wiki/File:Brain_human_normal_inferior_view_with_labels_en.svg',
+  cn12:'https://commons.wikimedia.org/wiki/File:Brain_human_normal_inferior_view_with_labels_en.svg',
+  // Epidermal layers — shared diagram
+  corneum:'https://commons.wikimedia.org/wiki/File:Epidermal_layers.png',
+  lucidum:'https://commons.wikimedia.org/wiki/File:Epidermal_layers.png',
+  granulosum:'https://commons.wikimedia.org/wiki/File:Epidermal_layers.png',
+  spinosum:'https://commons.wikimedia.org/wiki/File:Epidermal_layers.png',
+  germ:'https://commons.wikimedia.org/wiki/File:Epidermal_layers.png',
+  disjunctivum:'https://commons.wikimedia.org/wiki/File:Epidermal_layers.png',
+  // Dermal layers
+  dermal:'https://commons.wikimedia.org/wiki/File:Skin_layers.png',
+  // Lymph nodes — Gray's Anatomy Plate 602 (shared)
+  submand:'https://commons.wikimedia.org/wiki/File:Gray602.png',
+  parotid:'https://commons.wikimedia.org/wiki/File:Gray602.png',
+  submental:'https://commons.wikimedia.org/wiki/File:Gray602.png',
+  occipital:'https://commons.wikimedia.org/wiki/File:Gray602.png',
+  cervical:'https://commons.wikimedia.org/wiki/File:Gray602.png',
+
+  // Skin Type textures (Unsplash)
+  alip:'https://unsplash.com/photos/persons-mouth-in-close-up-photography-PttD8yKQt0g',
+  oily:'https://unsplash.com/photos/skincare-product-targeting-open-pores-and-acne-marks-uQOiEdKjezM',
+  combo:'https://unsplash.com/s/photos/combination-skin',
+  sens:'https://unsplash.com/s/photos/rosacea',
+  mature:'https://unsplash.com/photos/close-up-of-a-mature-womans-eye-and-cheek-8vHkKyxsMRs',
+
+  // Fitzpatrick scale (Unsplash)
+  fp1:'https://unsplash.com/photos/woman-with-red-hair-and-freckles-looks-forward-kbgPIS90l9Q',
+  fp3:'https://unsplash.com/s/photos/fair-skin-brown-hair',
+  fp6:'https://unsplash.com/photos/a-young-black-woman-with-dark-skin-and-short-hair-I0FCLHZYd54',
+
+  // Exfoliants & formulations (Unsplash)
+  ahas:'https://unsplash.com/s/photos/serum-dropper',
+  bhas:'https://unsplash.com/photos/a-dropper-with-a-drop-of-golden-liquid-0AZkLP56i3w',
+  enzyme:'https://unsplash.com/photos/orange-sliced-papaya-yPI38imbQSI',
+
+  // Salon equipment
+  ozone:'https://commons.wikimedia.org/w/index.php?search=facial+steamer&title=Special:MediaSearch&go=Go',
+
+  // Ethnic Skin Care protocols — reuse the related disorder pages
+  pig_tx:'https://dermnetnz.org/topics/postinflammatory-hyperpigmentation',
+  kel_tx:'https://dermnetnz.org/topics/keloid-and-hypertrophic-scar',
+  dpn_tx:'https://dermnetnz.org/topics/dermatosis-papulosa-nigra'
+};
+
+function sourceLabel(url){
+  if (!url) return '';
+  if (url.indexOf('dermnetnz') !== -1) return 'DermNet NZ';
+  if (url.indexOf('commons.wikimedia') !== -1) return 'Wikimedia';
+  if (url.indexOf('wikimedia') !== -1) return 'Wikimedia';
+  if (url.indexOf('unsplash') !== -1) return 'Unsplash';
+  return 'Source';
+}
+
+var DATA = {
+  anatomy: {
+    label: 'Anatomy & Physiology',
+    categories: {
+      'Cranial Nerves': [
+        { id:'cn1', answer:'Cranial Nerve I — Olfactory',
+          clinical:`<b>Function:</b> Purely sensory. Contains special visceral afferent fibers that transmit the sense of smell from the nasal mucosa, through the cribriform plate, directly to the olfactory bulb.`,
+          prompt:`<b>Location / Test:</b> Located above the nasal cavity. Tested clinically by asking the client to identify familiar odors (coffee, peppermint) with eyes closed.`,
+          teacher:`Olfactory = smell. This tiny nerve sits right above the nose and gives us the ability to scent a rose, or alert us if a product has gone bad.` },
+        { id:'cn2', answer:'Cranial Nerve II — Optic',
+          clinical:`<b>Function:</b> Purely sensory. Carries visual information from the retina, through the optic canal, to the visual cortex in the occipital lobe.`,
+          prompt:`<b>Location / Test:</b> Exits the back of the eye. Tested via visual acuity charts and peripheral vision testing.`,
+          teacher:`Optic = eye. It carries the picture from the eye to the brain. Think of it as the thick video cable connecting the camera to the TV screen.` },
+        { id:'cn3', answer:'Cranial Nerve III — Oculomotor',
+          clinical:`<b>Function:</b> Primarily motor. Innervates four of the six extraocular muscles, elevates the upper eyelid, and controls the pupillary sphincter for constriction.`,
+          prompt:`<b>Location / Test:</b> Exits the midbrain. Tested by observing pupil reaction to light and tracking a moving finger.`,
+          teacher:`Oculomotor = eye mover. It controls the muscles that roll the eyes up, down, and around, and shrinks the pupil when light shines in.` },
+        { id:'cn4', answer:'Cranial Nerve IV — Trochlear',
+          clinical:`<b>Function:</b> Purely motor. Innervates a single extraocular muscle, the superior oblique, which depresses, intorts, and abducts the eye.`,
+          prompt:`<b>Location / Test:</b> The only cranial nerve to exit the dorsal brainstem. Tested by asking the client to look down and in toward the nose.`,
+          teacher:`Trochlear means pulley. It loops through a tiny cartilage pulley in the eye socket to help you look down at your book.` },
+        { id:'cn5', answer:'Cranial Nerve V — Trigeminal',
+          clinical:`<b>Function:</b> Mixed. The largest cranial nerve. Provides major sensory innervation to the entire face (Ophthalmic, Maxillary, Mandibular branches) and motor innervation to the muscles of mastication.`,
+          prompt:`<b>Location / Test:</b> Covers forehead, cheeks, and jaw. A crucial nerve for beauty therapists, registering touch, pain, and temperature during a facial massage.`,
+          teacher:`Number five is the Trigeminal. It is the major feeling nerve of the face. When you massage a client's cheek or forehead, this is the nerve sending those relaxing signals to the brain.` },
+        { id:'cn6', answer:'Cranial Nerve VI — Abducens',
+          clinical:`<b>Function:</b> Purely motor. Innervates the lateral rectus muscle of the eye, responsible for abduction (lateral eye movement).`,
+          prompt:`<b>Location / Test:</b> Exits the pons. Tested by asking the client to look straight to the side without turning the head.`,
+          teacher:`Abducens = to abduct. It pulls the eye outward, away from the nose. Think of it as the sideways-glance nerve.` },
+        { id:'cn7', answer:'Cranial Nerve VII — Facial',
+          clinical:`<b>Function:</b> Mixed. Motor to the muscles of facial expression, parasympathetic to the lacrimal and salivary glands, and sensory taste to the anterior two-thirds of the tongue.`,
+          prompt:`<b>Location / Test:</b> Exits the stylomastoid foramen and branches across the face. Tested by smile, frown, puff cheeks, raise brows. Bell's Palsy is a dysfunction here.`,
+          teacher:`The facial nerve is seven. Every time a client smiles, frowns, or looks surprised, the facial nerve is doing the heavy lifting. Crucial for facial massage.` },
+        { id:'cn8', answer:'Cranial Nerve VIII — Vestibulocochlear',
+          clinical:`<b>Function:</b> Purely sensory. Vestibular portion transmits balance and spatial orientation; cochlear portion transmits hearing.`,
+          prompt:`<b>Location / Test:</b> Originates in the inner ear. Tested via hearing and balance assessments. Dysfunction causes vertigo and tinnitus.`,
+          teacher:`This nerve has two jobs: hearing (cochlear) and balance (vestibular). When a client gets dizzy sitting up too fast, this is the nerve recalibrating.` },
+        { id:'cn9', answer:'Cranial Nerve IX — Glossopharyngeal',
+          clinical:`<b>Function:</b> Mixed. Motor to the stylopharyngeus (swallowing), parasympathetic to the parotid gland, sensory taste to the posterior one-third of the tongue.`,
+          prompt:`<b>Location / Test:</b> Throat and back of tongue. Tested by the gag reflex and swallowing.`,
+          teacher:`Glossopharyngeal = tongue and throat. It helps you taste the back of your food and swallow it.` },
+        { id:'cn10', answer:'Cranial Nerve X — Vagus',
+          clinical:`<b>Function:</b> Mixed. The longest cranial nerve, carrying 75% of all parasympathetic fibers. Innervates the heart, lungs, and digestive tract, regulating heart rate, respiration, and peristalsis.`,
+          prompt:`<b>Location / Test:</b> Travels from brainstem to abdomen. Deep breathing during massage stimulates vagal tone, triggering the "rest and digest" response.`,
+          teacher:`Vagus means wanderer. When a client finally falls asleep during a facial, it is because you have successfully calmed the vagus nerve.` },
+        { id:'cn11', answer:'Cranial Nerve XI — Accessory',
+          clinical:`<b>Function:</b> Purely motor. Innervates the sternocleidomastoid and trapezius, controlling rotation and flexion of the neck and elevation of the shoulders.`,
+          prompt:`<b>Location / Test:</b> Exits the skull and travels down the neck. Tested by shrugging against resistance or turning the head side to side.`,
+          teacher:`The accessory nerve helps you shrug your shoulders and turn your head. This is the main nerve we soothe during a tense neck and shoulder massage.` },
+        { id:'cn12', answer:'Cranial Nerve XII — Hypoglossal',
+          clinical:`<b>Function:</b> Purely motor. Innervates all intrinsic and most extrinsic muscles of the tongue, controlling speech, food manipulation, and swallowing.`,
+          prompt:`<b>Location / Test:</b> Exits the hypoglossal canal. Tested by sticking the tongue straight out; if damaged, it deviates to the paralyzed side.`,
+          teacher:`Hypoglossal means under the tongue. Stick out your tongue, that is cranial nerve twelve at work.` }
+      ],
+      'Epidermal Layers': [
+        { id:'corneum', answer:'Stratum Corneum (Horny Layer)',
+          clinical:`<b>Anatomy & Function:</b> The outermost epidermal layer, 15 to 30 sheets of dead, flattened, fully keratinized corneocytes embedded in a lipid matrix. The body's primary physical, chemical, and biological barrier.`,
+          prompt:`<b>Clinical Relevance:</b> Dictates how rough or smooth the skin feels. The primary target of all exfoliants (AHAs, BHAs, scrubs) and the barrier topical skincare must cross.`,
+          teacher:`Think of it as the skin's brick wall. The dead cells are the bricks, the lipids are the mortar. Tough, protective, keeps the good moisture in and the bad bacteria out.` },
+        { id:'lucidum', answer:'Stratum Lucidum (Clear Layer)',
+          clinical:`<b>Anatomy & Function:</b> A thin, clear layer of eleidin-packed corneocytes just beneath the corneum. Completely absent on most of the body.`,
+          prompt:`<b>Clinical Relevance:</b> Found only on the thick, hairless skin of the palms and soles, providing extra shock absorption and friction protection.`,
+          teacher:`This is the see-through safety layer. It only exists where the body needs heavy-duty padding, your hands and your feet.` },
+        { id:'granulosum', answer:'Stratum Granulosum (Granular Layer)',
+          clinical:`<b>Anatomy & Function:</b> Three to five layers of cells undergoing terminal differentiation. Keratinocytes flatten, accumulate dense keratohyalin granules, and release lamellar bodies that secrete the ceramides and cholesterol which waterproof the skin.`,
+          prompt:`<b>Clinical Relevance:</b> The critical transition zone where living cells commit to dying and becoming the protective dead barrier.`,
+          teacher:`The packing zone. Cells are packing their bags with tough keratin and waterproofing oils before they head to the surface to become the outer shield.` },
+        { id:'spinosum', answer:'Stratum Spinosum (Prickle Cell Layer)',
+          clinical:`<b>Anatomy & Function:</b> The thickest living layer (8 to 10 cells). Keratinocytes are bound tightly by desmosomes which look like tiny spines under dehydration. Houses Langerhans dendritic immune cells.`,
+          prompt:`<b>Clinical Relevance:</b> Provides immense structural strength and flexibility, preventing the skin from tearing under tension.`,
+          teacher:`Called the prickle layer because under a microscope the cells look like they have tiny spikes hugging each other. It gives the skin its strength and houses the immune system's security guards.` },
+        { id:'germ', answer:'Stratum Germinativum (Basal Layer)',
+          clinical:`<b>Anatomy & Function:</b> The deepest epidermal layer, a single row of cuboidal stem cells attached to the basement membrane. Highly mitotically active. Houses melanocytes and Merkel touch receptors.`,
+          prompt:`<b>Clinical Relevance:</b> The birthplace of all skin cells. UV radiation heavily damages DNA here, leading to basal cell carcinoma.`,
+          teacher:`The basement factory where brand new skin cells are born. They will slowly travel up to the surface over a 28 day journey. Protect this factory from sun damage at all costs.` },
+        { id:'disjunctivum', answer:'Stratum Disjunctivum',
+          clinical:`<b>Anatomy & Function:</b> The most superficial sub-layer of the stratum corneum, where desmosomal bonds have fully broken down, allowing corneocytes to detach and shed.`,
+          prompt:`<b>Clinical Relevance:</b> This continuous invisible shedding is desquamation. Sluggish desquamation causes dull skin and acne, which we treat with exfoliants.`,
+          teacher:`The flaky, shedding part of the absolute surface. Cells are saying their final goodbyes and floating away as dust as we move through our day.` }
+      ],
+      'Dermal Layers': [
+        { id:'dermal', answer:'Papillary & Reticular Dermis',
+          clinical:`<b>Papillary (superficial):</b> Loose areolar connective tissue forming dermal papillae that interlock with the epidermis. Houses capillary loops and Meissner's corpuscles for light touch.<br><br><b>Reticular (deep):</b> Dense irregular connective tissue containing the collagen and elastin network, hair follicles, sebaceous glands, and deep pressure receptors.`,
+          prompt:`<b>Clinical Relevance:</b> The papillary layer feeds the avascular epidermis. The reticular layer gives the skin structural integrity, bounce, and elasticity. Destruction of reticular collagen leads to deep wrinkles and sagging.`,
+          teacher:`The dermis is the living mattress of the skin. The papillary is the soft, wavy foam top that feeds the surface. The reticular is the deep, tough layer with all the springs (collagen) that keep the skin bouncy.` }
+      ],
+      'Lymph Nodes': [
+        { id:'submand', answer:'Submandibular Nodes',
+          clinical:`<b>Anatomy & Drainage:</b> Three to six nodes beneath the body of the mandible. Receive lymph from the cheeks, lateral nose, upper lip, lateral lower lip, and facial gums.`,
+          prompt:`<b>Clinical Relevance:</b> Palpated during skin analysis. Enlargement often indicates mouth or tooth infection, or severe lower facial acne. Massage strokes sweep fluid down toward these nodes.`,
+          teacher:`Submandibular means under the jawbone. When a client has a bad breakout on the lower cheeks or chin, these little filters are working overtime.` },
+        { id:'parotid', answer:'Parotid Nodes',
+          clinical:`<b>Anatomy & Drainage:</b> Located superficial to and deep within the parotid salivary gland, anterior to the tragus of the ear. Drain the lateral scalp, upper face, eyelids, and cheekbones.`,
+          prompt:`<b>Clinical Relevance:</b> Crucial drainage points during facial massage. Effleurage from the forehead and eyes should be directed outward toward these nodes.`,
+          teacher:`Parotid equals near the ear. When we drain puffiness from under the eyes during a facial, we sweep the fluid gently out toward the ears so these nodes can process it.` },
+        { id:'submental', answer:'Submental Nodes',
+          clinical:`<b>Anatomy & Drainage:</b> Superficial in the submental triangle, midline directly beneath the chin. Drain the central lower lip, floor of the mouth, and apex of the tongue.`,
+          prompt:`<b>Clinical Relevance:</b> Drain into the submandibular nodes. Easily palpated right behind the chin bone.`,
+          teacher:`Submental means under the chin. The very tip of the body's drainage system for the lower face. A gentle sweeping motion under the chin helps clear fluid here.` },
+        { id:'occipital', answer:'Occipital Nodes',
+          clinical:`<b>Anatomy & Drainage:</b> At the posterior base of the skull, near the origin of the trapezius. Drain lymph strictly from the occipital region of the scalp.`,
+          prompt:`<b>Clinical Relevance:</b> Swelling here almost always indicates a scalp infection, severe dandruff scratching, or lice. Stimulated during Indian Head Massage or scalp treatments.`,
+          teacher:`Occipital means back of the head. They drain the back of the scalp. You will feel them clearly during a deep, relaxing neck and scalp massage.` },
+        { id:'cervical', answer:'Cervical Nodes',
+          clinical:`<b>Anatomy & Drainage:</b> Superficial and deep chains running vertically along the sternocleidomastoid. The master collection duct; all other facial nodes eventually drain down into the deep cervical chain.`,
+          prompt:`<b>Clinical Relevance:</b> The final pathway for facial lymphatic drainage before fluid returns to the venous system. All facial massage must conclude with strokes dragging down the sides of the neck.`,
+          teacher:`Cervical means neck. These are the big drainage highways. Every drop of fluid we move off the face must eventually be flushed down the sides of the neck into these nodes.` }
+      ]
+    }
+  },
+
+  analyze: {
+    label: 'Skin Analysis',
+    categories: {
+      'Skin Type Identification': [
+        { id:'alip', answer:'Alipidic (Dry) Skin',
+          clinical:`<b>Physiology:</b> Under-production of sebum. Without sufficient lipids the skin cannot form an effective acid mantle, leading to chronic transepidermal water loss (TEWL) and a compromised barrier.`,
+          prompt:`<b>Visual Identifiers:</b> Extremely fine, barely visible pores. Matte, thin, lacks luminosity. Texture feels rough or tight. Highly prone to early fine lines. <b>Protocol:</b> Rich lipid-replenishing creams (ceramides), gentle milky cleansers, hydrating masks.`,
+          teacher:`Think of this skin like dry, delicate parchment paper. It does not make enough of its own natural lotion, so it desperately needs us to hydrate it deeply.` },
+        { id:'oily', answer:'Oily Skin',
+          clinical:`<b>Physiology:</b> Excessive sebum from genetically larger, hyperactive sebaceous glands, often androgen-influenced. The thick sebum layer delays visible aging but predisposes to congestion.`,
+          prompt:`<b>Visual Identifiers:</b> Enlarged pores across the entire face, not just the T-zone. Thick, coarse surface with heavy shine within hours. Prone to comedones. <b>Protocol:</b> Deep cleansing, BHAs to clear pore lining, oil-free humectant hydration.`,
+          teacher:`This skin is like sturdy, shiny leather. It ages wonderfully because of all that natural oil, but it needs consistent deep cleaning to keep those large pores from plugging.` },
+        { id:'combo', answer:'Combination Skin',
+          clinical:`<b>Physiology:</b> Structural imbalance where sebaceous gland density varies drastically across the face. The central face is gland-dense; the periphery is gland-poor.`,
+          prompt:`<b>Visual Identifiers:</b> Classic oily T-zone (forehead, nose, chin) with enlarged pores and shine, contrasted by normal, dry, or flaky cheeks and jawline. <b>Protocol:</b> Multi-masking and zoned treatments, astringents in the center, rich hydration on the cheeks.`,
+          teacher:`The trickiest skin, because it is two entirely different faces stitched together. The center needs purifying, the cheeks need hydrating. Customize by zone.` },
+        { id:'sens', answer:'Sensitive Skin',
+          clinical:`<b>Physiology:</b> Hyper-reactive immune response paired with a thin, compromised stratum corneum. Nerve endings sit close to the surface and fire easily from friction, heat, and active ingredients.`,
+          prompt:`<b>Visual Identifiers:</b> Translucent appearance, thin epidermis, persistent pinkish flush. Dilated capillaries common. Frequently feels hot, itchy, or stinging. <b>Protocol:</b> Minimalist. Avoid steam, mechanical scrubs, strong acids, synthetic fragrances. Cooling, soothing, barrier repair.`,
+          teacher:`This skin is delicate, reactive, and loud. Everything you use must be gentle, cool, and calming, or the skin will instantly turn red and let you know it is unhappy.` },
+        { id:'mature', answer:'Mature Skin',
+          clinical:`<b>Physiology:</b> Intrinsic degradation of collagen and elastin, compounded by post-menopausal estrogen drop which reduces sebum, hyaluronic acid synthesis, and cell turnover.`,
+          prompt:`<b>Visual Identifiers:</b> Visible loss of muscle tone and elasticity (jowls, sagging). Thinner, fragile epidermis. Deep static wrinkles and expression lines. <b>Protocol:</b> Peptides, retinol, AHAs to stimulate collagen. Intensive hydration and firming massage.`,
+          teacher:`This skin has lived a full life and needs extra structural support. The bounce is gone, so our priorities are firming, hydrating, and feeding it the nutrients it stopped making.` }
+      ],
+      'Fitzpatrick Scale': [
+        { id:'fp1', answer:'Fitzpatrick Type 1',
+          clinical:`<b>Physiology:</b> Produces primarily pheomelanin (red/yellow pigment) rather than protective eumelanin. Has zero genetic protection against ultraviolet radiation, carrying the highest risk for photoaging and melanoma.`,
+          prompt:`<b>Characteristics:</b> Red or pale blonde hair, blue or green eyes, and extremely fair, porcelain skin. <b>Sun Reaction:</b> Burns severely and painfully every time. Will never, under any circumstances, develop a tan.`,
+          teacher:`Porcelain skin that turns red if it merely looks at the sun. They have absolutely zero natural defense against UV rays. SPF is a matter of life and death for this skin type.` },
+        { id:'fp2', answer:'Fitzpatrick Type 2',
+          clinical:`<b>Physiology:</b> Contains low levels of eumelanin. Skin has minimal natural protection against UV radiation and is highly susceptible to sunburn and long-term photoaging.`,
+          prompt:`<b>Characteristics:</b> Fair skin, light eyes (blue, green, grey), blonde or light brown hair. <b>Sun Reaction:</b> Burns easily and severely, but can develop a very light, minimal tan with difficulty.`,
+          teacher:`Very fair skin that catches the sun very easily. They can build a tiny hint of color with great effort, but they still burn first and need diligent sun protection.` },
+        { id:'fp3', answer:'Fitzpatrick Type 3',
+          clinical:`<b>Physiology:</b> Contains a moderate baseline of eumelanin. Represents the transition point in the scale where the skin has some adaptive melanocyte response to UV exposure, but still sustains significant DNA damage before the tan develops.`,
+          prompt:`<b>Characteristics:</b> Dark blonde to brown hair, hazel or brown eyes, fair to sandy/beige skin tone. <b>Sun Reaction:</b> Will suffer a mild to moderate burn initially, but gradually develops a light-to-moderate tan over time.`,
+          teacher:`Your classic sun-sensitive Caucasian skin. They have a little bit of pigment defense, but they still burn first. They need serious SPF discipline.` },
+        { id:'fp4', answer:'Fitzpatrick Type 4',
+          clinical:`<b>Physiology:</b> Contains a high baseline of eumelanin. Melanocytes respond robustly to UV radiation, providing strong natural protection against burning while retaining a high tendency toward tanning.`,
+          prompt:`<b>Characteristics:</b> Dark brown hair, dark eyes, olive or light brown Mediterranean/Asian skin tone. <b>Sun Reaction:</b> Burns minimally and tans easily and deeply to a moderate brown shade.`,
+          teacher:`Olive or light brown skin that loves the sun. They rarely burn and tan easily, but they can still develop dark spots (PIH) if we use overly aggressive chemical peels.` },
+        { id:'fp5', answer:'Fitzpatrick Type 5',
+          clinical:`<b>Physiology:</b> Abundant eumelanin production. Offers substantial intrinsic photoprotection, though the skin remains fully vulnerable to post-inflammatory hyperpigmentation (PIH) following trauma or injury.`,
+          prompt:`<b>Characteristics:</b> Dark brown to black hair and eyes, richly pigmented dark brown skin (Middle Eastern, Hispanic, South Asian). <b>Sun Reaction:</b> Rarely burns, tans darkly and easily.`,
+          teacher:`Richly pigmented skin that almost never burns. However, their melanocytes are very reactive, meaning any minor acne pimple or scratch can leave a dark mark.` },
+        { id:'fp6', answer:'Fitzpatrick Type 6',
+          clinical:`<b>Physiology:</b> Melanocytes produce massive amounts of dense, large melanosomes packed with eumelanin, distributing them throughout the entire epidermis. Offers an inherent SPF of roughly 13.4, providing excellent protection against photoaging.`,
+          prompt:`<b>Characteristics:</b> Black hair, dark brown eyes, deeply pigmented dark brown to black skin. <b>Sun Reaction:</b> Never burns. Skin darkens significantly upon UV exposure. High risk for post-inflammatory hyperpigmentation.`,
+          teacher:`Deeply pigmented skin with beautiful, built-in sun defense. They do not burn, but they are incredibly prone to dark scars and keloids if we are too harsh with our treatments or extractions.` }
+      ]
+    }
+  },
+
+  identify: {
+    label: 'Skin Disorders',
+    categories: {
+      'Sebaceous Gland Disorders': [
+        { id:'seb', answer:'Seborrhoea',
+          clinical:`<b>Pathology:</b> A functional disorder of the sebaceous glands resulting in excessive sebum secretion. Largely androgen-driven but exacerbated by stress, diet, and stripping skincare that triggers reactive oil production.<br><br><b>Clinical Presentation:</b> Pervasive oily film, severely enlarged pores, thickened stratum corneum.`,
+          prompt:`<b>Visual Identifiers:</b> Shiny, greasy appearance that returns quickly after cleansing. Skin feels thick, coarse, often sallow or yellowish from oxidized lipid.<br><br><b>Therapy Protocol:</b> Regulate rather than strip. BHAs (Salicylic) to keep pores clear. Avoid heavy occlusive creams. Use humectant hydration (Hyaluronic Acid).`,
+          teacher:`The skin's oil factories are working overtime. The face shines like a slick mirror. If we scrub too hard, the skin panics and makes more oil, so we balance, not punish.` },
+        { id:'mil', answer:'Milia',
+          clinical:`<b>Pathology:</b> Small, benign, keratin-filled epithelial cysts. Primary milia occur spontaneously from sluggish exfoliation. Secondary milia arise from trauma, blistering, or prolonged use of occlusive skincare that traps keratin.<br><br><b>Clinical Presentation:</b> Firm, pearly-white or yellowish 1 to 2 mm papules on the periorbital area, cheeks, and nose.`,
+          prompt:`<b>Visual Identifiers:</b> Tiny hard seeds with no visible pore opening. Cannot be squeezed out with simple pressure.<br><br><b>Therapy Protocol:</b> Sterile lancet to pierce the overlying epidermis before extracting the keratin pearl. Prevent by switching to lighter eye creams and regular mild chemical exfoliants.`,
+          teacher:`Like tiny hard seeds trapped just beneath the surface. Often seen around the delicate eye area when a client uses anti-aging creams far too rich for their skin type.` },
+        { id:'acnev', answer:'Acne Vulgaris',
+          clinical:`<b>Pathology:</b> Chronic multifactorial inflammatory disease of the pilosebaceous unit. Four pillars: excessive sebum, follicular hyperkeratosis, Cutibacterium acnes colonization, and immune-driven inflammation.<br><br><b>Clinical Presentation:</b> Polymorphic mix of non-inflammatory comedones and inflammatory papules, pustules, and nodules.`,
+          prompt:`<b>Visual Identifiers:</b> Ongoing cycle of breakouts of varying types across face, chest, or back, often with post-inflammatory hyperpigmentation or erythema.<br><br><b>Therapy Protocol:</b> Long-term management (12+ weeks to see real progress). Deep cleansing, salicylic acid, anti-bacterial modalities like ozone steaming or high-frequency therapy.`,
+          teacher:`The clinical name for everyday acne. An ongoing cycle in the pore that needs consistent management and lifestyle advice, not just a one-off facial.` },
+        { id:'steatoma', answer:'Steatoma (Sebaceous Cyst)',
+          clinical:`<b>Pathology:</b> A slow-growing benign cyst containing sebum, keratin, and cellular debris, caused by severe blockage of a sebaceous duct. Encapsulated in its own sac in the subcutaneous tissue or dermis.<br><br><b>Clinical Presentation:</b> Firm, rounded, mobile mass from pea to golf ball, often with a visible darkened central punctum.`,
+          prompt:`<b>Visual Identifiers:</b> Distinct raised lump under the skin. If infected, becomes red, hot, tender.<br><br><b>Therapy Protocol:</b> <b>Do not extract.</b> Squeezing pushes contents deeper and causes severe infection. Must be surgically excised by a physician to remove the entire sac wall.`,
+          teacher:`A little capsule of hardened sebum under the skin. Feels like a smooth firm pea and always has a tiny dark dot on top. Never squeeze, the doctor has to remove the whole balloon so it does not grow back.` },
+        { id:'asteatosis', answer:'Asteatosis (Xerosis)',
+          clinical:`<b>Pathology:</b> Severe deficiency or absence of sebum, compromising the lipid barrier and leading to profound transepidermal water loss. Exacerbated by aging, cold weather, harsh alkaline soaps, or hypothyroidism.<br><br><b>Clinical Presentation:</b> Excessively dry, scaling skin with possible fine fissuring.`,
+          prompt:`<b>Visual Identifiers:</b> Dull, rough, thin skin with visible flakes and an exaggerated network of fine lines from dehydration. Client complains of tightness and itching.<br><br><b>Therapy Protocol:</b> Eliminate stripping foaming cleansers and astringents. Replenish lipid barrier with ceramides, squalane, and rich emollients alongside gentle enzymatic exfoliation.`,
+          teacher:`The opposite of seborrhoea. The oil glands are practically asleep. The skin is desperately thirsty, tight, and cracking like a dry riverbed. We feed it rich, comforting oils.` }
+      ],
+      'Sudoriferous Gland Disorders': [
+        { id:'hyperh', answer:'Hyperhidrosis',
+          clinical:`<b>Pathology:</b> Overactivity of the eccrine sweat glands, producing perspiration far beyond thermoregulatory need. May be idiopathic or secondary to hyperthyroidism, menopause, or neurological disorders.<br><br><b>Clinical Presentation:</b> Excessive sweating localized to palms, soles, axillae, and face or scalp.`,
+          prompt:`<b>Visual Identifiers:</b> Visible heavy beads of sweat on face or body even in cool, resting conditions.<br><br><b>Therapy Protocol:</b> Maintain a cool clinic environment. Hyperhidrotic skin is easily irritated as constant moisture disrupts the acid mantle. Advise clinical antiperspirants or refer for Botox if severe.`,
+          teacher:`The sweat glands are in overdrive. It can be very embarrassing for the client, so keep the room cool, use a gentle fan, and maintain absolute professionalism.` },
+        { id:'brom', answer:'Bromhidrosis',
+          clinical:`<b>Pathology:</b> Foul-smelling perspiration. Sweat itself is odorless; bromhidrosis arises when apocrine sweat (lipid and protein rich) meets skin flora (Corynebacterium), breaking down into pungent fatty acids and ammonia.<br><br><b>Clinical Presentation:</b> Persistent body odor primarily from the axillae or plantar regions.`,
+          prompt:`<b>Visual Identifiers:</b> No visual identifier. Identified entirely by odor.<br><br><b>Therapy Protocol:</b> Requires delicate handling. Suggest antibacterial cleansers and emphasize keeping the area dry, as bacteria thrive in damp environments.`,
+          teacher:`Sweat with a strong odour because bacteria are breaking it down on the skin surface. Hygiene, antibacterial products, and breathable fabrics are the best advice you can gently give.` },
+        { id:'anhid', answer:'Anhidrosis',
+          clinical:`<b>Pathology:</b> A dangerous inability to sweat normally. Failure of the eccrine glands prevents cooling, risking severe heat exhaustion or heatstroke. Caused by neurological damage, congenital defects, or certain medications.<br><br><b>Clinical Presentation:</b> Complete lack of perspiration even during exertion or intense heat.`,
+          prompt:`<b>Visual Identifiers:</b> Skin appears flushed, excessively hot to the touch, and completely dry when the client should normally be sweating.<br><br><b>Therapy Protocol:</b> <b>WARNING:</b> Never use ozone steamers, thermal masks, or hot towels on an anhidrotic client. Their body cannot regulate localized heat.`,
+          teacher:`The sweat glands are broken or barely working. The skin cannot cool itself properly, so never use hot steam or thermal masks, or you could cause dangerous overheating.` },
+        { id:'miliar', answer:'Miliaria Rubra (Prickly Heat)',
+          clinical:`<b>Pathology:</b> Acute inflammatory disorder from occlusion of the eccrine sweat ducts. Sweat leaks into the surrounding epidermis, causing a severe localized inflammatory response.<br><br><b>Clinical Presentation:</b> Crops of discrete, highly pruritic, erythematous papules and vesicles in hot, humid conditions or under tight synthetic clothing.`,
+          prompt:`<b>Visual Identifiers:</b> Sudden rash of tiny red blisters on a red, inflamed background. Client reports intense stinging, burning, or a prickly sensation.<br><br><b>Therapy Protocol:</b> Pause salon treatments until acute inflammation subsides. Cooling measures, loose cotton clothing, mild hydrocortisone via a pharmacist.`,
+          teacher:`Commonly called prickly heat. The sweat ducts are blocked and sweat is trapped under the skin, causing a fiery, prickly feeling. Keep them cool and avoid heavy lotions over the rash.` }
+      ],
+      'Allergic Skin Conditions': [
+        { id:'acd', answer:'Allergic Contact Dermatitis',
+          clinical:`<b>Pathology:</b> Type IV delayed hypersensitivity. The immune system is sensitized to a specific allergen (nickel, fragrances, preservatives, latex). On re-exposure, T-cells mount an aggressive response at the contact site, appearing 48 to 72 hours later.<br><br><b>Clinical Presentation:</b> Acute inflammation with erythema, edema, intense pruritus, and weeping vesicles that crust.`,
+          prompt:`<b>Visual Identifiers:</b> Red, itchy, weeping rash that exactly mirrors the offending object (e.g. shaped like a necklace or watch band).<br><br><b>Therapy Protocol:</b> Identify and strictly avoid the allergen. No active facial treatments on the inflamed area until fully healed. Cool compresses to soothe.`,
+          teacher:`The skin is throwing a fiery little tantrum because it touched a specific chemical it hates. Takes a few days to show up, but when it does, it is incredibly itchy. Hands off until it heals.` },
+        { id:'icd', answer:'Irritant Contact Dermatitis',
+          clinical:`<b>Pathology:</b> Direct non-immunological chemical or physical damage to the epidermal barrier. Happens to anyone if the substance is harsh enough (alkalis, detergents, solvents, excessive friction) or contact is prolonged.<br><br><b>Clinical Presentation:</b> Localized dryness, cracking, scaling, with burning or stinging rather than the intense itching of allergic dermatitis.`,
+          prompt:`<b>Visual Identifiers:</b> Rough, chapped, erythematous skin, often glazed or fissured. Common on hands from over-washing or face from aggressive chemical peels.<br><br><b>Therapy Protocol:</b> Cease the offending irritant immediately. Barrier repair with ceramides, niacinamide, rich lipid creams to restore the stratum corneum.`,
+          teacher:`This is not an allergy, it is a chemical burn or physical damage. The barrier was violently stripped by a harsh soap or acid. Wrap the skin in protective, soothing hydration.` },
+        { id:'atopic', answer:'Atopic Dermatitis (Eczema)',
+          clinical:`<b>Pathology:</b> Chronic genetically-mediated inflammatory disease linked to a filaggrin gene mutation, producing a profoundly defective skin barrier. Excessive moisture loss and easy entry of irritants keep the immune system hyper-reactive.<br><br><b>Clinical Presentation:</b> Intensely pruritic, dry, inflamed patches. Chronic scratching leads to lichenification (thickened leathery skin).`,
+          prompt:`<b>Visual Identifiers:</b> Red patches on lighter skin; dark brown, purple, or ashen grey on darker skin. Often in the flexures (elbow creases, behind knees, neck).<br><br><b>Therapy Protocol:</b> Avoid harsh exfoliants, hot water, synthetic fragrances. The goal is aggressive continuous moisturization to artificially substitute the broken barrier.`,
+          teacher:`Chronically thirsty, perfectly miserable skin. The protective barrier is naturally weak, so moisture escapes and irritants sneak in. Every product must be gentle, fragrance-free, and barrier-building.` },
+        { id:'urt', answer:'Urticaria (Hives)',
+          clinical:`<b>Pathology:</b> Rapid vascular reaction caused by massive histamine and vasoactive mediator release from dermal mast cells, leading to capillary leakage and tissue edema. Triggers include allergens, heat, cold, stress, pressure.<br><br><b>Clinical Presentation:</b> Sudden eruption of transient, intensely itchy, edematous plaques (wheals).`,
+          prompt:`<b>Visual Identifiers:</b> Raised, smooth, pink-to-red welts with well-defined borders. Individual hives usually disappear or migrate within 24 hours, leaving no trace.<br><br><b>Therapy Protocol:</b> Do not massage or apply heat, both worsen the histamine response. Cool therapy and antihistamines via a pharmacist.`,
+          teacher:`These welts come and go like lightning. They are a histamine reaction, not a skin disease. If they break out during a facial, stop, apply cool compresses, let the skin calm down.` }
+      ],
+      'Pigmentary Disorders': [
+        { id:'chlo', answer:'Chloasma (Melasma)',
+          clinical:`<b>Pathology:</b> Localized chronic acquired hypermelanosis driven by genetics, UV radiation, and hormonal fluctuations (estrogen and progesterone spikes during pregnancy or oral contraceptive use).<br><br><b>Clinical Presentation:</b> Symmetrical, reticulated macules and patches of light to dark brown pigmentation.`,
+          prompt:`<b>Visual Identifiers:</b> Bilateral, blotchy brown pigmentation patterned over cheeks, forehead, upper lip, and chin.<br><br><b>Therapy Protocol:</b> Difficult to treat, melanocytes are hyper-sensitized. Avoid aggressive heat or intense peels (rebound hyperpigmentation). Tyrosinase inhibitors (Kojic, Vitamin C, Licorice) and strict daily SPF.`,
+          teacher:`We often call this the pregnancy mask. A watercolor painting of brown patches that bloom when hormones and sunshine mix. Patience and gentle fading ingredients only, aggressive lasers will only make it angrier.` },
+        { id:'lent', answer:'Lentigo (Solar Lentigines)',
+          clinical:`<b>Pathology:</b> Benign circumscribed pigmented macules from localized melanocyte proliferation due to chronic cumulative UV exposure. Unlike ephelides, lentigines feature actual increase in melanocyte number.<br><br><b>Clinical Presentation:</b> Sharply defined, light brown to black flat spots.`,
+          prompt:`<b>Visual Identifiers:</b> Exclusively on sun-exposed areas (face, hands, shoulders). Do not fade in winter.<br><br><b>Therapy Protocol:</b> Safe to treat cosmetically with chemical peels (TCA, AHAs) or IPL/Laser. Monitor carefully, rapid change in size, irregular borders, or blue-grey color warrants referral to rule out Lentigo Maligna.`,
+          teacher:`Permanent age spots or sun spots. They do not fade in winter like freckles do. Safe to treat, but always watch for any spot that changes color or shape.` },
+        { id:'vit', answer:'Vitiligo',
+          clinical:`<b>Pathology:</b> Acquired chronic autoimmune disorder. T-cells selectively destroy functioning melanocytes, leaving the skin completely devoid of melanin.<br><br><b>Clinical Presentation:</b> Chalk-white, sharply marginated macules and patches, typically totally asymptomatic.`,
+          prompt:`<b>Visual Identifiers:</b> Stark white, well-defined patches often symmetrical on both sides of the body.<br><br><b>Therapy Protocol:</b> Depigmented areas have zero natural UV protection. Emphasize extreme sun protection (SPF 50+) as these areas will burn catastrophically. Cosmetic camouflage makeup is a great service.`,
+          teacher:`The little cells that paint the skin with color have simply retired in certain spots, leaving perfectly clear white patches. Beautiful, but zero sun defense, so sunscreen is non-negotiable.` },
+        { id:'alb', answer:'Albinism',
+          clinical:`<b>Pathology:</b> Inherited genetic disorders characterized by total or partial absence of melanin synthesis. Melanocytes are present in normal numbers but a genetic mutation (often tyrosinase) prevents melanin production.<br><br><b>Clinical Presentation:</b> Generalized hypopigmentation affecting skin, hair, and eyes (oculocutaneous albinism).`,
+          prompt:`<b>Visual Identifiers:</b> Stark white hair, extremely pale translucent skin, very light blue or pinkish irises. High susceptibility to severe sunburns and early skin cancers.<br><br><b>Therapy Protocol:</b> Treatments are safe, but education must focus on militant daily sun protection, antioxidant barrier defense, and regular dermatological skin cancer screening.`,
+          teacher:`A genetic condition, not a disease. The skin has all its cells, but the ink factory is completely shut down. Sun protection is absolutely critical every single day of their lives.` },
+        { id:'ephelides', answer:'Ephelides (Freckles)',
+          clinical:`<b>Pathology:</b> Small benign hyperpigmented macules triggered by UV in genetically predisposed individuals (most common in Fitzpatrick 1 and 2). UVR stimulates existing melanocytes to overproduce melanin, rapidly transferred to surrounding keratinocytes.<br><br><b>Clinical Presentation:</b> Small (1 to 3 mm) flat, red-to-light-brown spots.`,
+          prompt:`<b>Visual Identifiers:</b> Concentrated on the bridge of the nose and cheeks. Key diagnostic: dramatically darken in summer, fade or disappear in winter.<br><br><b>Therapy Protocol:</b> No aggressive treatment required, they are a normal genetic trait. Daily SPF prevents severe darkening.`,
+          teacher:`Common freckles, the skin's little kisses from the sun. Unlike age spots, these fade away when winter comes. Completely harmless and give the skin beautiful character.` }
+      ],
+      'Ethnic Skin Conditions': [
+        { id:'hyperpig', answer:'Post-Inflammatory Hyperpigmentation (PIH)',
+          clinical:`<b>Pathology:</b> Acquired hypermelanosis after cutaneous inflammation or injury. In melanin-rich skin, the inflammatory cascade hyper-stimulates melanocytes, dumping massive melanin into the epidermis and sometimes the deeper dermis where it can be trapped for years.<br><br><b>Clinical Presentation:</b> Irregularly shaped dark brown to greyish-black macules exactly at the site of a previous injury, acne lesion, or burn.`,
+          prompt:`<b>Visual Identifiers:</b> Dark spots persisting long after a pimple, scratch, or insect bite has healed.<br><br><b>Therapy Protocol:</b> Highly cautious approach. Avoid strong acids and harsh scrubs, more inflammation worsens PIH. Use gentle tyrosinase inhibitors (Mandelic, Alpha Arbutin, Niacinamide) and daily SPF.`,
+          teacher:`Darker skin has a brilliant memory; it remembers every little injury. Any inflammation leaves a dark mark that takes months to fade. Coax the pigment away gently, scrub it aggressively and it will fight back darker.` },
+        { id:'kel', answer:'Keloid Scarring',
+          clinical:`<b>Pathology:</b> Aggressive abnormal wound healing with profound overproduction of Type I and Type III collagen. Unlike hypertrophic scars, keloids extend significantly beyond the original wound, invading healthy tissue.<br><br><b>Clinical Presentation:</b> Firm, rubbery, shiny, raised lesions, often hyperpigmented and intensely itchy or painful. Highly prevalent in Fitzpatrick 4 to 6.`,
+          prompt:`<b>Visual Identifiers:</b> Raised, smooth, elongated tissue overgrowth at the site of an old piercing, acne cyst, or surgical incision.<br><br><b>Therapy Protocol:</b> <b>STRICT CONTRAINDICATION.</b> No exfoliation, massage, or extraction. Any trauma or heat stimulates further collagen overgrowth. Refer for intralesional corticosteroid injections or silicone gel sheet therapy.`,
+          teacher:`When darker skin heals a deep cut or piercing, sometimes it is a massive overachiever, building too much healing tissue into a raised smooth bump. Never touch it with a scrub or needle, refer them to a doctor.` },
+        { id:'dpn', answer:'Dermatosis Papulosa Nigra (DPN)',
+          clinical:`<b>Pathology:</b> Benign epidermal proliferation of multiple small hyperpigmented seborrheic keratosis-like lesions. Highly genetically determined, affecting up to 30 percent of Black individuals, usually onsetting in adolescence.<br><br><b>Clinical Presentation:</b> Multiple 1 to 5 mm smooth, dome-shaped or pedunculated dark brown to black papules.`,
+          prompt:`<b>Visual Identifiers:</b> Clusters of tiny raised dark bumps primarily on the malar (cheek) region, forehead, and neck.<br><br><b>Therapy Protocol:</b> Entirely harmless, purely cosmetic. <b>Do not extract.</b> Refer to a dermatologist for electrodessication or Nd:YAG laser to minimize PIH risk.`,
+          teacher:`Tiny, harmless skin tags common in darker skin tones. Part of genetics, not a disease. We cannot extract them in the salon; only a dermatologist can remove them safely without dark scars.` }
+      ],
+      'Vascular Disorders': [
+        { id:'tel', answer:'Telangiectasia (Couperose)',
+          clinical:`<b>Pathology:</b> Permanent dilation of small superficial venules, capillaries, and arterioles. Capillary walls lose elasticity from chronic sun damage, extreme temperature, genetics, or prolonged topical corticosteroid use.<br><br><b>Clinical Presentation:</b> Fine, linear, red to bluish visible vessels 0.5 to 1 mm in diameter.`,
+          prompt:`<b>Visual Identifiers:</b> Web-like or thread-like network of broken capillaries, prominent on the alar crease of the nose, cheeks, and chin.<br><br><b>Therapy Protocol:</b> The capillary wall is permanently stretched, no topical cream can reverse it. Avoid extreme heat (ozone steam), vigorous massage, abrasive scrubs. Best treated medically with vascular lasers (PDL) or IPL.`,
+          teacher:`Broken capillaries that have stretched open like a worn-out rubber band and cannot snap back. Keep this skin very cool and calm. No hot towels, no heavy scrubbing.` },
+        { id:'spider', answer:'Spider Naevus (Spider Angioma)',
+          clinical:`<b>Pathology:</b> A specific telangiectasia with an anomalous central feeding arteriole (the body) branching into radiating thin capillaries (the legs). Often associated with high estrogen states (pregnancy, liver disease).<br><br><b>Clinical Presentation:</b> Bright red distinct central dot with radiating vessels.`,
+          prompt:`<b>Visual Identifiers:</b> Looks like a tiny red spider. Press firmly on the center and the entire lesion momentarily blanches, refilling from the center outward when released.<br><br><b>Therapy Protocol:</b> Completely benign. Requires diathermy, electrocoagulation, or laser by a qualified professional to permanently seal the central feeding vessel.`,
+          teacher:`A tiny cluster of vessels that looks like a little red spider. Push on it, it turns white for a second. Harmless, but a quick laser zap at the doctor's clears it instantly.` },
+        { id:'cherry', answer:'Cherry Angioma',
+          clinical:`<b>Pathology:</b> The most common cutaneous vascular proliferation. Benign neoplasm of tightly packed dilated capillaries and post-capillary venules in the papillary dermis.<br><br><b>Clinical Presentation:</b> Sharply circumscribed dome-shaped bright red to violaceous papules, 1 to 5 mm. Common in adults over 30.`,
+          prompt:`<b>Visual Identifiers:</b> Small, smooth, bright red raised dots predominantly on the trunk and upper extremities, occasionally the face.<br><br><b>Therapy Protocol:</b> Purely cosmetic. Avoid dragging extraction tools or coarse scrubs over them, the dense capillary network bleeds profusely if nicked.`,
+          teacher:`Little red bumps are basically tiny balloons of blood vessels. A normal part of getting older. Be careful not to scratch them during a facial, they bleed a lot.` },
+        { id:'pws', answer:'Port Wine Stain (Nevus Flammeus)',
+          clinical:`<b>Pathology:</b> Congenital capillary vascular malformation (birthmark) caused by a somatic mutation in the GNAQ gene, producing deficient sympathetic nerve innervation to blood vessels which remain permanently dilated.<br><br><b>Clinical Presentation:</b> Large, unilateral, irregularly shaped macule or patch from pale pink to deep purplish-red.`,
+          prompt:`<b>Visual Identifiers:</b> Distinct permanent dark red stain on the skin, present since birth. Grows proportionally with the child, does not spontaneously resolve.<br><br><b>Therapy Protocol:</b> Do not apply extreme heat or stimulating massage. Excellent candidates for cosmetic camouflage makeup. Medical treatment involves multiple Pulsed Dye Laser sessions.`,
+          teacher:`A birthmark made of dilated capillaries. Does not fade with age. Our job is simply to treat the skin gently and offer high-coverage, waterproof makeup if the client wants.` }
+      ],
+      'Keratinization Disorders': [
+        { id:'psor', answer:'Psoriasis',
+          clinical:`<b>Pathology:</b> Systemic T-cell mediated autoimmune inflammatory disease. Keratinocytes proliferate extraordinarily fast, normal 28 day turnover becomes 3 to 5 days. Cells pile up on the surface without time to shed normally.<br><br><b>Clinical Presentation:</b> Sharply demarcated erythematous plaques covered with thick silvery-white mica-like scales.`,
+          prompt:`<b>Visual Identifiers:</b> Rough red patches with heavy silver scales on extensor surfaces (knees, elbows), scalp, lower back. Removing a scale often reveals pinpoint bleeding (Auspitz sign).<br><br><b>Therapy Protocol:</b> <b>Not contagious.</b> Avoid harsh scrubs (Koebner phenomenon, trauma triggers new lesions). Heavy emollients to soften plaques; refer for topical steroids or biologics.`,
+          teacher:`Skin cells multiplying furiously into thick silvery flaky patches. Completely safe to touch, it is not contagious! We just soften it with rich soothing creams.` },
+        { id:'kp', answer:'Keratosis Pilaris',
+          clinical:`<b>Pathology:</b> Benign follicular keratinization disorder. Excess keratin forms a hard plug that physically blocks the hair follicle orifice. Strongly genetic and associated with atopic dermatitis.<br><br><b>Clinical Presentation:</b> Numerous small rough follicular papules often surrounded by a ring of erythema.`,
+          prompt:`<b>Visual Identifiers:</b> Sandpaper or chicken skin texture. Predominantly on posterior and lateral upper arms, anterior thighs, sometimes cheeks in children.<br><br><b>Therapy Protocol:</b> Incurable but highly manageable. Continuous keratolytic agents (Lactic acid, Urea, Salicylic lotions) to dissolve plugs, followed by rich hydration.`,
+          teacher:`Often called chicken skin. Just dead cells plugging the hair follicles on the arms. A good lactic acid body lotion clears it up beautifully.` },
+        { id:'dandruff', answer:'Pityriasis Capitis (Dandruff)',
+          clinical:`<b>Pathology:</b> Mild seborrheic dermatitis of the scalp. Abnormal inflammatory response to Malassezia yeast (normal flora) feeding on scalp sebum, leading to accelerated stratum corneum shedding.<br><br><b>Clinical Presentation:</b> Diffuse fine white-to-yellowish greasy flakes through the hair and scalp, often with mild pruritus.`,
+          prompt:`<b>Visual Identifiers:</b> Flaking visible in the hair or on dark clothing at the shoulders.<br><br><b>Therapy Protocol:</b> Unrelated to poor hygiene. Antifungal shampoos (Ketoconazole, Zinc Pyrithione, Selenium Sulfide) control yeast, salicylic acid dissolves flakes.`,
+          teacher:`Dandruff is the scalp shedding cells faster than normal because it is irritated by natural yeast. Medicated shampoos handle it easily, nothing to do with being dirty.` }
+      ]
+    }
+  },
+
+  prescribe: {
+    label: 'Acne & Exfoliation',
+    categories: {
+      'Grades of Acne': [
+        { id:'g1', answer:'Grade 1 Acne (Comedonal)',
+          clinical:`<b>Pathology:</b> The mildest grade of acne vulgaris. Strictly non-inflammatory, resulting from hyperkeratosis within the hair follicle. Dead cells and sebum combine into a microscopic plug (microcomedone) that grows into a visible lesion.<br><br><b>Clinical Presentation:</b> Entirely open comedones (blackheads) and closed comedones (whiteheads). The black color is oxidized melanin and lipid, not dirt.`,
+          prompt:`<b>Visual Identifiers:</b> Small non-tender bumps without surrounding erythema or swelling, mostly on the T-zone.<br><br><b>Therapy Protocol:</b> Safe to treat. Deep cleansing, desincrustation, gentle exfoliation (enzymes, mild AHAs/BHAs) to soften keratin plugs. Manual extractions highly effective after ozone steam.`,
+          teacher:`A few sleepy clogged pores. No angry redness or swelling here, my dear, just blackheads and bumps. Highly manageable with a good cleansing routine.` },
+        { id:'g2', answer:'Grade 2 Acne (Maturation Arrest)',
+          clinical:`<b>Pathology:</b> Maturation arrest. Follicular plugs are trapped beneath the stratum corneum and cannot naturally oxidize or expel. Sebaceous glands keep producing oil, expanding the follicle beneath the surface.<br><br><b>Clinical Presentation:</b> Face studded with closed comedones that feel like small firm seeds. Mild localized inflammation possible, but deep cysts absent.`,
+          prompt:`<b>Visual Identifiers:</b> Highly textured bumpy surface under clinical lighting. Lesions have no visible opening (no black dot).<br><br><b>Therapy Protocol:</b> Safe to treat, requires patience. Avoid aggressive extraction (ruptures follicle wall internally, triggers severe inflammation). Enzymatic peels and BHAs (Salicylic) break down surface keratin over multiple sessions.`,
+          teacher:`Stubborn skin. Oil and dead cells trapped under a layer of skin like tiny white pearls that cannot find their way out. Melt the top layer slowly, never squeeze aggressively.` },
+        { id:'g3', answer:'Grade 3 Acne (Papulopustular)',
+          clinical:`<b>Pathology:</b> Highly active inflammatory state. Follicle walls have ruptured internally, leaking sebum, bacteria (C. acnes), and dead cells into the dermis. The immune response sends white blood cells, producing pus and swelling.<br><br><b>Clinical Presentation:</b> The most common severe acne. Large inflamed papules and pustules across face, neck, chest, and back alongside widespread comedones.`,
+          prompt:`<b>Visual Identifiers:</b> Widespread erythema, inflamed red bumps, visible yellow or white pus heads. Skin often feels hot and tender.<br><br><b>Therapy Protocol:</b> <b>MEDICAL PERMISSION REQUIRED.</b> Do not extract deep papules, this spreads infection and causes scarring. Salon treatment focuses strictly on calming inflammation, reducing bacteria (ozone, high frequency), and barrier repair.`,
+          teacher:`Classic painful teenage breakout. Red angry bumps and pustules that need a very gentle, calming touch. No aggressive scrubbing or squeezing. We heal, we do not attack.` },
+        { id:'g4', answer:'Grade 4 Acne (Nodulocystic)',
+          clinical:`<b>Pathology:</b> The most severe and destructive acne. Profound dermal inflammation, interconnected nodules, encapsulated cysts. Infection sits deep in the dermis, destroying tissue and virtually guaranteeing permanent atrophic or hypertrophic scarring without medical management.<br><br><b>Clinical Presentation:</b> Deep painful cysts, severely inflamed nodules, intense purplish or dark red erythema across large areas.`,
+          prompt:`<b>Visual Identifiers:</b> Large painful boil-like lesions beneath the skin. Surface heavily deformed by deep swelling, with widespread severe discoloration.<br><br><b>Therapy Protocol:</b> <b>ABSOLUTE CONTRAINDICATION.</b> Salon treatment is prohibited. Refer immediately to a dermatologist for systemic medical intervention (oral isotretinoin or antibiotics).`,
+          teacher:`Very painful, deep acne that destroys skin structure. Treat this skin like fragile glass. Step back, show immense compassion, refer them to a dermatologist immediately.` }
+      ],
+      'Exfoliants for Blemish Skin': [
+        { id:'ahas', answer:'Alpha Hydroxy Acids (AHAs)',
+          clinical:`<b>Mechanism:</b> Water-soluble carboxylic acids (Glycolic, Lactic). Work superficially by decreasing corneocyte cohesion, essentially dissolving the desmosome bonds holding dead cells together in the stratum corneum, promoting rapid uniform shedding.`,
+          prompt:`<b>Indications:</b> Gold standard for aging, photo-damaged skin, rough texture, non-inflamed comedonal acne. Water-soluble, so cannot penetrate deep into a sebum-filled pore.<br><br><b>Protocol:</b> Must be neutralized properly. Mandatory SPF, causes photosensitivity.`,
+          teacher:`Surface ungluing acids. They gently melt the glue holding dead cells to the top of the skin, revealing fresh glowing skin beneath. Brilliant for sun damage and dullness.` },
+        { id:'bhas', answer:'Beta Hydroxy Acids (BHAs)',
+          clinical:`<b>Mechanism:</b> Oil-soluble acids, primarily Salicylic Acid. Lipophilic nature lets them bypass the water barrier and dissolve directly into the lipid-rich sebum inside the pilosebaceous unit. Exfoliates the interior lining of the pore while providing anti-inflammatory and mild antibacterial effects.`,
+          prompt:`<b>Indications:</b> The absolute necessity for oily, congested skin, active acne vulgaris, and blackheads.<br><br><b>Protocol:</b> Extremely safe for acneic skin. Can be drying with overuse, follow with non-comedogenic hydration.`,
+          teacher:`Unlike AHAs, BHAs are the deep-sea divers of skincare. Because they love oil, they swim right down into the greasy pore to dissolve gunk from the inside out. Salicylic acid is your best friend for acne.` },
+        { id:'enzyme', answer:'Enzyme Peels',
+          clinical:`<b>Mechanism:</b> Proteolytic enzymes from fruit (Papain from papaya, Bromelain from pineapple). Biological catalysts that digest and break down keratin protein in dead skin cells only. Require heat (steam) and moisture to activate; do not affect living tissue.`,
+          prompt:`<b>Indications:</b> Excellent for highly sensitive skin, rosacea, or as a softening prep before manual comedone extractions.<br><br><b>Protocol:</b> Apply under ozone steam to keep enzymes active and moist. Remove immediately if skin feels overly hot.`,
+          teacher:`Think of enzymes like tiny Pac-Men made from fruit. They only eat dead flaky skin cells, leaving healthy living skin alone. Gentle, safe, lovely for sensitive clients.` },
+        { id:'ozone', answer:'Ozone Steaming (O3)',
+          clinical:`<b>Mechanism:</b> A facial steamer with a UV bulb converts oxygen (O2) in the steam into ozone (O3). Ozone is unstable and releases free oxygen radicals on contact with skin, acting as a powerful bactericidal and germicidal agent.`,
+          prompt:`<b>Indications:</b> Strongly indicated for seborrheic, congested, blemished skin. Softens keratin plugs, dilates the follicle, destroys anaerobic P. acnes.<br><br><b>Protocol:</b> Limit to 5 to 10 minutes. <b>Contraindicated</b> for rosacea, telangiectasia, asthma, anhidrosis.`,
+          teacher:`Ozone steam is wonderful for oily, blemished skin because the special light inside kills bacteria while drying up excess oil. A gentle way to deep clean without harsh chemicals.` }
+      ],
+      'Ethnic Skin Care': [
+        { id:'pig_tx', answer:'PIH Fading Protocol for Ethnic Skin',
+          clinical:`<b>Goal:</b> Fade post-inflammatory hyperpigmentation without provoking new inflammation. Ethnic skin over-reacts to trauma by producing more melanin, so the treatment arc must be patient, gentle, and strictly non-irritating.`,
+          prompt:`<b>Indications:</b> Dark marks persisting after acne, scratches, or burns on Fitzpatrick 4 to 6 skin.<br><br><b>Protocol:</b> Fading agents (Kojic, Alpha Arbutin, Licorice root), gentle exfoliants (Mandelic acid 5 to 10 percent, low-strength Lactic), daily broad-spectrum SPF 30+. Absolutely avoid high-percentage TCA, deep peels, and harsh mechanical scrubs.`,
+          teacher:`Darker skin remembers every injury. Fading agents and gentle exfoliation help the skin gradually return to its natural colour without causing more dark spots.` },
+        { id:'kel_tx', answer:'Keloid Scar Management',
+          clinical:`<b>Goal:</b> Prevent further collagen overgrowth and gently flatten existing keloids. Because keloids are an overactive healing response, any salon-level trauma (extractions, deep peels, microdermabrasion) will worsen them.`,
+          prompt:`<b>Indications:</b> Raised, smooth, rubbery scars on Fitzpatrick 4 to 6 skin at sites of prior trauma.<br><br><b>Protocol:</b> Strict contraindication to all aggressive treatment. Refer to dermatology for intralesional corticosteroid injections, silicone sheeting, or pulsed dye laser. In salon, only gentle, soothing, barrier-supportive products.`,
+          teacher:`Never touch a keloid with anything aggressive. Silicone sheets and medical steroid treatments are the proper path. Our job is to be gentle and refer.` },
+        { id:'dpn_tx', answer:'DPN Removal Pathway',
+          clinical:`<b>Goal:</b> Safe cosmetic removal of Dermatosis Papulosa Nigra lesions without leaving PIH. Salons cannot legally or safely perform this; it requires a dermatologist.`,
+          prompt:`<b>Indications:</b> Client requests removal of the small dark papules on cheeks, forehead, or neck.<br><br><b>Protocol:</b> Refer to a dermatologist for electrodessication, cryotherapy, or Nd:YAG laser. Do not extract, lance, or apply acid in the salon. Pre-procedure, advise the client to request a spot test first to gauge PIH risk.`,
+          teacher:`These tiny dark bumps are harmless but stubborn. Do not try to remove them, only a dermatologist should treat DPN, ideally with a test spot first to make sure the skin will not scar dark.` }
+      ]
+    }
+  },
+
+  safety: {
+    label: 'Contraindications',
+    categories: {
+      'Skin Cancer': [
+        { id:'bcc', answer:'Basal Cell Carcinoma (BCC)',
+          clinical:`<b>Pathology:</b> The most common human malignancy. Arises from basal cells of the stratum germinativum. Strongly linked to intermittent intense UV and sunburns. Grows locally and destroys surrounding tissue, but metastasis is exceedingly rare.<br><br><b>Clinical Presentation:</b> Classically a slow-growing translucent or pearly papule with rolled borders and visible telangiectasia.`,
+          prompt:`<b>Visual Identifiers:</b> Shiny pearly bump, pink growth with elevated borders, or an open sore that bleeds, oozes, or crusts and remains unhealed for weeks.<br><br><b>Therapy Protocol:</b> <b>MEDICAL REFERRAL REQUIRED.</b> Not immediately life-threatening but will relentlessly erode facial structures (nose, eyelid) if ignored. No treatments near the lesion.`,
+          teacher:`A little pearly bump or a tiny sore that refuses to heal. Least aggressive cancer because it rarely spreads, but it will eat away local tissue, so a doctor must remove it promptly.` },
+        { id:'scc', answer:'Squamous Cell Carcinoma (SCC)',
+          clinical:`<b>Pathology:</b> Malignant proliferation of epidermal keratinocytes. Unlike BCC, SCC is a true invasive carcinoma with significant risk of metastasis to regional lymph nodes if untreated. Strongly associated with cumulative lifetime UV.<br><br><b>Clinical Presentation:</b> Firm, hyperkeratotic, erythematous nodule or plaque that often ulcerates centrally.`,
+          prompt:`<b>Visual Identifiers:</b> Rough scaly wart-like growth that bleeds easily and feels firm. Often arises from a pre-existing solar keratosis.<br><br><b>Therapy Protocol:</b> <b>URGENT MEDICAL REFERRAL.</b> Halt salon treatment. Early excision is critical to prevent lymphatic spread.`,
+          teacher:`More serious than a basal cell. An angry scaly wart-like growth that grows fast and can spread to lymph nodes. Any suspicious scaly lump needs a doctor immediately.` },
+        { id:'melanoma', answer:'Malignant Melanoma',
+          clinical:`<b>Pathology:</b> Highly aggressive life-threatening malignancy from melanocytes. Can arise de novo or from a pre-existing dysplastic nevus. High propensity to metastasize rapidly via lymphatic and circulatory systems to vital organs.<br><br><b>Clinical Presentation:</b> Follows the ABCDE rule: Asymmetry, Border irregularity, Color variation (black, blue, red, white), Diameter over 6 mm, Evolution.`,
+          prompt:`<b>Visual Identifiers:</b> A profoundly dark irregular multi-colored mole that stands out as the ugly duckling. May be raised or flat, may itch or bleed.<br><br><b>Therapy Protocol:</b> <b>IMMEDIATE MEDICAL REFERRAL.</b> Stop all treatment. Point it out to the client immediately and advise a biopsy without delay.`,
+          teacher:`The absolute most dangerous shape-shifter. If a mole is as dark as ink, has jagged messy edges, or is changing quickly, stop the facial. You could save their life by sending them to a doctor right now.` },
+        { id:'solar', answer:'Solar Keratosis (Actinic Keratosis)',
+          clinical:`<b>Pathology:</b> Pre-cancerous intraepidermal neoplasms of atypical keratinocytes caused by chronic long-term UV damage. Untreated, up to 10 percent evolve into invasive Squamous Cell Carcinoma.<br><br><b>Clinical Presentation:</b> Small (1 to 10 mm) erythematous scaly or crusty macules and papules that feel like sandpaper on a red base.`,
+          prompt:`<b>Visual Identifiers:</b> Rough scaly patches on heavily sun-exposed areas (bald scalps, face, ears, backs of hands). Often felt better than seen.<br><br><b>Therapy Protocol:</b> <b>MEDICAL REFERRAL.</b> Do not scrub or peel away in the salon. Requires dermatological destruction via cryotherapy (liquid nitrogen) or topical chemotherapy (5-fluorouracil).`,
+          teacher:`The skin's warning sign that decades of sun damage have caught up. Feels like a stubborn patch of sandpaper. Pre-cancerous, so the doctor needs to freeze it off before it turns into SCC.` }
+      ],
+      'Doctor Referral': [
+        { id:'suspicious', answer:'The Changing Lesion Rule',
+          clinical:`<b>Principle:</b> Any pigmented lesion that is bleeding, growing larger, developing irregular edges, or changing colour or size must be referred to a physician immediately. This is a non-negotiable safety rule for beauty therapists.`,
+          prompt:`<b>Visual Identifiers:</b> A mole behaving like a shape-shifter over weeks or months.<br><br><b>Therapy Protocol:</b> Stop the treatment. Do not cover with product, massage around, or apply acids. Document what you observed, tell the client in calm language, and refer to a dermatologist or general practitioner the same day.`,
+          teacher:`When a mole behaves like a shape-shifter, stop the treatment. Your best care is a fast referral. You are not diagnosing, you are being the early warning system.` },
+        { id:'melalert', answer:'Melanoma Alert (ABCDE)',
+          clinical:`<b>Principle:</b> The ABCDE checklist for melanoma screening. Asymmetry, Border irregularity, Color variation, Diameter over 6 mm, Evolution. A lesion meeting any of these warrants urgent referral.`,
+          prompt:`<b>Visual Identifiers:</b> A mole dark as ink, jagged uneven borders, growing quickly, multi-colored (black, blue, red, white).<br><br><b>Therapy Protocol:</b> Halt all treatment immediately. Do not apply anything to the lesion. Refer the client to a dermatologist for biopsy without delay.`,
+          teacher:`This is not the time to prove skill. If a mole looks dangerous, stop everything and send them to a dermatologist. Better a false alarm than a missed melanoma.` }
+      ],
+      'Treatment Restrictions': [
+        { id:'g34restrict', answer:'Grade 3 and 4 Acne Restriction',
+          clinical:`<b>Principle:</b> Active cystic and nodulocystic acne (Grades 3 and 4) must not be treated in the salon without medical permission. The inflammation is too deep; any physical intervention risks scarring and infection spread.`,
+          prompt:`<b>Visual Identifiers:</b> Deep cysts, large inflamed lesions, severe purplish inflammation across the face.<br><br><b>Therapy Protocol:</b> Do not extract, do not perform aggressive exfoliation. Pause treatment, refer to a dermatologist for medical clearance, and only resume gentle calming facials once written permission is on file.`,
+          teacher:`This is not a place to prove skill. Pause, protect the client, and refer before you treat. We can only support the medical plan, not replace it.` },
+        { id:'impetigo', answer:'Impetigo (Contagious Infection)',
+          clinical:`<b>Pathology:</b> Highly contagious bacterial infection (Staphylococcus or Streptococcus) presenting with characteristic honey-coloured crusted lesions. Spreads rapidly by autoinoculation and direct contact.`,
+          prompt:`<b>Visual Identifiers:</b> Honey-coloured crusted lesions, often on the face around the nose and mouth, that appear to be spreading.<br><br><b>Therapy Protocol:</b> <b>NO SALON TREATMENT.</b> Refer to a doctor immediately for antibiotic cream or oral antibiotics. Reschedule the client only after the lesions have fully healed and they are no longer contagious.`,
+          teacher:`Honey-coloured crusts are a red flag for impetigo. Highly contagious, no facial, no products, just a referral to the doctor.` },
+        { id:'tinea', answer:'Tinea (Ringworm)',
+          clinical:`<b>Pathology:</b> Contagious fungal infection presenting as round, ringed lesions with central clearing and a raised red scaly border. Spread by skin-to-skin contact and contaminated surfaces.`,
+          prompt:`<b>Visual Identifiers:</b> Round ringed lesions with a clear center and active red scaly edge.<br><br><b>Therapy Protocol:</b> <b>NO SALON TREATMENT.</b> Refer to a doctor or pharmacist for topical antifungal cream. Clean and disinfect all implements and surfaces after the consultation.`,
+          teacher:`Ring-shaped lesions are ringworm until proven otherwise. Fungal and very contagious. Refer out immediately and disinfect everything the client touched.` },
+        { id:'herpes', answer:'Herpes Simplex (Cold Sores)',
+          clinical:`<b>Pathology:</b> Highly contagious viral infection (HSV-1). Presents as a cluster of small painful blisters on or around the lips, often preceded by tingling. The virus remains dormant in nerve ganglia and reactivates with stress, sunlight, or fatigue.`,
+          prompt:`<b>Visual Identifiers:</b> Cluster of small painful fluid-filled blisters around the mouth, often with a crusted surface in the healing stage.<br><br><b>Therapy Protocol:</b> <b>NO SALON TREATMENT on or near the affected area.</b> Reschedule until lesions are fully healed. Steam, heat, and friction all trigger the virus to spread across the face.`,
+          teacher:`Cold sores are contagious and can spread. Do not work near them and do not touch. Reschedule and have the client see their doctor for antiviral cream if needed.` },
+        { id:'erythema', answer:'Deep Erythema on Ethnic Skin',
+          clinical:`<b>Principle:</b> On darker Fitzpatrick skin, deep inflammation often presents as dark purple or ashen-grey erythema rather than the classic redness seen on lighter skin. This signals tissue injury that demands immediate treatment cessation.`,
+          prompt:`<b>Visual Identifiers:</b> Dark purple, plum, or grey patches appearing during a treatment on Fitzpatrick 4 to 6 skin.<br><br><b>Therapy Protocol:</b> Halt treatment immediately. Apply a cool compress. Document the reaction. Refer to a physician if the discoloration does not subside within hours.`,
+          teacher:`Purple discoloration on dark skin is a sign of deeper inflammation than redness would be on lighter skin. Stop and refer. Do not push through.` },
+        { id:'fever_drugs', answer:'Fever and Medication Restriction',
+          clinical:`<b>Principle:</b> Treatment must be rescheduled when the client has a fever, a contagious disease, or is under the influence of drugs or alcohol. These states alter skin reactivity, mask pain signals, and put both client and therapist at risk.`,
+          prompt:`<b>Visual Identifiers:</b> Client is visibly unwell, hot to the touch, sweating, or showing altered behavior. New strong medications (especially isotretinoin, steroids, anticoagulants) must be disclosed in consultation.<br><br><b>Therapy Protocol:</b> Reschedule the appointment. Document the reason. Isotretinoin use specifically contraindicates waxing, lasers, and peels for six months after the last dose.`,
+          teacher:`A hot face does not need a facial. Fever means the body is fighting something. Drugs or alcohol change how the skin reacts. Always reschedule, the client will thank you later.` }
+      ]
+    }
+  }
+};
+
+const CHAPTERS = [
+  { id: "ch-anatomy",   num: "Chapter 1", title: "Anatomy & Physiology",        module: "anatomy",   topics: ["Cranial Nerves", "Epidermal Layers", "Dermal Layers", "Lymph Nodes"] },
+  { id: "ch-analysis",  num: "Chapter 2", title: "Skin Analysis",               module: "analyze",   topics: ["Skin Type Identification", "Fitzpatrick Scale"] },
+  { id: "ch-disorders", num: "Chapter 3", title: "Skin Disorders",              module: "identify",  topics: ["Sebaceous Gland Disorders", "Sudoriferous Gland Disorders", "Allergic Skin Conditions", "Pigmentary Disorders", "Ethnic Skin Conditions", "Vascular Disorders", "Keratinization Disorders"] },
+  { id: "ch-acne",      num: "Chapter 4", title: "Acne & Exfoliation",          module: "prescribe", topics: ["Grades of Acne", "Exfoliants for Blemish Skin", "Ethnic Skin Care"] },
+  { id: "ch-safety",    num: "Chapter 5", title: "Contraindications & Safety",  module: "safety",    topics: ["Skin Cancer", "Doctor Referral", "Treatment Restrictions"] }
+];
+
+const RED_FLAGS = [
+  'bcc', 'scc', 'melanoma', 'solar',
+  'suspicious', 'melalert',
+  'g34restrict', 'impetigo', 'tinea', 'herpes', 'erythema', 'fever_drugs',
+  'g4', 'kel'
+];
+
+function escapeAttr(s){
+  return String(s).replace(/"/g, '&quot;').replace(/</g, '&lt;');
+}
+
+function buildManual(){
+  const tocContainer = document.getElementById('toc-container');
+  const contentContainer = document.getElementById('content-container');
+
+  CHAPTERS.forEach(chapter => {
+    // 1. TOC entry
+    const tocLi = document.createElement('li');
+    let tocHTML = `<div class="toc-chapter"><span class="ch-num">${chapter.num}</span>${chapter.title}</div><ul class="toc-links">`;
+    chapter.topics.forEach(topic => {
+      const topicId = topic.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+      tocHTML += `<li><a href="#${topicId}" data-target="${topicId}">${topic}</a></li>`;
+    });
+    tocHTML += `</ul>`;
+    tocLi.innerHTML = tocHTML;
+    tocContainer.appendChild(tocLi);
+
+    // 2. Content section
+    const section = document.createElement('div');
+    section.className = 'chapter-section';
+    section.id = chapter.id;
+    section.innerHTML = `
+      <div class="chapter-eyebrow">${chapter.num}</div>
+      <h2 class="chapter-title">${chapter.title}</h2>
+      <div class="chapter-rule"></div>
+    `;
+
+    let entriesShown = 0;
+
+    chapter.topics.forEach((topic, topicIdx) => {
+      const topicId = topic.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+      const mod = DATA[chapter.module];
+      const entries = (mod && mod.categories && mod.categories[topic]) ? mod.categories[topic] : [];
+
+      if (entries.length === 0) return;
+      entriesShown += entries.length;
+
+      const heading = document.createElement('h3');
+      heading.className = 'topic-heading';
+      heading.id = topicId;
+      heading.textContent = topic;
+      section.appendChild(heading);
+
+      entries.forEach(entry => {
+        const rawImg = IMAGES[entry.id];
+        const imgList = Array.isArray(rawImg) ? rawImg : (rawImg ? [rawImg] : []);
+        const hasImage = imgList.length > 0;
+        const isMulti = imgList.length > 1;
+        const sourceLink = SOURCE_LINKS[entry.id] || '';
+        const hasSource = sourceLink !== '';
+        const sourceLabelText = sourceLabel(sourceLink);
+        const isRedFlag = RED_FLAGS.includes(entry.id);
+
+        const imgsHTML = imgList.map(src => `<img src="${src}" alt="${escapeAttr(entry.answer)}" loading="lazy" />`).join('');
+        const multiClass = isMulti ? ' multi-img' : '';
+
+        let visualHTML;
+        if (hasImage && hasSource){
+          visualHTML = `<div class="entry-visual has-source${multiClass}"><a href="${sourceLink}" target="_blank" rel="noopener noreferrer" aria-label="View reference for ${escapeAttr(entry.answer)} on ${sourceLabelText}">${imgsHTML}<span class="source-badge">${sourceLabelText} &#8599;</span></a></div>`;
+        } else if (hasImage){
+          visualHTML = `<div class="entry-visual${multiClass}">${imgsHTML}</div>`;
+        } else if (hasSource){
+          visualHTML = `<div class="entry-visual empty has-source"><a href="${sourceLink}" target="_blank" rel="noopener noreferrer"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><span>View reference on ${sourceLabelText} &#8599;</span></a></div>`;
+        } else {
+          visualHTML = `<div class="entry-visual empty" aria-hidden="true"></div>`;
+        }
+
+        const redFlagHTML = isRedFlag ? `
+          <div class="red-flag" role="note">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+            Stop treatment. Medical referral required.
+          </div>
+        ` : '';
+
+        const article = document.createElement('article');
+        article.className = 'entry';
+        article.setAttribute('data-od-id', 'entry-' + entry.id);
+        article.innerHTML = `
+          ${visualHTML}
+          <div class="entry-body">
+            <div class="entry-header">
+              <h4 class="entry-title">${entry.answer}</h4>
+              <span class="entry-category">${topic}</span>
+            </div>
+            ${redFlagHTML}
+            <div class="clinical-data">
+              <div class="data-row">
+                <span class="data-label">Clinical Definition</span>
+                <p class="data-text">${entry.clinical}</p>
+              </div>
+              <div class="data-row">
+                <span class="data-label">Visual Identifiers &amp; Protocol</span>
+                <p class="data-text">${entry.prompt}</p>
+              </div>
+            </div>
+            <div class="teacher-note">
+              <span class="data-label">Teacher's Note</span>
+              <p>&ldquo;${entry.teacher}&rdquo;</p>
+            </div>
+          </div>
+        `;
+        section.appendChild(article);
+      });
+    });
+
+    if (entriesShown === 0){
+      const empty = document.createElement('p');
+      empty.className = 'chapter-empty';
+      empty.textContent = 'Detailed entries for this chapter are still being written. Check back soon.';
+      section.appendChild(empty);
+    }
+
+    contentContainer.appendChild(section);
+  });
+}
+
+function setupScrollSpy(){
+  const links = document.querySelectorAll('.toc-links a');
+  if (!('IntersectionObserver' in window) || links.length === 0) return;
+  const map = {};
+  links.forEach(a => { map[a.getAttribute('data-target')] = a; });
+  const headings = document.querySelectorAll('.topic-heading');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      const id = e.target.id;
+      if (e.isIntersecting && map[id]){
+        links.forEach(l => l.classList.remove('active'));
+        map[id].classList.add('active');
+      }
+    });
+  }, { rootMargin: '-100px 0px -70% 0px', threshold: 0 });
+  headings.forEach(h => observer.observe(h));
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  buildManual();
+  setupScrollSpy();
+});
+</script>
+</body>
+</html>

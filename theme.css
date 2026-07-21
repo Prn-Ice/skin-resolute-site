@@ -481,30 +481,33 @@ footer.foot{
 }
 
 /* ============================================================
-   Responsive
-   ============================================================ */
-/* ============================================================
    Mobile nav toggle — hamburger (hidden on desktop)
    ============================================================ */
+/* ============================================================
+   NAV DRAWER — always-hamburger, full-screen panel when open
+   ============================================================ */
 .nav-toggle{
-  display: none;
-  width: 38px; height: 38px;
-  padding: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px; height: 42px;
+  padding: 10px;
   background: transparent;
   border: 0;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
   flex: none;
   transition: background .15s;
 }
 .nav-toggle:hover{ background: color-mix(in srgb, var(--fg) 8%, transparent); }
+.nav-toggle:focus-visible{ outline: 2px solid var(--accent); outline-offset: 2px; }
 .nav-toggle .bar{
   display: block;
   width: 22px; height: 2px;
   background: var(--fg);
   border-radius: 1px;
   position: relative;
-  transition: background .15s;
+  transition: background .2s;
 }
 .nav-toggle .bar::before,
 .nav-toggle .bar::after{
@@ -514,31 +517,128 @@ footer.foot{
   width: 100%; height: 2px;
   background: var(--fg);
   border-radius: 1px;
-  transition: transform .2s, top .2s;
+  transition: transform .25s cubic-bezier(0.2,0,0,1), top .25s cubic-bezier(0.2,0,0,1);
 }
 .nav-toggle .bar::before{ top: -7px; }
 .nav-toggle .bar::after{ top: 7px; }
-/* Open state — hamburger → X */
+
+/* Links hidden by default — shown inside the drawer when open */
+nav.links > a{ display: none; }
+
+/* DRAWER OPEN STATE — full-screen overlay */
+nav.links.nav-open{
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+  background: color-mix(in srgb, var(--bg) 97%, transparent);
+  backdrop-filter: blur(28px) saturate(150%);
+  -webkit-backdrop-filter: blur(28px) saturate(150%);
+  padding: 80px 32px 60px;
+  overflow-y: auto;
+  animation: drawer-fade-in .2s ease;
+}
+
+nav.links.nav-open::before{
+  content: "Skin Resolute";
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: -.01em;
+  color: color-mix(in srgb, var(--fg) 35%, transparent);
+  position: absolute;
+  top: 26px;
+  left: 32px;
+}
+
+nav.links.nav-open > a{
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(22px, 3.5vw, 30px);
+  font-weight: 500;
+  letter-spacing: -.01em;
+  text-transform: none;
+  opacity: 1;
+  padding: 10px 32px;
+  text-align: center;
+  color: var(--fg);
+  animation: drawer-link-in .35s cubic-bezier(0.2,0,0,1) both;
+  border: 0;
+  width: auto;
+}
+nav.links.nav-open > a:nth-child(1){ animation-delay: .04s; }
+nav.links.nav-open > a:nth-child(2){ animation-delay: .08s; }
+nav.links.nav-open > a:nth-child(3){ animation-delay: .12s; }
+nav.links.nav-open > a:nth-child(4){ animation-delay: .16s; }
+nav.links.nav-open > a:nth-child(5){ animation-delay: .20s; }
+nav.links.nav-open > a:nth-child(6){ animation-delay: .24s; }
+nav.links.nav-open > a:nth-child(7){ animation-delay: .28s; }
+nav.links.nav-open > a:nth-child(8){ animation-delay: .32s; }
+
+nav.links.nav-open > a:hover{ color: var(--accent); }
+nav.links.nav-open > a.active{ color: var(--accent); }
+nav.links.nav-open > a.active::before{
+  content: "";
+  display: inline-block;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  margin-right: 14px;
+  vertical-align: middle;
+  transform: translateY(-4px);
+}
+
+nav.links.nav-open .mode-toggle{
+  position: absolute;
+  bottom: 44px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 12px 22px 12px 14px;
+  font-size: 12px;
+}
+
+nav.links.nav-open .nav-toggle{
+  position: absolute;
+  top: 18px;
+  right: 28px;
+  z-index: 101;
+}
+
+/* Hamburger → X (kept from original, works inside drawer too) */
 nav.links.nav-open .nav-toggle .bar{ background: transparent; }
 nav.links.nav-open .nav-toggle .bar::before{ transform: rotate(45deg); top: 0; }
 nav.links.nav-open .nav-toggle .bar::after{ transform: rotate(-45deg); top: 0; }
 
+/* Body scroll lock */
+body.nav-locked{ overflow: hidden; }
+/* Kill header backdrop-filter when nav is open — its filter creates a
+   containing block that traps position:fixed children inside the
+   header's ~70px height instead of the viewport. */
+body.nav-locked header.top{
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  background: transparent;
+  border-bottom-color: transparent;
+}
+
+@keyframes drawer-fade-in{
+  from{ opacity: 0; }
+  to{ opacity: 1; }
+}
+@keyframes drawer-link-in{
+  from{ opacity: 0; transform: translateY(10px); }
+  to{ opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
 @media (max-width: 980px){
   section{ padding: 88px 0; }
-  nav.links{ gap: 14px; }
-  .nav-toggle{ display: inline-flex; align-items: center; justify-content: center; }
-  nav.links a{ display: none; }
-  nav.links.nav-open{ flex-wrap: wrap; }
-  nav.links.nav-open a{
-    display: block;
-    width: 100%;
-    padding: 14px 0;
-    border-top: 1px solid var(--line);
-    text-align: center;
-    font-size: 13px;
-  }
-  nav.links.nav-open a:last-of-type{ border-bottom: 1px solid var(--line); }
-  nav.links.nav-open a.active::before{ display: none; }
 }
 @media (max-width: 620px){
   .wrap, .wrap-narrow{ padding: 0 22px; }

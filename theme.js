@@ -75,17 +75,55 @@
     }
   });
 
-  // Mobile nav toggle — event delegation so it works even if buttons
-  // are added later / across pages.
-  document.addEventListener('click', function (e) {
-    var btn = e.target.closest('.nav-toggle');
-    if (!btn) return;
-    var nav = btn.closest('.links');
-    if (!nav) return;
-    var open = nav.classList.toggle('nav-open');
-    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-  });
-
   // Expose for debugging.
   window.__srTheme = { flip: flip, apply: apply, current: currentMode };
+
+  // Nav drawer — open / close with full a11y + scroll lock
+  function openNav(nav, btn){
+    nav.classList.add('nav-open');
+    btn.setAttribute('aria-expanded', 'true');
+    document.body.classList.add('nav-locked');
+  }
+  function closeNav(nav, btn){
+    nav.classList.remove('nav-open');
+    btn.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('nav-locked');
+  }
+
+  document.addEventListener('click', function (e) {
+    // Hamburger button toggle
+    var btn = e.target.closest('.nav-toggle');
+    if (btn) {
+      var nav = btn.closest('.links');
+      if (!nav) return;
+      if (nav.classList.contains('nav-open')) closeNav(nav, btn);
+      else openNav(nav, btn);
+      return;
+    }
+
+    // Click on drawer background (not a link/button) closes
+    if (e.target.matches && e.target.matches('nav.links.nav-open')) {
+      var n = e.target;
+      var t = n.querySelector('.nav-toggle');
+      if (t) closeNav(n, t);
+    }
+
+    // Click a nav link inside the drawer — close after tiny delay
+    var link = e.target.closest('nav.links.nav-open > a');
+    if (link) {
+      var nav2 = link.closest('.links');
+      var toggle2 = nav2.querySelector('.nav-toggle');
+      if (toggle2) setTimeout(function(){ closeNav(nav2, toggle2); }, 60);
+    }
+  });
+
+  // ESC key closes the drawer
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Escape') return;
+    var nav = document.querySelector('nav.links.nav-open');
+    if (!nav) return;
+    var toggle = nav.querySelector('.nav-toggle');
+    closeNav(nav, toggle);
+    if (toggle) toggle.focus();
+  });
 })();

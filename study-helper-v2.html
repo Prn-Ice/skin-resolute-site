@@ -100,24 +100,24 @@
     background: color-mix(in srgb, var(--fg) 92%, transparent);
     color: var(--bg);
   }
-  .station-name{
-    display: block;
-    font-size: 13px;
-    font-weight: 800;
-    letter-spacing: .04em;
-    text-transform: uppercase;
-  }
   .station-hint{
+    display: block;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    opacity: .55;
+    margin-bottom: 1px;
+  }
+  .station-name{
     display: block;
     margin-top: 2px;
     font-family: var(--font-display);
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 500;
     letter-spacing: -.01em;
-    line-height: 1.2;
-    opacity: .85;
+    line-height: 1.18;
   }
-  .station[aria-selected="true"] .station-hint{ opacity: .72; }
 
   .topic-block{ margin-top: 4px; }
   .topic-list{
@@ -243,10 +243,8 @@
     0%{ background-position: 200% 0; }
     100%{ background-position: -200% 0; }
   }
-  .case-visual:has(img[src=""]) .case-visual-loading,
-  .case-visual:has(img:not([src])) .case-visual-loading{
-    display: block;
-  }
+  /* Shimmer element retained but disabled — local images load near-instantly,
+     so a loading overlay adds noise without communicating state. */
   .case-visual-hint{
     position: absolute;
     bottom: 24px;
@@ -298,11 +296,14 @@
     color: var(--fg);
   }
   .case-body .prompt{
-    font-size: 15px;
-    line-height: 1.55;
-    color: var(--muted);
-    margin: 0;
-    max-width: 52ch;
+    font-family: var(--font-display);
+    font-size: clamp(24px, 2.8vw, 30px);
+    font-weight: 600;
+    letter-spacing: -.015em;
+    line-height: 1.15;
+    color: var(--fg);
+    margin: 0 0 16px;
+    max-width: 56ch;
   }
 
   .diff-label{
@@ -373,7 +374,7 @@
     transition: max-height .35s ease, opacity .25s ease, margin-top .35s ease, padding-top .35s ease;
   }
   .reveal.is-open{
-    max-height: 600px;
+    max-height: 2000px;
     opacity: 1;
     margin-top: 22px;
     padding-top: 22px;
@@ -452,10 +453,15 @@
     cursor: pointer;
     transition: background .12s ease, transform .12s ease;
   }
-  .actions button:hover{ background: var(--accent); transform: translateY(-1px); }
+  .actions button:hover:not(:disabled){ background: var(--accent); transform: translateY(-1px); }
   .actions button:focus-visible{
     outline: 2px solid var(--accent);
     outline-offset: 2px;
+  }
+  .actions button:disabled{
+    cursor: default;
+    opacity: .72;
+    transform: none;
   }
   .actions .ghost{
     background: color-mix(in srgb, var(--bg-warm) 50%, var(--surface));
@@ -528,7 +534,11 @@
   }
 
   @media (prefers-reduced-motion: reduce){
-    *, *::before, *::after{ transition-duration: 0.01ms !important; }
+    *, *::before, *::after{
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+    }
   }
 
   @media (max-width: 900px){
@@ -546,6 +556,7 @@
     .rail-kicker{ font-size: 16px; }
     .rail-title{ font-size: 20px; }
     .rail-title br{ display: none; }
+    /* Mobile dropdowns */
     .mobile-select{ display: block; }
     .station-list{ display: none; }
     .topic-list{ display: none; }
@@ -589,7 +600,7 @@
 </style>
 </head>
 <body class="study-body">
-<a class="skip-link" href="#desk">Skip to clinic desk</a>
+<a class="skip-link" href="#desk">Skip to study desk</a>
 
 <header class="top" data-od-id="top-bar">
   <div class="top-row">
@@ -599,6 +610,7 @@
       <a href="skin-types.html">Skin Types</a>
       <a href="bare-face-method.html">Bare-Face</a>
       <a href="study-helper-v2.html" class="active">Study Desk</a>
+      <a href="reference.html">Reference</a>
       <a href="voice.html">Voice</a>
       <a href="uv-index.html">UV Index</a>
       <button type="button" class="mode-toggle" data-od-id="mode-toggle" aria-label="Reading in Faithful mode. Tap to switch.">
@@ -614,48 +626,48 @@
 
 <main id="main">
   <div class="clinic" id="desk" data-od-id="clinic-desk">
-    <aside class="rail" data-od-id="clinic-rail" aria-label="Clinic stations">
+    <aside class="rail" data-od-id="clinic-rail" aria-label="Study chapters">
       <div class="rail-head">
         <div class="rail-kicker">study desk</div>
-        <h1 class="rail-title" data-od-id="study-title">Know the skin.<br /><em>Own the call.</em></h1>
+        <h1 class="rail-title" data-od-id="study-title">Know the skin.<br /><em>Trust your judgment.</em></h1>
       </div>
 
       <div>
-        <div class="station-label">Stations</div>
-        <div class="station-list" role="tablist" aria-label="Clinic stations">
-          <button class="station" role="tab" data-module="identify" aria-selected="true" data-od-id="station-identify">
-            <span class="station-name">Identify</span>
-            <span class="station-hint">Spot the condition</span>
+        <div class="station-label">Chapters</div>
+        <div class="station-list" role="tablist" aria-label="Study chapters">
+          <button class="station" role="tab" data-module="anatomy" aria-selected="true" data-od-id="station-anatomy">
+            <span class="station-name">Anatomy &amp; Physiology</span>
+            <span class="station-hint">Chapter 1</span>
           </button>
           <button class="station" role="tab" data-module="analyze" aria-selected="false" data-od-id="station-analyze">
-            <span class="station-name">Analyze</span>
-            <span class="station-hint">Read the client</span>
+            <span class="station-name">Skin Analysis</span>
+            <span class="station-hint">Chapter 2</span>
+          </button>
+          <button class="station" role="tab" data-module="identify" aria-selected="false" data-od-id="station-identify">
+            <span class="station-name">Skin Disorders</span>
+            <span class="station-hint">Chapter 3</span>
           </button>
           <button class="station" role="tab" data-module="prescribe" aria-selected="false" data-od-id="station-prescribe">
-            <span class="station-name">Prescribe</span>
-            <span class="station-hint">Match the treatment</span>
+            <span class="station-name">Acne &amp; Exfoliation</span>
+            <span class="station-hint">Chapter 4</span>
           </button>
           <button class="station" role="tab" data-module="safety" aria-selected="false" data-od-id="station-safety">
-            <span class="station-name">Safety</span>
-            <span class="station-hint">Know when to stop</span>
-          </button>
-          <button class="station" role="tab" data-module="anatomy" aria-selected="false" data-od-id="station-anatomy">
-            <span class="station-name">Anatomy</span>
-            <span class="station-hint">Label the structure</span>
+            <span class="station-name">Contraindications</span>
+            <span class="station-hint">Chapter 5</span>
           </button>
         </div>
-        <select id="station-select" class="mobile-select" aria-label="Select station">
-          <option value="identify">Identify</option>
-          <option value="analyze">Analyze</option>
-          <option value="prescribe">Prescribe</option>
-          <option value="safety">Safety</option>
-          <option value="anatomy">Anatomy</option>
+        <select id="station-select" class="mobile-select" aria-label="Select chapter">
+          <option value="anatomy">Ch 1 · Anatomy &amp; Physiology</option>
+          <option value="analyze">Ch 2 · Skin Analysis</option>
+          <option value="identify">Ch 3 · Skin Disorders</option>
+          <option value="prescribe">Ch 4 · Acne &amp; Exfoliation</option>
+          <option value="safety">Ch 5 · Contraindications</option>
         </select>
       </div>
 
       <div class="topic-block">
-        <div class="station-label">On the tray</div>
-        <select id="topic-select" class="mobile-select" aria-label="Select category"></select>
+        <div class="station-label">Topics</div>
+        <select id="topic-select" class="mobile-select" aria-label="Select topic"></select>
         <div class="topic-list" id="cat-list" data-od-id="topic-list"></div>
       </div>
 
@@ -671,17 +683,16 @@
         <div class="case-visual" data-od-id="case-visual">
           <img id="case-image" src="" alt="" onerror="this.style.display='none';var h=document.querySelector('.case-visual-hint');if(h)h.style.display='block';" />
           <div class="case-visual-loading" aria-hidden="true"></div>
-          <div class="case-visual-hint">Image slot — add approved clinical photo later</div>
+          <div class="case-visual-hint">Reference image unavailable</div>
         </div>
         <div class="case-tag-bar">
           <span class="case-tag" id="card-category">Grades of Acne</span>
         </div>
         <div class="case-body">
-          <span class="case-eyebrow" id="case-station">Identify</span>
-          <h2 id="card-title">What are you looking at?</h2>
+          <span class="case-eyebrow" id="case-station">Chapter 1 · Anatomy &amp; Physiology</span>
           <p class="prompt" id="card-prompt"></p>
 
-          <div class="diff-label">Differential</div>
+          <div class="diff-label">Your answer</div>
           <div class="answer-grid" id="answer-grid" data-od-id="answer-grid"></div>
 
           <div class="reveal" id="reveal-panel" data-od-id="reveal-panel">
@@ -689,7 +700,7 @@
               <div class="clinical-box">
                 <span class="label">Textbook</span>
                 <h3 id="clinical-title">—</h3>
-                <p id="clinical-text">Choose a call to open the notes.</p>
+                <p id="clinical-text">Choose an answer to open the notes.</p>
               </div>
               <div class="teacher-box">
                 <span class="label">Teacher's take</span>
@@ -758,7 +769,37 @@
     psor:'study-images/psor-psoriasis.jpg', kp:'study-images/kp-keratosis-pilaris.jpg',
     dandruff:'study-images/dandruff-sebderm-scalp.jpg',
     bcc:'study-images/bcc-basal-cell.jpg', scc:'study-images/scc-squamous-cell.jpg',
-    melanoma:'study-images/melanoma-malignant.jpg', solar:'study-images/solar-ak.jpg'
+    melanoma:'study-images/melanoma-malignant.jpg', solar:'study-images/solar-ak.jpg',
+
+    // Skin Type identification (DermNet NZ clinical photos)
+    alip:'study-images/type-dry-1.jpg',
+    oily:'study-images/seb-seborrhoea.jpg',
+    combo:'study-images/seb-seborrhoea.jpg',
+    sens:'study-images/tel-telangiectasia.jpg',
+    mature:'study-images/lent-lentigo.jpg',
+
+    // Fitzpatrick scale (DermNet NZ + Healthline/Getty)
+    fp1:'study-images/fitz-type1.jpg',
+    fp2:'study-images/fitz-type2.jpg',
+    fp3:'study-images/fitz-type3.jpg',
+    fp4:'study-images/fitz-type4.jpg',
+    fp5:'study-images/fitz-type5.jpg',
+    fp6:'study-images/fitz-type6.jpg',
+
+    // Anatomy diagrams (Wikimedia Commons, public domain / CC-BY-SA)
+    cn1:'study-images/anat-cranial-nerves-2.png', cn2:'study-images/anat-cranial-nerves-2.png',
+    cn3:'study-images/anat-cranial-nerves-2.png', cn4:'study-images/anat-cranial-nerves-2.png',
+    cn5:'study-images/anat-cranial-nerves-2.png', cn6:'study-images/anat-cranial-nerves-2.png',
+    cn7:'study-images/anat-cranial-nerves-2.png', cn8:'study-images/anat-cranial-nerves-2.png',
+    cn9:'study-images/anat-cranial-nerves-2.png', cn10:'study-images/anat-cranial-nerves-2.png',
+    cn11:'study-images/anat-cranial-nerves-2.png', cn12:'study-images/anat-cranial-nerves-2.png',
+    corneum:'study-images/anat-epidermal-layers.png', lucidum:'study-images/anat-epidermal-layers.png',
+    granulosum:'study-images/anat-epidermal-layers.png', spinosum:'study-images/anat-epidermal-layers.png',
+    germ:'study-images/anat-epidermal-layers.png', disjunctivum:'study-images/anat-epidermal-layers.png',
+    dermal:'study-images/anat-dermal-layers.png',
+    submand:'study-images/anat-lymph-nodes.png', parotid:'study-images/anat-lymph-nodes.png',
+    submental:'study-images/anat-lymph-nodes.png', occipital:'study-images/anat-lymph-nodes.png',
+    cervical:'study-images/anat-lymph-nodes.png'
   };
 
   var DERMNET_LINKS = {
@@ -800,207 +841,183 @@
 
   var DATA = {
     identify: {
-      label: 'Visual Recognition Lab',
+      label: 'Skin Disorders',
       categories: {
-        'Grades of Acne': [
-          { id:'g1', prompt:'The image shows open and closed comedones with no angry redness, swelling, pustules, or cystic inflammation.',
-            options:['Grade 1 acne','Grade 2 acne','Grade 3 acne','Grade 4 acne'], answer:'Grade 1 acne',
-            clinical:'The mildest grade of acne. It is non-inflamed and consists strictly of open and closed comedones.',
-            teacher:'Think of this as just a few sleepy, clogged pores. There\'s no angry redness or swelling here, my dear — just blackheads and a few bumps.' },
-          { id:'g2', prompt:'The face is studded with closed comedones that do not mature into blackheads.',
-            options:['Grade 1 acne','Grade 2 acne','Grade 3 acne','Grade 4 acne'], answer:'Grade 2 acne',
-            clinical:'Maturation arrest — the face is studded with closed comedones (whiteheads) that do not mature into open comedones.',
-            teacher:'This is stubborn skin. The oil and dead cells are trapped under a layer of skin like tiny white pearls, and they just cannot seem to find their way out.' },
-          { id:'g3', prompt:'Inflamed papules and pustules alongside open and closed comedones.',
-            options:['Grade 1 acne','Grade 2 acne','Grade 3 acne','Grade 4 acne'], answer:'Grade 3 acne',
-            clinical:'The most common type of acne. It consists of inflamed papules and pustules along with milder comedones.',
-            teacher:'This is your classic teenage breakout. You\'ll see red, angry bumps and pustules that need a very gentle, calming touch — no aggressive scrubbing.' },
-          { id:'g4', prompt:'Large papules, pustules, and deep cysts with severe red to purplish inflammation.',
-            options:['Grade 1 acne','Grade 2 acne','Grade 3 acne','Grade 4 acne'], answer:'Grade 4 acne',
-            clinical:'The most severe and potentially scarring type of acne, featuring large papules, pustules, and deep cysts with severe purplish inflammation.',
-            teacher:'This is very painful, deep acne that can leave scars. We must treat this skin like fragile glass and always ask the client to see a dermatologist first.' }
-        ],
         'Sebaceous Gland Disorders': [
-          { id:'seb', prompt:'The skin is extremely oily and shiny, as if the oil glands are working overtime.',
+          { id:'seb', prompt:'Which condition makes the skin extremely oily and shiny, as if the oil glands are working overtime?',
             options:['Milia','Seborrhoea','Acne Vulgaris','Steatoma'], answer:'Seborrhoea',
             clinical:'A condition of extreme oiliness caused by over-activity of the sebaceous gland, making the skin appear oily and shiny.',
             teacher:'The skin\'s oil factories are working overtime! The face looks shiny very quickly, like a slick mirror.' },
-          { id:'mil', prompt:'Small, round, hard, bright white lesions sit just beneath the surface, often around the delicate eye area.',
+          { id:'mil', prompt:'Which condition presents as small, round, hard, bright white lesions just beneath the surface, often around the delicate eye area?',
             options:['Seborrhoea','Milia','Acne Vulgaris','Steatoma'], answer:'Milia',
             clinical:'Small, round, hard, bright white lesions caused by an accumulation of keratin and fatty substances within the sebaceous duct.',
             teacher:'Like tiny, hard seeds trapped just beneath the surface. You\'ll often see these around the delicate eye area when a client uses creams that are too heavy.' },
-          { id:'acnev', prompt:'A chronic inflammatory condition of the pilo-sebaceous unit with comedones, papules, nodules, and sometimes cysts.',
+          { id:'acnev', prompt:'Which condition is a chronic inflammatory disorder of the pilo-sebaceous unit with comedones, papules, nodules, and sometimes cysts?',
             options:['Seborrhoea','Milia','Acne Vulgaris','Steatoma'], answer:'Acne Vulgaris',
             clinical:'A chronic inflammatory disorder of the pilo-sebaceous unit characterized by comedones, papules, nodules, and sometimes cysts.',
             teacher:'This is the clinical name for common acne. It is an inflammatory cycle in the pore that needs consistent management, not harsh scrubbing.' },
-          { id:'steatoma', prompt:'A raised, round, moveable lump under the skin with a small central opening. It feels firm and is filled with a cheesy substance.',
+          { id:'steatoma', prompt:'Which condition presents as a raised, round, moveable lump under the skin with a small central opening, feeling firm and filled with a cheesy substance?',
             options:['Milia','Steatoma','Acne Vulgaris','Asteatosis'], answer:'Steatoma',
             clinical:'A benign sebaceous cyst formed by an accumulation of sebum and keratin in a blocked sebaceous duct. It has a small central punctum.',
             teacher:'A little capsule of hardened sebum under the skin. It feels like a smooth, firm pea and always has that tiny dark dot on top — the blocked pore opening.' },
-          { id:'asteatosis', prompt:'The skin is dry, rough, and flaky with a thin, cracked appearance. It feels tight and uncomfortable.',
+          { id:'asteatosis', prompt:'Which condition presents with dry, rough, flaky skin that is thin, cracked, tight, and uncomfortable?',
             options:['Asteatosis','Seborrhoea','Milia','Acne Vulgaris'], answer:'Asteatosis',
             clinical:'A condition of dry, rough, scaly skin caused by reduced secretion of sebum. The skin appears thin, dry, and may crack.',
             teacher:'The opposite of seborrhoea — the oil glands are barely producing anything. The skin is thirsty and tight, like a dry riverbed.' }
         ],
         'Sudoriferous Gland Disorders': [
-          { id:'hyperh', prompt:'The client experiences excessive sweating caused by heat or general body weakness.',
+          { id:'hyperh', prompt:'Which condition causes excessive sweating in response to heat or general body weakness?',
             options:['Hyperhidrosis','Bromhidrosis','Anhidrosis','Miliaria Rubra'], answer:'Hyperhidrosis',
             clinical:'Excessive sweating caused by heat or general body weakness.',
             teacher:'The sweat glands are in overdrive. It can be embarrassing for the client, but it is manageable with the right approach.' },
-          { id:'brom', prompt:'The client has foul-smelling perspiration, especially noticeable in the armpits or feet.',
+          { id:'brom', prompt:'Which condition is characterised by foul-smelling perspiration, especially noticeable in the armpits or feet?',
             options:['Hyperhidrosis','Bromhidrosis','Anhidrosis','Miliaria Rubra'], answer:'Bromhidrosis',
             clinical:'Foul-smelling perspiration, usually noticeable in the armpits or on the feet.',
             teacher:'This is sweat that has a strong odour because bacteria are breaking it down on the skin surface. Hygiene and antibacterial products help.' },
-          { id:'anhid', prompt:'The client shows a marked deficiency in perspiration, often after fever or skin disease.',
+          { id:'anhid', prompt:'Which condition presents as a marked deficiency in perspiration, often following fever or skin disease?',
             options:['Hyperhidrosis','Bromhidrosis','Anhidrosis','Miliaria Rubra'], answer:'Anhidrosis',
             clinical:'A deficiency in perspiration, often a result of fever or certain skin diseases.',
             teacher:'The sweat glands are barely working. The skin cannot cool itself properly, so be mindful of overheating during treatments.' },
-          { id:'miliar', prompt:'Small red vesicles erupt on the skin accompanied by burning and itching.',
+          { id:'miliar', prompt:'Which condition features small red vesicles accompanied by burning and itching?',
             options:['Hyperhidrosis','Bromhidrosis','Anhidrosis','Miliaria Rubra'], answer:'Miliaria Rubra',
             clinical:'An acute inflammatory disorder characterized by the eruption of small red vesicles accompanied by burning, itching skin.',
             teacher:'Commonly called prickly heat. The sweat ducts are blocked and sweat is trapped under the skin, causing that prickly, irritated feeling.' }
         ],
         'Allergic Skin Conditions': [
-          { id:'acd', prompt:'The skin becomes itchy and irritated after exposure to fragrance, nickel, latex, or another trigger.',
+          { id:'acd', prompt:'Which condition causes skin to become itchy and irritated after exposure to fragrance, nickel, latex, or another specific trigger?',
             options:['Irritant Contact Dermatitis','Allergic Contact Dermatitis','Atopic Dermatitis','Urticaria'], answer:'Allergic Contact Dermatitis',
             clinical:'An immune reaction triggered after the skin is exposed to a specific foreign substance, releasing inflammatory chemicals that cause itchy, irritated skin.',
             teacher:'The skin is throwing a fiery little tantrum because it touched something it hates — maybe a harsh fragrance or nickel in jewellery. It\'s itchy and unhappy.' },
-          { id:'icd', prompt:'The skin shows dry, scaly patches with burning or stinging after exposure to harsh soaps or detergents.',
+          { id:'icd', prompt:'Which condition shows dry, scaly patches with burning or stinging after exposure to harsh soaps or detergents?',
             options:['Irritant Contact Dermatitis','Allergic Contact Dermatitis','Atopic Dermatitis','Urticaria'], answer:'Irritant Contact Dermatitis',
             clinical:'Direct injury to the skin caused by harsh, toxic materials like strong soaps or detergents, resulting in dry, scaly patches and burning.',
             teacher:'This is not an allergy — it is direct damage. The skin barrier is stripped by something harsh, like a strong detergent.' },
-          { id:'atopic', prompt:'The skin is chronically dry, itchy, and inflamed. It appears red on lighter skin and brown or grey on darker skin.',
+          { id:'atopic', prompt:'Which condition presents as chronically dry, itchy, inflamed skin that appears red on lighter skin and brown or grey on darker skin?',
             options:['Irritant Contact Dermatitis','Allergic Contact Dermatitis','Atopic Dermatitis','Urticaria'], answer:'Atopic Dermatitis',
             clinical:'A chronic condition causing dry, itchy, inflamed skin. In lighter skin it appears red; in darker skin it may appear brown, purple, or grey.',
             teacher:'This skin is chronically thirsty and perfectly miserable. The protective barrier is weak, so moisture escapes and irritants sneak in.' },
-          { id:'urt', prompt:'Raised, itchy welts appear suddenly, possibly triggered by pressure, cold, or heat.',
+          { id:'urt', prompt:'Which condition presents as raised, itchy welts that appear suddenly and may be triggered by pressure, cold, or heat?',
             options:['Irritant Contact Dermatitis','Allergic Contact Dermatitis','Atopic Dermatitis','Urticaria'], answer:'Urticaria',
             clinical:'Raised, itchy welts that appear suddenly, often triggered by pressure, cold, heat, or sun exposure.',
             teacher:'Commonly called hives. These welts come and go quickly — they are a histamine reaction, not a skin disease.' }
         ],
         'Pigmentary Disorders': [
-          { id:'chlo', prompt:'Yellowish to brownish patches appear on the forehead, cheeks, and chin.',
+          { id:'chlo', prompt:'Which condition presents as yellowish to brownish patches on the forehead, cheeks, and chin?',
             options:['Chloasma','Lentigo','Vitiligo','Albinism'], answer:'Chloasma',
             clinical:'Often called the "Mask of Pregnancy" — yellowish to brownish pigmented areas covering the forehead, cheeks, and chin, aggravated by sun exposure.',
             teacher:'We often call this the \'pregnancy mask.\' It is like a watercolour painting of brown patches that bloom on the face when hormones and sunshine mix.' },
-          { id:'lent', prompt:'Small yellowish to brownish spots that are more scattered than freckles.',
+          { id:'lent', prompt:'Which condition appears as small yellowish to brownish spots that are more scattered than freckles?',
             options:['Chloasma','Lentigo','Vitiligo','Albinism'], answer:'Lentigo',
             clinical:'Small, yellowish to brownish spots that are more scattered than freckles; can undergo malignant changes if they turn blue-grey.',
             teacher:'These are like permanent freckles that do not fade in winter. The ones that change colour need a doctor\'s check.' },
-          { id:'vit', prompt:'Abrupt, well-defined white patches that appear symmetrically on both sides of the body.',
+          { id:'vit', prompt:'Which condition causes abrupt, well-defined white patches that appear symmetrically on both sides of the body?',
             options:['Chloasma','Lentigo','Vitiligo','Albinism'], answer:'Vitiligo',
             clinical:'An abrupt loss of pigment caused by the destruction of melanocytes, resulting in non-scaly white patches that are often bilateral and symmetrical.',
             teacher:'The little cells that paint the skin with colour have simply retired in certain spots, leaving behind beautiful, perfectly clear white patches.' },
-          { id:'alb', prompt:'The client has a total absence of pigment in the hair, eyes, and skin since birth.',
+          { id:'alb', prompt:'Which condition is characterised by a total absence of pigment in the hair, eyes, and skin since birth?',
             options:['Chloasma','Lentigo','Vitiligo','Albinism'], answer:'Albinism',
             clinical:'A genetically predisposed condition where melanocytes are unable to form pigment, resulting in a total absence of pigment in the hair, eyes, and skin.',
             teacher:'This is a genetic condition, not a disease. The skin has no melanin at all, so sun protection is absolutely critical every single day.' },
-          { id:'ephelides', prompt:'Small, flat, brownish spots that appear on sun-exposed areas like the nose and cheeks. They darken in summer and fade in winter.',
+          { id:'ephelides', prompt:'Which condition presents as small, flat, brownish spots on sun-exposed areas like the nose and cheeks that darken in summer and fade in winter?',
             options:['Chloasma','Lentigo','Ephelides','Vitiligo'], answer:'Ephelides',
             clinical:'Small, flat, brownish spots caused by increased melanin production in response to UV exposure. They darken in sunlight and fade in winter.',
             teacher:'Common freckles — the skin\'s kiss from the sun. Unlike lentigo, these fade when the sun goes away. They are completely harmless.' }
         ],
-        'Ethnic Skin Conditions': [
-          { id:'hyperpig', prompt:'Darkened areas develop easily on this client\'s skin after any injury, burn, cut, or inflammation.',
+        'Ethnic Skin Pigmentation': [
+          { id:'hyperpig', prompt:'Which condition causes darkened areas to develop easily on the skin after any injury, burn, cut, or inflammation?',
             options:['Dermatosis Papulosa Nigra','Hyperpigmentation','Keloids','Lentigo'], answer:'Hyperpigmentation',
             clinical:'Darkened areas that develop easily after any injury, burn, cut, or inflammation in ethnic skin.',
             teacher:'Darker skin remembers every injury. Any inflammation can leave a dark mark that takes months to fade, so treat gently.' },
-          { id:'kel', prompt:'Raised, smooth, elongated growths at the site of a healed scar.',
+          { id:'kel', prompt:'Which condition presents as raised, smooth, elongated growths at the site of a healed scar?',
             options:['Dermatosis Papulosa Nigra','Hyperpigmentation','Keloids','Lentigo'], answer:'Keloids',
             clinical:'Overgrowth of connective tissue at the site of a scar, appearing as elongated growths. Secondary keloids are common after injury in dark skin.',
             teacher:'When darker skin tries to heal a cut or acne, sometimes it is an overachiever. It builds up too much healing tissue, creating a raised, smooth bump.' },
-          { id:'dpn', prompt:'Small, firm, smooth hyper-pigmented papules appear mainly on the face.',
+          { id:'dpn', prompt:'Which condition presents as small, firm, smooth hyper-pigmented papules mainly on the face?',
             options:['Dermatosis Papulosa Nigra','Hyperpigmentation','Keloids','Lentigo'], answer:'Dermatosis Papulosa Nigra',
             clinical:'Small, firm, smooth hyper-pigmented papules found mainly in ethnic skins.',
             teacher:'Think of these as tiny, harmless skin tags that are common in darker skin tones. They are not dangerous, but clients may want them removed for cosmetic reasons.' }
         ],
         'Vascular Disorders': [
-          { id:'tel', prompt:'Permanently dilated capillaries appear web-like on the face, especially the cheeks and nose.',
+          { id:'tel', prompt:'Which condition presents as permanently dilated capillaries that appear web-like on the face, especially the cheeks and nose?',
             options:['Telangiectasia','Spider Naevus','Cherry Angioma','Port Wine Stain'], answer:'Telangiectasia',
             clinical:'A group of permanently dilated superficial capillaries that appear web-like, common on the face, upper cheeks, nose, and legs.',
             teacher:'These are broken capillaries that have stretched open and cannot close back up. They are often caused by genetics, sun damage, or harsh scrubbing.' },
-          { id:'spider', prompt:'A central bright red spot with radiating smaller capillaries resembling spider legs.',
+          { id:'spider', prompt:'Which condition presents as a central bright red spot with radiating smaller capillaries resembling spider legs?',
             options:['Telangiectasia','Spider Naevus','Cherry Angioma','Port Wine Stain'], answer:'Spider Naevus',
             clinical:'A central bright red spot or vessel surrounded by radiating smaller capillaries resembling the legs of a spider.',
             teacher:'This is a small cluster of blood vessels that looks like a tiny red spider. It is harmless but can be treated with IPL or laser.' },
-          { id:'cherry', prompt:'Small, round, red-to-purple domes on the skin that may bleed if injured.',
+          { id:'cherry', prompt:'Which condition presents as small, round, red-to-purple domes that may bleed if injured?',
             options:['Telangiectasia','Spider Naevus','Cherry Angioma','Port Wine Stain'], answer:'Cherry Angioma',
             clinical:'Small, round, red-to-purple domes of capillaries that are harmless but may bleed if injured.',
             teacher:'These little red bumps are basically a cluster of capillaries. They are completely harmless and very common after age 30.' },
-          { id:'pws', prompt:'A permanent scarlet or dark red stain present on the skin since birth.',
+          { id:'pws', prompt:'Which condition presents as a permanent scarlet or dark red stain on the skin since birth?',
             options:['Telangiectasia','Spider Naevus','Cherry Angioma','Port Wine Stain'], answer:'Port Wine Stain',
             clinical:'A permanent scarlet or dark red stain present at birth.',
             teacher:'This is a birthmark caused by dilated capillaries. It does not fade and can be treated with laser if the client chooses.' }
         ],
         'Keratinization Disorders': [
-          { id:'psor', prompt:'Rough, red, slightly raised patches covered with silvery scales.',
+          { id:'psor', prompt:'Which condition presents as rough, red, slightly raised patches covered with silvery scales?',
             options:['Psoriasis','Keratosis Pilaris','Pityriasis Capitis','Eczema'], answer:'Psoriasis',
             clinical:'A chronic, non-infectious disease characterized by rough, red, slightly raised patches covered with silvery scales, caused by increased turnover of epidermal cells.',
             teacher:'The skin cells are multiplying too fast, building up into silvery, flaky patches. It is not contagious, but it needs gentle care and medical management.' },
-          { id:'kp', prompt:'Clogged follicles where the hair follicle is plugged with keratin, common on the upper arms.',
+          { id:'kp', prompt:'Which condition is caused by hair follicles plugged with keratin, commonly on the upper arms?',
             options:['Psoriasis','Keratosis Pilaris','Pityriasis Capitis','Eczema'], answer:'Keratosis Pilaris',
             clinical:'Clogged follicles where the hair follicle is plugged with keratin, common on the posterior aspect of the upper arm.',
             teacher:'Often called chicken skin. It is just dead skin cells plugging the hair follicles — harmless and very common.' },
-          { id:'dandruff', prompt:'Fine, greasy scales on the scalp.',
+          { id:'dandruff', prompt:'Which condition presents as fine, greasy scales on the scalp?',
             options:['Psoriasis','Keratosis Pilaris','Pityriasis Capitis','Eczema'], answer:'Pityriasis Capitis',
             clinical:'Fine, greasy scales on the scalp — commonly known as dandruff.',
             teacher:'Dandruff is simply the scalp shedding dead skin cells faster than normal. A good scalp care routine usually keeps it under control.' }
-        ],
-        'Skin Cancer': [
-          { id:'bcc', prompt:'A slow-growing, pearly-edged bump that rarely spreads but can be destructive if left untreated.',
-            options:['Basal Cell Carcinoma','Squamous Cell Carcinoma','Malignant Melanoma','Solar Keratosis'], answer:'Basal Cell Carcinoma',
-            clinical:'The most common skin cancer. It is slow-growing, pearly-edged, and rarely metastasizes, but can be destructive if left untreated.',
-            teacher:'A little pearly bump or a tiny sore that just refuses to heal. It is the least aggressive cancer, but it still needs a doctor\'s immediate attention.' },
-          { id:'scc', prompt:'A scaly, wart-like growth with ulceration that has a tendency to spread to lymph glands.',
-            options:['Basal Cell Carcinoma','Squamous Cell Carcinoma','Malignant Melanoma','Solar Keratosis'], answer:'Squamous Cell Carcinoma',
-            clinical:'A true invasive tumour that often appears scaly with wart-like ulceration; it tends to metastasize to lymph glands.',
-            teacher:'This one is more serious than BCC. It grows faster and can spread, so any suspicious scaly growth needs a doctor immediately.' },
-          { id:'melanoma', prompt:'A dark, irregular, changing mole that can spread throughout the body.',
-            options:['Basal Cell Carcinoma','Squamous Cell Carcinoma','Malignant Melanoma','Solar Keratosis'], answer:'Malignant Melanoma',
-            clinical:'A life-threatening cancer arising in any pigment-containing tissue. It can metastasize throughout the body.',
-            teacher:'The most dangerous shape-shifter. If a mole is as dark as ink, has jagged edges, or is growing quickly, stop the facial and send them straight to a doctor.' },
-          { id:'solar', prompt:'A rough, scaly, reddish patch on sun-exposed skin that does not heal. It feels like sandpaper.',
-            options:['Basal Cell Carcinoma','Solar Keratosis','Squamous Cell Carcinoma','Malignant Melanoma'], answer:'Solar Keratosis',
-            clinical:'A pre-cancerous lesion caused by chronic sun damage. It appears as a rough, scaly patch that can develop into SCC if untreated.',
-            teacher:'Think of this as the skin\'s warning sign that too much sun has caught up. It is not cancer yet, but it can become SCC, so a doctor must see it.' }
         ]
       }
     },
     analyze: {
-      label: 'Analysis Engine',
+      label: 'Skin Analysis',
       categories: {
-        'Skin Type Identification': [
-          { id:'alip', prompt:'The client has fine pores, no apparent oil, a thin appearance, and a matt condition prone to wrinkles.',
+        'Skin Types': [
+          { id:'alip', prompt:'Which skin type presents with fine pores, no apparent oil, a thin appearance, and a matt condition prone to wrinkles?',
             options:['Alipidic dry skin','Oily skin','Combination skin','Sensitive skin'], answer:'Alipidic dry skin',
             clinical:'Fine pores, no apparent oil, thin appearance, matt condition, prone to wrinkles.',
             teacher:'Think of this skin like dry, delicate parchment paper. It does not make enough of its own natural lotion, so it desperately needs us to hydrate it.' },
-          { id:'oily', prompt:'The client has enlarged pores all over, a shiny thick appearance, and is prone to comedones.',
+          { id:'oily', prompt:'Which skin type has enlarged pores all over, a shiny thick appearance, and a tendency toward comedones?',
             options:['Alipidic dry skin','Oily skin','Combination skin','Sensitive skin'], answer:'Oily skin',
             clinical:'Enlarged pores all over, shiny and thick appearance, prone to comedones and other lesions.',
             teacher:'This skin is like a sturdy, shiny leather. It ages wonderfully because of all that natural oil, but it needs deep cleaning to keep those large pores from getting plugged.' },
-          { id:'combo', prompt:'The client has an oily T-zone with normal to dry cheeks.',
+          { id:'combo', prompt:'Which skin type has an oily T-zone with normal to dry cheeks?',
             options:['Alipidic dry skin','Oily skin','Combination skin','Sensitive skin'], answer:'Combination skin',
             clinical:'Classic T-Zone with oily forehead, nose, and chin and normal or dry cheeks.',
             teacher:'The best of both worlds, or the trickiest. The centre needs balancing while the cheeks need hydrating — two routines in one.' },
-          { id:'sens', prompt:'The client has translucent skin with a thin epidermis and a pinkish colour that reacts easily.',
+          { id:'sens', prompt:'Which skin type presents as translucent skin with a thin epidermis and a pinkish colour that reacts easily?',
             options:['Alipidic dry skin','Oily skin','Combination skin','Sensitive skin'], answer:'Sensitive skin',
             clinical:'Translucent appearance with thin epidermis and pinkish/reddish colour, easily stimulated with possible dilated capillaries.',
             teacher:'This skin is very delicate and reactive. Everything you use must be gentle, or it will let you know it is unhappy.' },
-          { id:'mature', prompt:'The client shows loss of muscle tone with visible jowls, thinner skin, and wrinkles.',
+          { id:'mature', prompt:'Which skin type shows loss of muscle tone with visible jowls, thinner skin, and wrinkles?',
             options:['Alipidic dry skin','Oily skin','Combination skin','Sensitive skin','Mature skin'], answer:'Mature skin',
             clinical:'Loss of muscle tone with jowls evident, thinner skin, and visible wrinkles.',
             teacher:'This skin has lived a full life and needs extra support. Firming, hydrating, and protecting are the priorities.' }
         ],
         'Fitzpatrick Scale': [
-          { id:'fp1', prompt:'The client has red hair, blue eyes, very fair skin that burns easily and never tans.',
+          { id:'fp1', prompt:'Which Fitzpatrick type has red hair, blue eyes, very fair skin that burns easily and never tans?',
             options:['Type 1','Type 2','Type 3','Type 6'], answer:'Type 1',
             clinical:'Type 1: Red or blonde hair, blue/green eyes, very fair skin. Burns easily and never tans.',
             teacher:'Porcelain skin that turns red if it merely looks at the sun. They have zero natural defence against UV rays.' },
-          { id:'fp3', prompt:'The client has brown hair with fair or sandy skin that burns easily but tans with difficulty.',
+          { id:'fp2', prompt:'Which Fitzpatrick type has fair skin, light eyes, and blonde or light brown hair — burning easily but capable of a minimal tan?',
+            options:['Type 1','Type 2','Type 3','Type 4'], answer:'Type 2',
+            clinical:'Type 2: Fair skin, light eyes. Burns easily and severely, but can develop a very light, minimal tan.',
+            teacher:'Very fair skin that catches the sun very easily. A tiny hint of color with great effort, but they still burn first.' },
+          { id:'fp3', prompt:'Which Fitzpatrick type has brown hair with fair or sandy skin that burns easily but tans with difficulty?',
             options:['Type 1','Type 2','Type 3','Type 6'], answer:'Type 3',
             clinical:'Type 3: Brown hair and fair/sandy skin. Burns easily but tans with difficulty.',
             teacher:'Your classic sun-sensitive skin. A bit more pigment than Type 1, but still needs serious SPF discipline.' },
-          { id:'fp6', prompt:'The client has black hair, dark brown eyes, never burns, and the skin darkens on UV exposure.',
+          { id:'fp4', prompt:'Which Fitzpatrick type has dark brown hair, dark eyes, olive or light brown skin that burns minimally and tans easily?',
+            options:['Type 2','Type 3','Type 4','Type 5'], answer:'Type 4',
+            clinical:'Type 4: Dark brown hair, dark eyes, olive/light brown skin. Burns minimally and tans easily and deeply.',
+            teacher:'Olive or light brown skin that loves the sun. They rarely burn and tan easily, but can develop dark spots from aggressive peels.' },
+          { id:'fp5', prompt:'Which Fitzpatrick type has dark brown to black hair, richly pigmented dark brown skin that rarely burns and tans darkly?',
+            options:['Type 3','Type 4','Type 5','Type 6'], answer:'Type 5',
+            clinical:'Type 5: Dark brown to black hair and eyes, dark brown skin. Rarely burns, tans darkly and easily.',
+            teacher:'Richly pigmented skin that almost never burns. Their melanocytes are very reactive, so any pimple or scratch can leave a dark mark.' },
+          { id:'fp6', prompt:'Which Fitzpatrick type has black hair, dark brown eyes, never burns, and the skin darkens significantly on UV exposure?',
             options:['Type 1','Type 2','Type 3','Type 6'], answer:'Type 6',
             clinical:'Type 6: Black hair and dark brown eyes. Never burns and skin darkens significantly on UV exposure.',
             teacher:'Richly pigmented skin with beautiful, built-in sun defence. They rarely burn, but they are very prone to dark spots if we are too harsh with our treatments.' }
@@ -1008,22 +1025,40 @@
       }
     },
     prescribe: {
-      label: 'Formulation Lab',
+      label: 'Acne & Exfoliation',
       categories: {
+        'Grades of Acne': [
+          { id:'g1', prompt:'Which grade of acne shows only open and closed comedones with no angry redness, swelling, pustules, or cystic inflammation?',
+            options:['Grade 1 acne','Grade 2 acne','Grade 3 acne','Grade 4 acne'], answer:'Grade 1 acne',
+            clinical:'The mildest grade of acne. It is non-inflamed and consists strictly of open and closed comedones.',
+            teacher:'Think of this as just a few sleepy, clogged pores. There\'s no angry redness or swelling here, my dear — just blackheads and a few bumps.' },
+          { id:'g2', prompt:'Which grade of acne features a face studded with closed comedones (whiteheads) that do not mature into open comedones?',
+            options:['Grade 1 acne','Grade 2 acne','Grade 3 acne','Grade 4 acne'], answer:'Grade 2 acne',
+            clinical:'Maturation arrest — the face is studded with closed comedones (whiteheads) that do not mature into open comedones.',
+            teacher:'This is stubborn skin. The oil and dead cells are trapped under a layer of skin like tiny white pearls, and they just cannot seem to find their way out.' },
+          { id:'g3', prompt:'Which grade of acne features inflamed papules and pustules alongside open and closed comedones?',
+            options:['Grade 1 acne','Grade 2 acne','Grade 3 acne','Grade 4 acne'], answer:'Grade 3 acne',
+            clinical:'The most common type of acne. It consists of inflamed papules and pustules along with milder comedones.',
+            teacher:'This is your classic teenage breakout. You\'ll see red, angry bumps and pustules that need a very gentle, calming touch — no aggressive scrubbing.' },
+          { id:'g4', prompt:'Which grade of acne features large papules, pustules, and deep cysts with severe red to purplish inflammation?',
+            options:['Grade 1 acne','Grade 2 acne','Grade 3 acne','Grade 4 acne'], answer:'Grade 4 acne',
+            clinical:'The most severe and potentially scarring type of acne, featuring large papules, pustules, and deep cysts with severe purplish inflammation.',
+            teacher:'This is very painful, deep acne that can leave scars. We must treat this skin like fragile glass and always ask the client to see a dermatologist first.' }
+        ],
         'Exfoliants for Blemish Skin': [
-          { id:'ahas', prompt:'The case involves ageing, photo-damaged, or non-inflamed acne that needs exfoliation.',
+          { id:'ahas', prompt:'Which exfoliant dissolves the protein links between cells and is best for ageing, photo-damaged, and non-inflamed acne?',
             options:['Alpha hydroxy acid','Beta hydroxy acid','Enzyme peel','Ozone steam'], answer:'Alpha hydroxy acid',
             clinical:'Dissolves protein links between cells. Best for ageing, photo-damaged, and non-inflamed acne.',
             teacher:'These are the ungluing acids. They gently melt the glue holding dead cells to the surface, revealing fresh, glowing skin underneath. Great for sun damage.' },
-          { id:'bhas', prompt:'The case is oily, congested, and needs an exfoliant that penetrates deep into the pore.',
+          { id:'bhas', prompt:'Which exfoliant is oil-soluble, penetrating deep into the pore, making it best for oily, congested skin?',
             options:['Alpha hydroxy acid','Beta hydroxy acid','Enzyme peel','Ozone steam'], answer:'Beta hydroxy acid',
             clinical:'Oil-soluble acids suited for oily, congested skin.',
             teacher:'Unlike AHAs, BHAs are the deep-sea divers of skincare. They can swim right down into the oily pore to clean out the gunk. Salicylic acid is your best friend for acne.' },
-          { id:'enzyme', prompt:'The goal is to soften comedones and prepare the skin for extraction using gentle enzymatic action.',
+          { id:'enzyme', prompt:'Which exfoliant uses gentle enzymatic action (from papain or bromelain) to soften comedones and prepare the skin for extraction?',
             options:['Alpha hydroxy acid','Beta hydroxy acid','Enzyme peel','Ozone steam'], answer:'Enzyme peel',
             clinical:'Derived from papain or bromelain; dissolves keratinized cells via heat and moisture. Best for softening comedones.',
             teacher:'Think of enzymes like tiny Pac-Men made from papaya and pineapple. They only eat the dead skin cells, leaving the healthy living skin completely alone. So gentle and lovely.' },
-          { id:'ozone', prompt:'The case is seborrhoeic, blemished skin that needs drying, healing, and anti-bacterial effects.',
+          { id:'ozone', prompt:'Which treatment provides drying, healing, and anti-bacterial effects for seborrhoeic, blemished skin?',
             options:['Alpha hydroxy acid','Beta hydroxy acid','Enzyme peel','Ozone steam'], answer:'Ozone steam',
             clinical:'Indicated for seborrhoeic, blemished skin. It has a drying, healing, and anti-bacterial effect.',
             teacher:'Ozone steam is wonderful for oily, blemished skin because it kills bacteria while drying up excess oil — a gentle way to deep clean without harsh chemicals.' }
@@ -1045,36 +1080,54 @@
       }
     },
     safety: {
-      label: 'Red Flag System',
+      label: 'Contraindications',
       categories: {
+        'Skin Cancer': [
+          { id:'bcc', prompt:'Which skin cancer presents as a slow-growing, pearly-edged bump that rarely spreads but can be destructive if left untreated?',
+            options:['Basal Cell Carcinoma','Squamous Cell Carcinoma','Malignant Melanoma','Solar Keratosis'], answer:'Basal Cell Carcinoma',
+            clinical:'The most common skin cancer. It is slow-growing, pearly-edged, and rarely metastasizes, but can be destructive if left untreated.',
+            teacher:'A little pearly bump or a tiny sore that just refuses to heal. It is the least aggressive cancer, but it still needs a doctor\'s immediate attention.' },
+          { id:'scc', prompt:'Which skin cancer presents as a scaly, wart-like growth with ulceration and a tendency to spread to lymph glands?',
+            options:['Basal Cell Carcinoma','Squamous Cell Carcinoma','Malignant Melanoma','Solar Keratosis'], answer:'Squamous Cell Carcinoma',
+            clinical:'A true invasive tumour that often appears scaly with wart-like ulceration; it tends to metastasize to lymph glands.',
+            teacher:'This one is more serious than BCC. It grows faster and can spread, so any suspicious scaly growth needs a doctor immediately.' },
+          { id:'melanoma', prompt:'Which skin cancer presents as a dark, irregular, changing mole that can spread throughout the body?',
+            options:['Basal Cell Carcinoma','Squamous Cell Carcinoma','Malignant Melanoma','Solar Keratosis'], answer:'Malignant Melanoma',
+            clinical:'A life-threatening cancer arising in any pigment-containing tissue. It can metastasize throughout the body.',
+            teacher:'The most dangerous shape-shifter. If a mole is as dark as ink, has jagged edges, or is growing quickly, stop the facial and send them straight to a doctor.' },
+          { id:'solar', prompt:'Which pre-cancerous lesion appears as a rough, scaly, reddish patch on sun-exposed skin that does not heal and feels like sandpaper?',
+            options:['Basal Cell Carcinoma','Solar Keratosis','Squamous Cell Carcinoma','Malignant Melanoma'], answer:'Solar Keratosis',
+            clinical:'A pre-cancerous lesion caused by chronic sun damage. It appears as a rough, scaly patch that can develop into SCC if untreated.',
+            teacher:'Think of this as the skin\'s warning sign that too much sun has caught up. It is not cancer yet, but it can become SCC, so a doctor must see it.' }
+        ],
         'Doctor Referral': [
-          { id:'suspicious', prompt:'A pigmented growth is changing size, has irregular edges, and has started bleeding.',
+          { id:'suspicious', prompt:'A pigmented growth is changing size, has irregular edges, and has started bleeding. What is the correct action?',
             options:['Massage around it','Refer to doctor immediately','Cover it with product','Continue as normal'], answer:'Refer to doctor immediately',
             clinical:'A growth that is bleeding, getting larger, has irregular edges, or has changed in colour or size must be referred to a doctor immediately.',
             teacher:'When a mole behaves like a shape-shifter, stop the treatment. Your best care is a fast referral.' },
-          { id:'melalert', prompt:'A mole has become as dark as ink with jagged, uneven borders and is growing quickly.',
+          { id:'melalert', prompt:'A mole has become as dark as ink with jagged, uneven borders and is growing quickly. What is the correct action?',
             options:['Massage around it','Refer to doctor immediately','Cover it with foundation','Spot treat with acids'], answer:'Refer to doctor immediately',
             clinical:'Any suspicious mole that has changed in colour, size, or shape must be referred to a doctor immediately for assessment.',
             teacher:'This is not a time to prove skill. If a mole looks dangerous, stop everything and send them to a dermatologist.' }
         ],
         'Treatment Restrictions': [
-          { id:'g34restrict', prompt:'The client presents with deep cysts, large inflamed lesions, and severe purplish inflammation.',
+          { id:'g34restrict', prompt:'A client presents with deep cysts, large inflamed lesions, and severe purplish inflammation. What is the correct action?',
             options:['Continue with exfoliation','Extract every lesion','Medical permission required','Use ozone steam only'], answer:'Medical permission required',
             clinical:'Grades 3 and 4 acne should not be treated without medical permission. Severe cystic inflammation can scar.',
             teacher:'This is not a place to prove skill. Pause, protect the client, and refer before you treat.' },
-          { id:'impetigo', prompt:'The client has honey-coloured crusted lesions that appear to be spreading.',
+          { id:'impetigo', prompt:'A client has honey-coloured crusted lesions that appear to be spreading. What is the correct action?',
             options:['Cleanse gently','Refer to doctor immediately','Apply soothing mask','Extract the crusts'], answer:'Refer to doctor immediately',
             clinical:'Impetigo is a highly contagious bacterial infection with honey-coloured crusts. No salon treatment should be given.',
             teacher:'Honey-coloured crusts are a red flag for impetigo. This is highly contagious — no facial, no products, just a referral to the doctor.' },
-          { id:'tinea', prompt:'The client has round, ringed lesions on the skin.',
+          { id:'tinea', prompt:'A client has round, ringed lesions on the skin. What is the correct action?',
             options:['Treat with anti-inflammatory products','Refer to doctor immediately','Exfoliate the area','Apply moisturiser'], answer:'Refer to doctor immediately',
             clinical:'Tinea (ringworm) is a contagious fungal infection presenting as round ringed lesions. No salon treatment should be given.',
             teacher:'Ring-shaped lesions are ringworm until proven otherwise. This is fungal and very contagious — refer out immediately.' },
-          { id:'herpes', prompt:'The client has a cluster of small, painful blisters around the mouth.',
+          { id:'herpes', prompt:'A client has a cluster of small, painful blisters around the mouth. What is the correct action?',
             options:['Massage the area','Refer to doctor immediately','Apply soothing mask','Pierce and clean'], answer:'Refer to doctor immediately',
             clinical:'Herpes Simplex (cold sores) is highly contagious. No salon treatment should be performed on or near the affected area.',
             teacher:'Cold sores are contagious and can spread. Do not work near them and do not touch — send them to their doctor.' },
-          { id:'erythema', prompt:'Dark purple erythema appears on ethnic skin during treatment, indicating deep inflammation.',
+          { id:'erythema', prompt:'Dark purple erythema appears on ethnic skin during treatment, indicating deep inflammation. What is the correct action?',
             options:['Continue with gentle pressure','Apply cooling gel','Halt treatment and refer to doctor','Switch to stronger product'], answer:'Halt treatment and refer to doctor',
             clinical:'Dark purple erythema on ethnic skin indicates deep inflammation. Salon treatment should be stopped and the client referred to a doctor.',
             teacher:'Purple discolouration on dark skin is a sign of deeper inflammation than redness would be on lighter skin. Stop and refer.' },
@@ -1086,80 +1139,80 @@
       }
     },
     anatomy: {
-      label: 'Foundational Anatomy',
+      label: 'Anatomy & Physiology',
       categories: {
         'Cranial Nerves': [
-          { id:'cn1', prompt:'Cranial nerve I is responsible for the sense of smell.',
+          { id:'cn1', prompt:'Which cranial nerve is responsible for the sense of smell?',
             options:['Optic','Olfactory','Oculomotor','Trigeminal'], answer:'Olfactory',
             clinical:'The olfactory nerve is cranial nerve I, responsible for the sense of smell.',
             teacher:'Olfactory = smell. This tiny nerve sits right above the nose and gives us the ability to scent a rose or a client\'s perfume.' },
-          { id:'cn2', prompt:'Cranial nerve II is responsible for vision.',
+          { id:'cn2', prompt:'Which cranial nerve is responsible for vision?',
             options:['Olfactory','Optic','Oculomotor','Facial'], answer:'Optic',
             clinical:'The optic nerve is cranial nerve II, responsible for vision.',
             teacher:'Optic = eye. It carries visual signals from the retina to the brain. Think of it as the wire connecting the camera to the screen.' },
-          { id:'cn3', prompt:'Cranial nerve III controls most of the eye\'s movement and pupil constriction.',
+          { id:'cn3', prompt:'Which cranial nerve controls most of the eye\'s movement and pupil constriction?',
             options:['Optic','Trochlear','Oculomotor','Abducens'], answer:'Oculomotor',
             clinical:'The oculomotor nerve is cranial nerve III, controlling eye movement and pupil constriction.',
             teacher:'Oculomotor = eye mover. It controls the muscles that roll the eyes up, down, and around.' },
-          { id:'cn5', prompt:'You are naming cranial nerve five. Olfactory is 1, Optic is 2, Oculomotor is 3, Trochlear is 4 — what is 5?',
+          { id:'cn5', prompt:'Which cranial nerve provides sensation to the face and controls the muscles used for chewing?',
             options:['Facial','Trigeminal','Vagus','Abducens'], answer:'Trigeminal',
             clinical:'The trigeminal nerve is cranial nerve V, providing sensation to the face and motor functions for chewing.',
             teacher:'Number five is trigeminal. Keep the count steady from Olfactory (1) through to Hypoglossal (12).' },
-          { id:'cn7', prompt:'This nerve controls facial expression. It is the seventh cranial nerve.',
+          { id:'cn7', prompt:'Which cranial nerve controls the muscles of facial expression?',
             options:['Trigeminal','Facial','Vagus','Glossopharyngeal'], answer:'Facial',
             clinical:'The facial nerve is cranial nerve VII, controlling muscles of facial expression.',
             teacher:'The facial nerve is seven. When a client smiles and the expression is symmetrical, that is the facial nerve at work.' },
-          { id:'cn10', prompt:'Cranial nerve X has the widest distribution in the body, affecting the heart, lungs, and digestive tract.',
+          { id:'cn10', prompt:'Which cranial nerve has the widest distribution in the body, affecting the heart, lungs, and digestive tract?',
             options:['Accessory','Vagus','Facial','Glossopharyngeal'], answer:'Vagus',
             clinical:'The vagus nerve is cranial nerve X. It is the longest cranial nerve and the most widely distributed.',
             teacher:'Vagus = wanderer. It travels all the way from the brainstem down to the belly. It is the body\'s calming nerve.' },
-          { id:'cn4', prompt:'Cranial nerve IV controls the superior oblique muscle of the eye, enabling downward and inward rotation.',
+          { id:'cn4', prompt:'Which cranial nerve controls the superior oblique muscle of the eye, enabling downward and inward rotation?',
             options:['Trochlear','Abducens','Oculomotor','Trigeminal'], answer:'Trochlear',
             clinical:'The trochlear nerve is cranial nerve IV, controlling the superior oblique muscle of the eye.',
             teacher:'Trochlear means pulley. It loops through a little pulley in the eye socket to help you look down at your book.' },
-          { id:'cn6', prompt:'Cranial nerve VI controls the lateral rectus muscle, allowing the eye to look outward.',
+          { id:'cn6', prompt:'Which cranial nerve controls the lateral rectus muscle, allowing the eye to look outward?',
             options:['Trochlear','Accessory','Abducens','Facial'], answer:'Abducens',
             clinical:'The abducens nerve is cranial nerve VI, controlling the lateral rectus muscle for outward eye movement.',
             teacher:'Abducens = to abduct. It pulls the eye outward, away from the nose. Think of it as the sideways-glance nerve.' },
-          { id:'cn8', prompt:'Cranial nerve VIII is responsible for hearing and balance.',
+          { id:'cn8', prompt:'Which cranial nerve is responsible for hearing and balance?',
             options:['Facial','Vestibulocochlear','Glossopharyngeal','Vagus'], answer:'Vestibulocochlear',
             clinical:'The vestibulocochlear nerve is cranial nerve VIII, responsible for hearing and balance.',
             teacher:'This nerve has two jobs: hearing (cochlear) and balance (vestibular). When a client gets dizzy, this is the nerve at play.' },
-          { id:'cn9', prompt:'Cranial nerve IX controls taste on the back third of the tongue and assists with swallowing.',
+          { id:'cn9', prompt:'Which cranial nerve controls taste on the back third of the tongue and assists with swallowing?',
             options:['Vagus','Facial','Glossopharyngeal','Accessory'], answer:'Glossopharyngeal',
             clinical:'The glossopharyngeal nerve is cranial nerve IX, controlling taste on the posterior tongue and assisting swallowing.',
             teacher:'Glossopharyngeal = tongue and throat. It helps you taste and swallow. A nerve with two very practical jobs.' },
-          { id:'cn11', prompt:'Cranial nerve XI controls the sternocleidomastoid and trapezius muscles of the neck and shoulders.',
+          { id:'cn11', prompt:'Which cranial nerve controls the sternocleidomastoid and trapezius muscles of the neck and shoulders?',
             options:['Hypoglossal','Accessory','Vagus','Glossopharyngeal'], answer:'Accessory',
             clinical:'The accessory nerve is cranial nerve XI, controlling the sternocleidomastoid and trapezius muscles.',
             teacher:'The accessory nerve helps you shrug your shoulders and turn your head. Essential for massage therapists to know.' },
-          { id:'cn12', prompt:'Cranial nerve XII controls the muscles of the tongue.',
+          { id:'cn12', prompt:'Which cranial nerve controls the muscles of the tongue?',
             options:['Vagus','Accessory','Hypoglossal','Facial'], answer:'Hypoglossal',
             clinical:'The hypoglossal nerve is cranial nerve XII, controlling the muscles of the tongue.',
             teacher:'Hypoglossal = under the tongue. Stick out your tongue — that is CN12 at work.' }
         ],
         'Epidermal Layers': [
-          { id:'corneum', prompt:'Label the epidermal layers from outermost inward. Which is the tough, protective top layer?',
+          { id:'corneum', prompt:'Which epidermal layer is the tough, protective top layer composed of dead, flattened cells?',
             options:['Stratum Germinativum','Stratum Granulosum','Stratum Corneum','Stratum Lucidum'], answer:'Stratum Corneum',
             clinical:'The stratum corneum is the outermost layer of the epidermis, composed of dead, flattened cells.',
             teacher:'Think of it as the skin\'s shield. It is the tough, protective top layer that keeps the good stuff in and the bad stuff out.' },
-          { id:'lucidum', prompt:'This thin, clear layer of the epidermis is only found on the palms of the hands and soles of the feet.',
+          { id:'lucidum', prompt:'Which epidermal layer is thin, clear, and found only on the palms of the hands and soles of the feet?',
             options:['Stratum Germinativum','Stratum Granulosum','Stratum Lucidum','Stratum Spinosum'], answer:'Stratum Lucidum',
             clinical:'The stratum lucidum is a thin, clear layer found only on the palms and soles, providing extra protection.',
             teacher:'This is the see-through safety layer. It only exists where the body needs extra padding — the hands and feet.' },
-          { id:'granulosum', prompt:'In this epidermal layer, cells begin to flatten and fill with keratin granules.',
+          { id:'granulosum', prompt:'In which epidermal layer do cells begin to flatten and fill with keratin granules?',
             options:['Stratum Germinativum','Stratum Granulosum','Stratum Lucidum','Stratum Spinosum'], answer:'Stratum Granulosum',
             clinical:'The stratum granulosum is where cells start to flatten and accumulate keratin granules as they move upward.',
             teacher:'Think of this as the transformation zone. Cells are packing their bags with keratin before heading to the surface.' },
-          { id:'spinosum', prompt:'This epidermal layer is also called the prickle cell layer because of its spiny appearance.',
+          { id:'spinosum', prompt:'Which epidermal layer is also called the prickle cell layer because of its spiny appearance?',
             options:['Stratum Germinativum','Stratum Granulosum','Stratum Spinosum','Stratum Disjunctivum'], answer:'Stratum Spinosum',
             clinical:'The stratum spinosum, or prickle cell layer, sits above the germinativum and provides strength to the epidermis.',
             teacher:'Called the prickle layer because under a microscope the cells look like they have tiny spikes hugging each other.' },
-          { id:'disjunctivum', prompt:'Describe the very outermost layer of the epidermis where cells are loose and shedding.',
+          { id:'disjunctivum', prompt:'Which is the very outermost part of the epidermis where cells are loose and shedding?',
             options:['Stratum Corneum','Stratum Disjunctivum','Stratum Lucidum','Stratum Granulosum'], answer:'Stratum Disjunctivum',
             clinical:'The stratum disjunctivum is the loosest, outermost part of the stratum corneum where cells are shed.',
             teacher:'This is the flaky, shedding part of the surface. Cells are saying goodbye and floating away as we move through the day.' },
-          { id:'germ', prompt:'This is the deepest layer of the epidermis where cell division occurs.',
+          { id:'germ', prompt:'Which is the deepest layer of the epidermis, where new skin cells are produced?',
             options:['Stratum Germinativum','Stratum Granulosum','Stratum Corneum','Stratum Spinosum'], answer:'Stratum Germinativum',
             clinical:'The stratum germinativum is the deepest epidermal layer where new skin cells are produced.',
             teacher:'This is the basement level where brand new skin cells are born. They will slowly travel up to the surface over several weeks.' }
@@ -1197,15 +1250,15 @@
   };
 
   var STATION_META = {
-    identify:  { name: 'Identify',  ask: 'What are you looking at?' },
-    analyze:   { name: 'Analyze',   ask: 'What is this client telling you?' },
-    prescribe: { name: 'Prescribe', ask: 'What belongs on the tray?' },
-    safety:    { name: 'Safety',    ask: 'Do you treat — or stop?' },
-    anatomy:   { name: 'Anatomy',   ask: 'What structure is this?' }
+    anatomy:   { chapter: 'Chapter 1', name: 'Anatomy & Physiology', ask: 'Identify the structure.' },
+    analyze:   { chapter: 'Chapter 2', name: 'Skin Analysis',        ask: 'Assess the client\'s skin.' },
+    identify:  { chapter: 'Chapter 3', name: 'Skin Disorders',       ask: 'Identify the disorder.' },
+    prescribe: { chapter: 'Chapter 4', name: 'Acne & Exfoliation',   ask: 'Match the treatment protocol.' },
+    safety:    { chapter: 'Chapter 5', name: 'Contraindications',    ask: 'Recognise the contraindication.' }
   };
 
   var state = loadState();
-  var activeModule = 'identify';
+  var activeModule = 'anatomy';
   var activeCat = null;
   var activeIndex = 0;
   var answered = false;
@@ -1231,6 +1284,7 @@
   var caseImage = document.getElementById('case-image');
   var caseVisual = document.querySelector('.case-visual');
   var caseVisualHint = document.querySelector('.case-visual-hint');
+  var caseVisualLoading = document.querySelector('.case-visual-loading');
 
   function loadState(){
     try {
@@ -1306,10 +1360,9 @@
     currentCard = cards[activeIndex];
     answered = false;
 
-    var meta = STATION_META[activeModule] || STATION_META.identify;
-    caseStation.textContent = meta.name;
+    var meta = STATION_META[activeModule] || STATION_META.anatomy;
+    caseStation.textContent = meta.chapter + ' · ' + meta.name;
     cardCategory.textContent = activeCat;
-    cardTitle.textContent = meta.ask;
     cardPrompt.textContent = currentCard.prompt;
     var imgSrc = IMAGES[currentCard.id] || '';
     var dermLink = DERMNET_LINKS[currentCard.id] || '';
@@ -1318,6 +1371,7 @@
     caseImage.style.cursor = dermLink ? 'pointer' : 'default';
     caseImage.title = dermLink ? 'Tap to verify on DermNet' : '';
     caseVisualHint.style.display = imgSrc ? 'none' : 'block';
+    if (caseVisualLoading) caseVisualLoading.style.display = imgSrc ? '' : 'none';
     caseVisual.onclick = dermLink ? function(){ window.open(dermLink, '_blank'); } : null;
     caseVisual.style.cursor = dermLink ? 'pointer' : 'default';
     caseMeta.textContent = 'Case ' + (activeIndex + 1) + ' of ' + cards.length;
